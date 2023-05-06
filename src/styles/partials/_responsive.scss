@@ -1,0 +1,11 @@
+// Responsive - Break points
+@mixin tabletScreen {
+    @media (min-width: 768px) {
+      @content;
+    }
+  }
+  @mixin desktopScreen {
+    @media (min-width: 1280px) {
+      @content;
+    }
+  }

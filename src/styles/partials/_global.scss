@@ -1,0 +1,25 @@
+@use "./responsive" as *;
+@use "colors" as *;
+
+// CSS Reset
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// elements
+body {
+  color: $textColors;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+  padding: 0;
+  @include tabletScreen {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+}
