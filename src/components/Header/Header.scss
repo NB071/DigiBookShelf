@@ -1,0 +1,127 @@
+@use "../../styles/partials/global" as *;
+@use "../../styles/partials/typography" as *;
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/responsive" as *;
+
+.header {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: $whiteColor;
+  justify-content: space-between;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  box-shadow: 0px 4px 24px -8px rgba(0, 0, 0, 0.25);
+  &__left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+  &__logo-mobile {
+    border-radius: 18px;
+    height: 3.5rem;
+    @include tablet {
+      display: none;
+    }
+  }
+  &__logo {
+    border-radius: 18px;
+    height: 3.5rem;
+    display: none;
+    @include tablet {
+      display: block;
+    }
+  }
+
+  &__searchbar-wrapper {
+    display: none;
+    @include tablet {
+      display: block;
+      position: relative;
+      flex: 1;
+      padding: 0 0 0 7.5rem;
+    }
+    @include desktop {
+      padding: 0 15rem 0 15rem;
+    }
+  }
+
+  &__search-icon-wrapper {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    color: $placeholderColor;
+    left: 15.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.5s;
+    &:hover {
+      opacity: 0.7;
+    }
+    @include tablet {
+      left: 10rem;
+    }
+    @include desktop {
+      left: 17.75rem;
+    }
+  }
+
+  &__search-input {
+    @extend %textInput;
+    background-color: $whiteColor;
+    padding-left: 6rem;
+    height: 3.5rem;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 2rem;
+  }
+  &__darkmode-icon,
+  &__ringbell-icon {
+    color: $textColor;
+    cursor: pointer;
+  }
+
+  &__user-avatar {
+    border-radius: 50%;
+    height: 3rem;
+    margin-left: 0.5rem;
+  }
+  &__user-area {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    cursor: pointer;
+  }
+  &__user-info {
+    display: none;
+    @include tablet {
+      display: block;
+    }
+  }
+  &__username {
+    font-size: 1rem;
+    line-height: 1.2rem;
+  }
+  &__level {
+    font-size: 0.8rem;
+    color: $placeholderColor;
+  }
+
+  // header break points
+  @include tablet {
+    padding: 2rem 3.3125rem;
+  }
+  @include desktop {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+}

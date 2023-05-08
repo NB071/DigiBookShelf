@@ -44,18 +44,18 @@ h2 {
   font-weight: 700;
   @include tablet {
     font-size: 2rem;
-    line-height: 2rem;
+    line-height: 2.5rem;
   }
 }
 
 // Labels Links and buttons
 h3 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
+ font-size: 0.75rem;
+  line-height: 1.25rem;
   font-weight: 600;
   @include tablet {
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 }
 
@@ -65,19 +65,19 @@ h4 {
   font-weight: 600;
 
   @include tablet {
-    font-size: 0.75rem;
-    line-height: 1.125rem;
+    font-size: 1.35rem;
+    line-height: 1.75rem;
   }
 }
 
 a {
   text-decoration: none;
-  color: $primaryColor;
-  transition: all 0.4s;
-  cursor: pointer;
-  &:hover {
-    color: #6936f597;
-  }
+  // color: $primaryColor;
+  // transition: all 0.4s;
+  // cursor: pointer;
+  // &:hover {
+  //   color: #6936f597;
+  // }
 }
 
 // extend classes
