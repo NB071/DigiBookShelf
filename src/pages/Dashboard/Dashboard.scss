@@ -2,3 +2,275 @@
 @use "../../styles/partials/typography" as *;
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/responsive" as *;
+
+.dashboard {
+  display: grid;
+  margin: 1rem 0 1rem 0;
+  height: calc(100vh - 9.5rem);
+  //   background-color: red;
+  grid-gap: 1.875rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(24, minmax(0, 1fr));
+  @include tablet {
+    grid-gap: 1.875rem;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: repeat(24, minmax(0, 1fr));
+  }
+  @include desktop {
+    max-width: 1440px;
+    margin: 1rem auto;
+    grid-gap: 1.5rem;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(24, minmax(0, 1fr));
+  }
+}
+// sidebar
+.side-menu {
+  background-color: $whiteColor;
+  border-radius: 18px;
+  display: none;
+  padding: 2rem 0;
+  overflow: hidden;
+
+  &__friends {
+    @include tablet {
+      padding: 1rem 2rem;
+    }
+    @include desktop {
+      padding: 1rem 3.875rem;
+
+    }
+  }
+  &__friends-avatars-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  &__bottom-option {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: $borderColor;
+    border-radius: 0 18px 18px 0;
+    cursor: pointer;
+
+    &:nth-child(2) {
+      transition: all 0.5s;
+      color: $errorColor;
+      &:hover {
+        background-color: $errorColor;
+        color: $whiteColor;
+      }
+      &:active {
+        transform: scale(1.1);
+      }
+    }
+    &:nth-child(1) {
+      transition: all 0.5s;
+      &:hover {
+        background-color: $borderColor;
+        color: $whiteColor;
+      }
+      &:active {
+        transform: scale(1.1);
+      }
+    }
+    @include tablet {
+      padding: 1rem 2rem;
+    }
+    @include desktop {
+      padding: 1rem 3.875rem;
+    }
+  }
+  @include tablet {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    grid-column: 1 / 3;
+    grid-row: 1 / -1;
+  }
+  @include desktop {
+    grid-column: 1 / 4;
+    grid-row: 1 / -1;
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  &__item {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 3.875rem;
+    color: $borderColor;
+    border-radius: 0 18px 18px 0;
+    transition: all 0.5s;
+    &:hover {
+      background-color: $primaryColor;
+      color: $whiteColor;
+      padding-left: 5rem;
+    }
+    &:active {
+      transform: scale(1.1);
+    }
+    @include tablet {
+      padding: 1rem 2rem;
+    }
+    @include desktop {
+      padding: 1rem 3.875rem;
+    }
+  }
+}
+
+// recent reading
+.recent-reading {
+  background-color: $whiteColor;
+  border-radius: 18px;
+  grid-column: 1 / 2;
+  grid-row: 1 / 9;
+  box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
+
+  @include tablet {
+    grid-column: 3 / -1;
+    grid-row: 1 / 7;
+  }
+  @include desktop {
+    grid-column: 4 / 9;
+    grid-row: 1 / 9;
+  }
+}
+
+// book selection and short sliders
+.book-options {
+  background-color: $whiteColor;
+  border-radius: 18px;
+  box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
+  grid-column: 2 / -1;
+  grid-row: 1 / 9;
+
+  @include tablet {
+    grid-column: 3 / 5;
+    grid-row: 7 / -1;
+  }
+  @include desktop {
+    grid-column: 4 / 9;
+    grid-row: 9 / -1;
+  }
+}
+
+// CTA banner
+.banner {
+  background-color: $primaryColor;
+  border-radius: 18px;
+  box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
+  grid-column: 1 / -1;
+  grid-row: 9 / 16;
+
+  @include tablet {
+    grid-column: 5 / -1;
+    grid-row: 7 / 14;
+  }
+  @include desktop {
+    grid-column: 9 / 13;
+    grid-row: 1 / 12;
+  }
+}
+
+// CTAs for book management
+.manage-CTA {
+  background-color: $whiteColor;
+  border-radius: 18px;
+  box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
+  grid-column: 1 / -1;
+  grid-row: 16 / -1;
+
+  @include tablet {
+    grid-column: 5 / -1;
+    grid-row: 14 / -1;
+  }
+  @include desktop {
+    grid-column: 9 / 13;
+    grid-row: 12 / -1;
+  }
+}
+
+// // desktop aditional slider
+// .slider {
+//   display: none;
+//   @include desktop {
+//     display: block;
+//     background-color: $whiteColor;
+//     border-radius: 18px;
+//     box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
+//     grid-column: 4 / -1;
+//     grid-row: 19 / -1;
+//   }
+// }
+
+.mobile-menu {
+  background-color: $bodyColor;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 1;
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    gap: 2rem;
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding: 2rem;
+    color: $textColor;
+    width: fit-content;
+    padding-right: 2rem;
+    border-radius: 0 18px 18px 0;
+    &:hover {
+      background-color: $primaryColor;
+      color: $whiteColor;
+    }
+  }
+  &__item-text {
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+  &__user-avatar {
+    border-radius: 50%;
+    height: 3rem;
+  }
+
+  &__close-icon {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+  }
+}
+
+.active {
+  background-color: $primaryColor;
+  color: $whiteColor;
+  font-weight: 700;
+  padding-left: 6rem;
+  transition: all 0.5s;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  @include tablet {
+    padding-left: 2rem;
+  }
+  @include desktop {
+    padding-left: 3.875rem;
+  }
+}

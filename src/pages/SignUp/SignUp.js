@@ -12,8 +12,6 @@ import * as Yup from "yup";
 // icons
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import GoogleIcon from "@mui/icons-material/Google";
-import AppleIcon from "@mui/icons-material/Apple";
 import ErrorIcon from "@mui/icons-material/Error";
 
 // images
