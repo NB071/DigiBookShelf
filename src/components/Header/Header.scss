@@ -86,8 +86,14 @@
   }
   &__darkmode-icon,
   &__ringbell-icon {
-    color: $textColor;
+    display: none;
     cursor: pointer;
+    color: $textColor;
+    font-size: 2rem !important;
+    @include tablet {
+      display: block;
+      cursor: pointer;
+    }
   }
 
   &__user-avatar {

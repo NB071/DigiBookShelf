@@ -8,12 +8,11 @@ import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import axios from "axios";
 import * as Yup from "yup";
-
+import { pageVariant, slideVariant } from "../../page variants/variants";
 // icons
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import GoogleIcon from "@mui/icons-material/Google";
-import AppleIcon from "@mui/icons-material/Apple";
+
 import ErrorIcon from "@mui/icons-material/Error";
 
 // images
@@ -55,11 +54,6 @@ export default function Login() {
       }
     },
   });
-  const pageVariants = {
-    initial: { opacity: 0, x: -20 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -20 },
-  };
 
   return (
     <main className="login">
@@ -69,10 +63,16 @@ export default function Login() {
         initial="initial"
         animate="animate"
         exit="exit"
-        variants={pageVariants}
+        variants={pageVariant}
         transition={{ duration: 1 }}
       >
-        <video className="login__video-background" autoPlay muted loop>
+        <video
+          className="login__video-background"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
           <source
             src={`${process.env.REACT_APP_API_URL}/videos/LoginVideo${
               Math.floor(Math.random() * 10) + 1
@@ -117,7 +117,7 @@ export default function Login() {
         initial="initial"
         animate="animate"
         exit="exit"
-        variants={pageVariants}
+        variants={pageVariant}
         transition={{ duration: 0.7, delay: 0.5 }}
       >
         {/* Mobile right side Logo */}
@@ -125,7 +125,10 @@ export default function Login() {
         <div className="login__text-wrapper-right">
           <h2 className="login__heading-right">Welcome Back!</h2>
           <p className="login__text-right">
-            Don't have an account? <Link to="/sign-up">Sign Up</Link>
+            Don't have an account?{" "}
+            <Link className="login__link" to="/sign-up">
+              Sign Up
+            </Link>
           </p>
         </div>
         {/* form */}
@@ -133,10 +136,20 @@ export default function Login() {
           <form onSubmit={formik.handleSubmit}>
             <div className="login__input-wrapper">
               <div className="login__email-input-wrapper">
-                <label>
+                <motion.label
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageVariant}
+                  transition={{ duration: 0.7, delay: 0.5 }}
+                >
                   Email:
                   <input
-                    className={`login__email-input`}
+                    className={`login__email-input ${
+                      formik.touched.email && formik.errors.email
+                        ? "login__email-input--invalid"
+                        : ""
+                    }`}
                     type="email"
                     name="email"
                     placeholder="Enter your email"
@@ -147,9 +160,9 @@ export default function Login() {
                     <motion.div
                       className="login__error"
                       initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      variants={pageVariants}
+                      animate="in"
+                      exit="out"
+                      variants={slideVariant}
                       transition={{ duration: 0.7 }}
                     >
                       <ErrorIcon className="login__error-icon" />
@@ -158,13 +171,23 @@ export default function Login() {
                       </span>
                     </motion.div>
                   ) : null}
-                </label>
+                </motion.label>
               </div>
               <div className="login__password-input-wrapper">
-                <label>
+                <motion.label
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageVariant}
+                  transition={{ duration: 0.7, delay: 0.8 }}
+                >
                   Password:
                   <input
-                    className="login__password-input"
+                    className={`login__password-input ${
+                      formik.touched.password && formik.errors.password
+                        ? "login__password-input--invalid"
+                        : ""
+                    }`}
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder="Enter your password"
@@ -175,9 +198,9 @@ export default function Login() {
                     <motion.div
                       className="login__error"
                       initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      variants={pageVariants}
+                      animate="in"
+                      exit="out"
+                      variants={slideVariant}
                       transition={{ duration: 0.7 }}
                     >
                       <ErrorIcon className="login__error-icon" />
@@ -186,7 +209,8 @@ export default function Login() {
                       </span>
                     </motion.div>
                   ) : null}
-                </label>
+                </motion.label>
+
                 <div
                   className={"login__show-password-icon"}
                   onClick={() => setShowPassword(!showPassword)}
@@ -194,7 +218,7 @@ export default function Login() {
                   {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </div>
               </div>
-              <Link className="login__forgot-password-label">
+              <Link className="login__forgot-password-label login__link">
                 Forgot Password
               </Link>
               <button type="submit" className="login__submit-button">
@@ -202,24 +226,6 @@ export default function Login() {
               </button>
             </div>
           </form>
-          <div className="login__federation">
-            <div className="login__separator">
-              <div className="login__line"></div>
-              <div className="login__text">or</div>
-              <div className="login__line"></div>
-            </div>
-           
-            <div className="login__federation-button-wrapper">
-              <button className="login__google-login-button" type="button">
-                <GoogleIcon />
-                Continue with Google
-              </button>
-              <button className="login__apple-login-button" type="button">
-                <AppleIcon />
-                Continue with Apple
-              </button>
-            </div>
-          </div>
         </div>
       </motion.section>
     </main>

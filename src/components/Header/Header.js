@@ -5,12 +5,12 @@ import { useState } from "react";
 // icons
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import Brightness4RoundedIcon from "@mui/icons-material/Brightness4Rounded";
-import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded"; // images
+import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
+// images
 
 import Logo from "../../assets/logo/Logo.svg";
 
 export default function Header({ userAvatar, username, menuToggle }) {
-
   return (
     <header className="header">
       <section className="header__left">
@@ -32,11 +32,9 @@ export default function Header({ userAvatar, username, menuToggle }) {
       </section>
       <section className="header__right">
         <Brightness4RoundedIcon
-          style={{ fontSize: "2.5rem" }}
           className="header__darkmode-icon"
         />
         <NotificationsNoneRoundedIcon
-          style={{ fontSize: "2.5rem" }}
           className="header__ringbell-icon"
         />
         <div className="header__user-area">

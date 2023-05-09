@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
+import { pageVariant, slideVariant } from "../../page variants/variants";
 import axios from "axios";
 import * as Yup from "yup";
 
@@ -62,11 +63,6 @@ export default function SignUp() {
       } catch (error) {}
     },
   });
-  const pageVariants = {
-    initial: { opacity: 0, x: -20 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -20 },
-  };
 
   return (
     <main className="sign-up">
@@ -76,10 +72,16 @@ export default function SignUp() {
         initial="initial"
         animate="animate"
         exit="exit"
-        variants={pageVariants}
+        variants={pageVariant}
         transition={{ duration: 1 }}
       >
-        <video className="sign-up__video-background" autoPlay muted loop>
+        <video
+          className="sign-up__video-background"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
           <source
             src={`${process.env.REACT_APP_API_URL}/videos/loginVideo${
               Math.floor(Math.random() * 10) + 1
@@ -111,20 +113,19 @@ export default function SignUp() {
             transition={{ duration: 1, delay: 0.2 }}
           >
             Step into a Realm of Boundless Knowledge and Track Your Literary
-            Adventures with our Feature-Rich Book Tracking Dashboard. Immerse
-            yourself in a world where reading becomes a transformative
-            experience
+            Adventures with our Feature-Rich Book Tracking Dashboard.
           </motion.p>
         </div>
         <img className="sign-up__curved-lines" src={Lines} alt="Curved Lines" />
       </motion.section>
+
       {/* Right side */}
       <motion.section
         className="sign-up__right"
         initial="initial"
         animate="animate"
         exit="exit"
-        variants={pageVariants}
+        variants={pageVariant}
         transition={{ duration: 0.7, delay: 0.5 }}
       >
         {/* Mobile right side Logo */}
@@ -132,7 +133,10 @@ export default function SignUp() {
         <div className="sign-up__text-wrapper-right">
           <h2 className="sign-up__heading-right">Join us!</h2>
           <p className="sign-up__text-right">
-            Already have an account? <Link to="/login">Log in</Link>
+            Already have an account?{" "}
+            <Link className="sign-up__link" to="/login">
+              Log in
+            </Link>
           </p>
         </div>
         {/* form */}
@@ -140,7 +144,13 @@ export default function SignUp() {
           <form onSubmit={formik.handleSubmit}>
             <div className="sign-up__input-wrapper">
               <div className="sign-up__name-input-wrapper">
-                <label>
+                <motion.label
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageVariant}
+                  transition={{ duration: 0.7, delay: 0.2 }}
+                >
                   First Name:
                   <input
                     className={`sign-up__name-input ${
@@ -150,7 +160,7 @@ export default function SignUp() {
                     }`}
                     type="text"
                     name="first_name"
-                    placeholder="Enter your fist name"
+                    placeholder="First name"
                     value={formik.values.first_name}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -161,7 +171,7 @@ export default function SignUp() {
                       initial="initial"
                       animate="animate"
                       exit="exit"
-                      variants={pageVariants}
+                      variants={pageVariant}
                       transition={{ duration: 0.7 }}
                     >
                       <ErrorIcon className="sign-up__error-icon" />
@@ -170,8 +180,14 @@ export default function SignUp() {
                       </span>
                     </motion.div>
                   ) : null}
-                </label>
-                <label>
+                </motion.label>
+                <motion.label
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageVariant}
+                  transition={{ duration: 0.7, delay: 0.4 }}
+                >
                   Last Name:
                   <input
                     className={`sign-up__name-input ${
@@ -181,7 +197,7 @@ export default function SignUp() {
                     }`}
                     type="text"
                     name="last_name"
-                    placeholder="Enter your last name"
+                    placeholder="Last name"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.last_name}
@@ -192,7 +208,7 @@ export default function SignUp() {
                       initial="initial"
                       animate="animate"
                       exit="exit"
-                      variants={pageVariants}
+                      variants={pageVariant}
                       transition={{ duration: 0.7 }}
                     >
                       <ErrorIcon className="sign-up__error-icon" />
@@ -201,10 +217,16 @@ export default function SignUp() {
                       </span>
                     </motion.div>
                   ) : null}
-                </label>
+                </motion.label>
               </div>
               <div className="sign-up__username-input-wrapper">
-                <label>
+                <motion.label
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageVariant}
+                  transition={{ duration: 0.7, delay: 0.6 }}
+                >
                   Username:
                   <input
                     className={`sign-up__name-input ${
@@ -214,7 +236,7 @@ export default function SignUp() {
                     }`}
                     type="text"
                     name="username"
-                    placeholder="Enter your last name"
+                    placeholder="Username"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.username}
@@ -225,7 +247,7 @@ export default function SignUp() {
                       initial="initial"
                       animate="animate"
                       exit="exit"
-                      variants={pageVariants}
+                      variants={pageVariant}
                       transition={{ duration: 0.7 }}
                     >
                       <ErrorIcon className="sign-up__error-icon" />
@@ -234,10 +256,16 @@ export default function SignUp() {
                       </span>
                     </motion.div>
                   ) : null}
-                </label>
+                </motion.label>
               </div>
               <div className="sign-up__email-input-wrapper">
-                <label>
+                <motion.label
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageVariant}
+                  transition={{ duration: 0.7, delay: 0.8 }}
+                >
                   Email:
                   <input
                     className={`sign-up__email-input ${
@@ -247,7 +275,7 @@ export default function SignUp() {
                     }`}
                     type="email"
                     name="email"
-                    placeholder="Enter your email"
+                    placeholder="Email"
                     value={formik.values.email}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -258,7 +286,7 @@ export default function SignUp() {
                       initial="initial"
                       animate="animate"
                       exit="exit"
-                      variants={pageVariants}
+                      variants={pageVariant}
                       transition={{ duration: 0.7 }}
                     >
                       <ErrorIcon className="sign-up__error-icon" />
@@ -267,10 +295,16 @@ export default function SignUp() {
                       </span>
                     </motion.div>
                   ) : null}
-                </label>
+                </motion.label>
               </div>
               <div className="sign-up__password-input-wrapper">
-                <label>
+                <motion.label
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageVariant}
+                  transition={{ duration: 0.7, delay: 1 }}
+                >
                   Password:
                   <input
                     className={`sign-up__password-input ${
@@ -280,7 +314,7 @@ export default function SignUp() {
                     }`}
                     type={showPassword ? "text" : "password"}
                     name="password"
-                    placeholder="Enter your password"
+                    placeholder="Password"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
@@ -291,7 +325,7 @@ export default function SignUp() {
                       initial="initial"
                       animate="animate"
                       exit="exit"
-                      variants={pageVariants}
+                      variants={pageVariant}
                       transition={{ duration: 0.7 }}
                     >
                       <ErrorIcon className="sign-up__error-icon" />
@@ -300,7 +334,7 @@ export default function SignUp() {
                       </span>
                     </motion.div>
                   ) : null}
-                </label>
+                </motion.label>
                 <div
                   className={"sign-up__show-password-icon"}
                   onClick={() => setShowPassword(!showPassword)}
@@ -308,9 +342,6 @@ export default function SignUp() {
                   {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </div>
               </div>
-              {/* <label> Avatar Image:
-                <input type="file" name="avatar" />
-              </label> */}
               <button type="submit" className="sign-up__submit-button">
                 Sign up
               </button>

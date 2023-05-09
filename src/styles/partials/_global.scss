@@ -16,13 +16,12 @@ body {
   height: 100vh;
   color: $textColor;
   font-family: "Poppins", sans-serif;
-  font-size: 0.6875rem;
+  font-size: 1rem;
   line-height: 1rem;
   font-weight: 400;
   overflow-x: hidden;
   background-color: $bodyColor;
   @include tablet {
-    font-size: 1rem;
     line-height: 1.5rem;
   }
 }
@@ -33,7 +32,7 @@ h1 {
   font-weight: 700;
   @include tablet {
     font-size: 2.5rem;
-    line-height: 3rem;
+    line-height: 3.5rem;
   }
 }
 
@@ -48,9 +47,8 @@ h2 {
   }
 }
 
-// Labels Links and buttons
 h3 {
- font-size: 0.75rem;
+  font-size: 0.75rem;
   line-height: 1.25rem;
   font-weight: 600;
   @include tablet {
@@ -72,31 +70,47 @@ h4 {
 
 a {
   text-decoration: none;
-  // color: $primaryColor;
-  // transition: all 0.4s;
-  // cursor: pointer;
-  // &:hover {
-  //   color: #6936f597;
-  // }
+  -webkit-tap-highlight-color: transparent;
+
+}
+
+label {
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+
+  @include tablet {
+    font-size: 0.7rem;
+  }
 }
 
 // extend classes
 %textInput {
   border: 1px solid $borderColor;
-  padding: 1.2rem;
+  padding: 1rem;
   border-radius: 18px;
   width: 100%;
-  font-size: 1rem;
+  font-size: 0.8rem;
   transition: all 0.5s;
   background-color: $bodyColor;
-  
+
   &:hover {
-  border: 1px solid $primaryColor;
+    border: 1px solid $primaryColor;
+  }
+  &:focus {
+    outline: none;
   }
 
   &::placeholder {
     font-family: "Poppins", sans-serif;
     color: $placeholderColor;
+  }
+  @include tablet {
+    font-size: 1rem;
+  }
+  @include desktop {
+    font-size: 0.8rem;
+
   }
 }
 
@@ -110,10 +124,13 @@ a {
   border-radius: 18px;
   color: $whiteColor;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   transition: all 0.5s;
 
   &:hover {
     background-color: #6e3ff1d7;
   }
-  
+  &:active {
+    transform: scale(1.1);
+  }
 }
