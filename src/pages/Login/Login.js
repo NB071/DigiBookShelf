@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import axios from "axios";
 import * as Yup from "yup";
-import { pageVariant, slideVariant } from "../../page variants/variants";
+import { pageVariant, slideVariant } from "../../pageVariants/variants";
 // icons
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -104,9 +104,7 @@ export default function Login() {
             transition={{ duration: 1, delay: 0.2 }}
           >
             Step into a Realm of Boundless Knowledge and Track Your Literary
-            Adventures with our Feature-Rich Book Tracking Dashboard. Immerse
-            yourself in a world where reading becomes a transformative
-            experience
+            Adventures with our Feature-Rich Book Tracking Dashboard.
           </motion.p>
         </div>
         <img className="login__curved-lines" src={Lines} alt="Curved Lines" />

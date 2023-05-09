@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
-import { pageVariant, slideVariant } from "../../page variants/variants";
+import { pageVariant, slideVariant } from "../../pageVariants/variants";
 import axios from "axios";
 import * as Yup from "yup";
 
