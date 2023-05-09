@@ -1,5 +1,6 @@
-@use "./responsive" as *;
+@use "responsive" as *;
 @use "colors" as *;
+@use "typography" as *;
 
 // CSS Reset
 *,
@@ -12,48 +13,45 @@
 
 // elements
 body {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   color: $textColor;
   font-family: "Poppins", sans-serif;
-  font-size: 1rem;
-  line-height: 1rem;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
   font-weight: 400;
   overflow-x: hidden;
   background-color: $bodyColor;
-  @include tablet {
-    line-height: 1.5rem;
-  }
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1 {
-  font-size: 1.75rem;
-  line-height: 2.25rem;
-  font-weight: 700;
-  @include tablet {
-    font-size: 2.5rem;
-    line-height: 3.5rem;
-  }
-}
-
-// sub Header
-h2 {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
   font-weight: 700;
   @include tablet {
     font-size: 2rem;
-    line-height: 2.5rem;
+    line-height: 3rem;
+  }
+}
+// sub Header
+h2 {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  @include tablet {
+    font-size: 1.25rem;
+    line-height: 1.25rem;
   }
 }
 
 h3 {
-  font-size: 0.75rem;
-  line-height: 1.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
   font-weight: 600;
   @include tablet {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }
 
@@ -63,25 +61,18 @@ h4 {
   font-weight: 600;
 
   @include tablet {
-    font-size: 1.35rem;
+    font-size: 1rem;
     line-height: 1.75rem;
   }
 }
 
+
 a {
   text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-
 }
 
 label {
-  font-size: 0.8rem;
-  line-height: 1.5rem;
   font-weight: 600;
-
-  @include tablet {
-    font-size: 0.7rem;
-  }
 }
 
 // extend classes
@@ -106,25 +97,19 @@ label {
     color: $placeholderColor;
   }
   @include tablet {
-    font-size: 1rem;
-  }
-  @include desktop {
-    font-size: 0.8rem;
-
+    font-size: 0.8125rem;
   }
 }
 
 %CTAbutton {
   padding: 1rem;
   font-family: "Poppins", sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   background-color: $primaryColor;
   border: none;
   border-radius: 18px;
   color: $whiteColor;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
   transition: all 0.5s;
 
   &:hover {
@@ -137,15 +122,12 @@ label {
 
 .active {
   background-color: $primaryColor;
-  color: $whiteColor;
-  font-weight: 700;
-  padding-left: 6rem;
+  color: $whiteColor !important;
+  font-weight: 700 !important;
+  padding-left: 4.75rem;
   transition: all 0.5s;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
   @include tablet {
-    padding-left: 2rem;
-  }
-  @include desktop {
-    padding-left: 3.875rem;
+    padding-left: 4rem;
   }
 }

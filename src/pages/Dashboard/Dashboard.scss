@@ -1,151 +1,114 @@
 @use "../../styles/partials/global" as *;
-@use "../../styles/partials/typography" as *;
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/responsive" as *;
 
 .dashboard {
   display: grid;
-  margin: 1rem 0 1rem 0;
-  height: calc(100vh - 9.5rem);
-  //   background-color: red;
-  grid-gap: 1.875rem;
+  margin: 1rem 0;
+  height: calc(100vh - 8rem);
+  // background-color: red;
+  grid-gap: 1.5rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(24, minmax(0, 1fr));
   @include tablet {
-    grid-gap: 1.875rem;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    grid-template-rows: repeat(24, minmax(0, 1fr));
   }
   @include desktop {
     max-width: 1440px;
     margin: 1rem auto;
-    grid-gap: 1.5rem;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: repeat(24, minmax(0, 1fr));
-  }
-}
-// sidebar
-.side-menu {
-  background-color: $whiteColor;
-  border-radius: 18px;
-  display: none;
-  padding: 2rem 0;
-  overflow: hidden;
-
-  &__friends {
-    @include tablet {
-      padding: 1rem 2rem;
-    }
-    @include desktop {
-      padding: 1rem 3.875rem;
-
-    }
-  }
-  &__friends-avatars-wrapper {
-    display: flex;
-    align-items: center;
-  }
-
-  &__bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  &__bottom-option {
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: $borderColor;
-    border-radius: 0 18px 18px 0;
-    cursor: pointer;
-
-    &:nth-child(2) {
-      transition: all 0.5s;
-      color: $errorColor;
-      &:hover {
-        background-color: $errorColor;
-        color: $whiteColor;
-      }
-      &:active {
-        transform: scale(1.1);
-      }
-    }
-    &:nth-child(1) {
-      transition: all 0.5s;
-      &:hover {
-        background-color: $borderColor;
-        color: $whiteColor;
-      }
-      &:active {
-        transform: scale(1.1);
-      }
-    }
-    @include tablet {
-      padding: 1rem 2rem;
-    }
-    @include desktop {
-      padding: 1rem 3.875rem;
-    }
-  }
-  @include tablet {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    grid-column: 1 / 3;
-    grid-row: 1 / -1;
-  }
-  @include desktop {
-    grid-column: 1 / 4;
-    grid-row: 1 / -1;
-  }
-}
-
-.nav {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  &__item {
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 3.875rem;
-    color: $borderColor;
-    border-radius: 0 18px 18px 0;
-    transition: all 0.5s;
-    &:hover {
-      background-color: $primaryColor;
-      color: $whiteColor;
-      padding-left: 5rem;
-    }
-    &:active {
-      transform: scale(1.1);
-    }
-    @include tablet {
-      padding: 1rem 2rem;
-    }
-    @include desktop {
-      padding: 1rem 3.875rem;
-    }
   }
 }
 
 // recent reading
 .recent-reading {
-  background-color: $whiteColor;
+  grid-column: 1 / 3;
+  display: flex;
+  align-items: center;
   border-radius: 18px;
-  grid-column: 1 / 2;
-  grid-row: 1 / 9;
   box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
+  background-color: $whiteColor;
+  padding: 1.5rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  max-height: 18rem;
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  &__sub-heading,
+  &__book-description,
+  &__page-info {
+    color: $placeholderColor;
+  }
+
+  &__book-description {
+    width: 70%;
+  }
+
+  &__sub-heading,
+  &__page-info {
+    font-weight: 500;
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.75rem;
+    @include tablet {
+      flex-direction: row;
+    align-items: center;
+    }
+  }
+  &__CTA {
+    @extend %CTAbutton;
+    padding: 0.7rem 1.5rem;
+  }
+  &__dot {
+    height: 0.5rem;
+    width: 0.5rem;
+    background-color: $placeholderColor;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    display: inline-block;
+  }
+  &__right {
+    position: relative;
+    @include tablet {
+      height: 100%;
+    }
+  }
+  &__book-cover {
+    border-radius: 50%;
+    height: 12rem;
+    width: 12rem;
+    position: absolute;
+    left: -8rem;
+    bottom: -13rem;
+    box-shadow: -31px -21px 0px rgba(105, 54, 245, 0.2),
+      -19px -15px 0px rgba(105, 54, 245, 0.43),
+      -9px -9px 0px rgba(105, 54, 245, 0.61);
+    @include tablet {
+      position: static;
+      height: inherit;
+      margin-left: 1.75rem;
+      border-radius: 18px;
+      box-shadow: none;
+    }
+  }
 
   @include tablet {
+    max-height: 15rem;
     grid-column: 3 / -1;
-    grid-row: 1 / 7;
+    flex-direction: row;
   }
   @include desktop {
-    grid-column: 4 / 9;
-    grid-row: 1 / 9;
+    grid-column: 4 / 10;
   }
 }
 
@@ -155,15 +118,12 @@
   border-radius: 18px;
   box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
   grid-column: 2 / -1;
-  grid-row: 1 / 9;
 
   @include tablet {
     grid-column: 3 / 5;
-    grid-row: 7 / -1;
   }
   @include desktop {
-    grid-column: 4 / 9;
-    grid-row: 9 / -1;
+    grid-column: 4 / 10;
   }
 }
 
@@ -173,15 +133,12 @@
   border-radius: 18px;
   box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
   grid-column: 1 / -1;
-  grid-row: 9 / 16;
 
   @include tablet {
     grid-column: 5 / -1;
-    grid-row: 7 / 14;
   }
   @include desktop {
-    grid-column: 9 / 13;
-    grid-row: 1 / 12;
+    grid-column: 10 / 13;
   }
 }
 
@@ -191,15 +148,11 @@
   border-radius: 18px;
   box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
   grid-column: 1 / -1;
-  grid-row: 16 / -1;
 
   @include tablet {
     grid-column: 5 / -1;
-    grid-row: 14 / -1;
   }
   @include desktop {
-    grid-column: 9 / 13;
-    grid-row: 12 / -1;
+    grid-column: 10 / 13;
   }
 }
-

@@ -2,7 +2,7 @@ import "./Loading.scss";
 
 import Loader from "react-spinners/HashLoader";
 import { motion, AnimatePresence } from "framer-motion";
-import { pageVariant } from "../../pageVariants/variants";
+import { loaderVariant } from "../../pageVariants/variants";
 
 // logo
 import Logo from "../../assets/logo/bookLogo.svg";
@@ -14,7 +14,7 @@ export default function Loading() {
       initial="initial"
       animate="animate"
       exit="exit"
-      variants={pageVariant}
+      variants={loaderVariant}
       transition={{ duration: 0.3 }}
     >
       <img src={Logo} alt="logo" className="loading__logo" />
