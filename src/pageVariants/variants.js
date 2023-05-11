@@ -12,7 +12,7 @@ const pageVariant = {
 // mobile menu bubble fade-in/out animation
 const mobileMenuVariant = {
   initial: {
-    opacity: 0,
+    opacity: 1,
     x: -300,
     scale: 0,
     borderRadius: "50%",
@@ -24,7 +24,7 @@ const mobileMenuVariant = {
     borderRadius: "0%",
   },
   exit: {
-    opacity: 0,
+    opacity: 1,
     x: -300,
     scale: 0,
     borderRadius: "50%",

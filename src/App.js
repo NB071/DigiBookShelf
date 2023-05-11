@@ -1,9 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+
+
+// components
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
-import { useEffect } from "react";
-
+import Manage from "./pages/Manage/Mange";
 function App() {
   useEffect(()=> {
   })
@@ -12,9 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/manage" element={<Dashboard />} />
+        <Route path="/manage" element={< Manage/>} />
         <Route path="/my-shelf" element={<Dashboard />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
       </Routes>
