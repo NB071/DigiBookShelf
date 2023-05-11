@@ -1,6 +1,6 @@
 import "./SideMenu.scss";
 
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 // icons
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
@@ -11,7 +11,7 @@ import MeetingRoomRoundedIcon from "@mui/icons-material/MeetingRoomRounded";
 
 export default function SideMenu({ friends }) {
   const navigate = useNavigate();
-
+  const location = useLocation()
   // for log out
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -20,7 +20,7 @@ export default function SideMenu({ friends }) {
   return (
     <aside className="side-menu">
       <nav className="nav">
-        <NavLink to="/Dashboard" className="nav__item">
+        <NavLink to="/Dashboard" className={`nav__item ${location.pathname === '/' ? "active" : ""}`}>
           <DashboardRoundedIcon style={{ fontSize: "2.25rem" }} />
           <h3>Dashboard</h3>
         </NavLink>
@@ -43,7 +43,7 @@ export default function SideMenu({ friends }) {
               className="side-menu__friends-avatar"
               alt={friend.username}
               title={friend.username}
-              key={friend.user_id}
+              key={friend.username}
               />
             );
           }) : <p>no friends...</p>}

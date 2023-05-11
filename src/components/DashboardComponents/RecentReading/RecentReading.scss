@@ -1,0 +1,104 @@
+@use "../../../styles/partials/global" as *;
+@use "../../../styles/partials/colors" as *;
+@use "../../../styles/partials/responsive" as *;
+
+.recent-reading {
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+  display: flex;
+  align-items: center;
+  border-radius: 18px;
+  box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
+  background-color: $whiteColor;
+  padding: 1.5rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  &__sub-heading,
+  &__book-description,
+  &__page-info {
+    color: $placeholderColor;
+  }
+
+  &__book-description {
+    width: 70%;
+    margin: 1rem 0;
+    @include tablet {
+      width: initial;
+    }
+  }
+
+  &__sub-heading,
+  &__page-info {
+    font-weight: 500;
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.75rem;
+    @include tablet {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+  &__CTA {
+    @extend %CTAbutton;
+    background-color: $successColor;
+    padding: 0.7rem 1.5rem;
+    &:hover {
+      background-color: #02bf7e;
+    }
+  }
+  &__dot {
+    height: 0.5rem;
+    width: 0.5rem;
+    background-color: $placeholderColor;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    display: inline-block;
+  }
+  &__right {
+    position: relative;
+    @include tablet {
+      height: 100%;
+    }
+  }
+  &__book-cover {
+    border-radius: 50%;
+    height: 12rem;
+    width: 12rem;
+    position: absolute;
+    left: -8rem;
+    bottom: -13rem;
+    box-shadow: -31px -21px 0px rgba(3, 147, 50, 0.2),
+      -19px -15px 0px rgba(3, 147, 50, 0.43),
+      -9px -9px 0px rgba(3, 147, 50, 0.61);
+    @include tablet {
+      position: static;
+      margin-left: 1.75rem;
+      border-radius: 18px;
+      box-shadow: none;
+      height: 100%;
+    }
+  }
+
+  @include tablet {
+    grid-column: 3 / -1;
+    grid-row: 1 / 2;
+    flex-direction: row;
+  }
+  @include desktop {
+    grid-column: 4 / 10;
+    grid-row: 1 / 2;
+  }
+}

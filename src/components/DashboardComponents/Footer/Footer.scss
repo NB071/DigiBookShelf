@@ -1,0 +1,21 @@
+@use "../../../styles/partials/global" as *;
+@use "../../../styles/partials/colors" as *;
+@use "../../../styles/partials/responsive" as *;
+
+.footer {
+
+    background-color: $whiteColor;
+    border-radius: 18px;
+    padding: 2rem;
+    &__text {
+        font-size: 1rem;
+    }
+    &__highlight {
+        color: $primaryColor;
+    }
+  @include desktop {
+    max-width: 1440px;
+    margin: 0 auto;
+
+  }
+}

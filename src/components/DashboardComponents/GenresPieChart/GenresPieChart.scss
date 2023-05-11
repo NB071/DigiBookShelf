@@ -1,0 +1,26 @@
+@use "../../../styles/partials/global" as *;
+@use "../../../styles/partials/colors" as *;
+@use "../../../styles/partials/responsive" as *;
+
+.genres-piechart {
+  grid-column: 1 / -1;
+  grid-row: 3 / 4;
+  border-radius: 18px;
+  box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
+  background-color: $whiteColor;
+  color: $whiteColor;
+  transition: all 0.3s;
+ 
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include tablet {
+    grid-column: 3 / -1;
+    grid-row: 2 / 3;
+  }
+  @include desktop {
+    grid-column: 4 / 8;
+    grid-row: 2 / 3;
+  }
+}

@@ -1,7 +1,7 @@
 import "./MobileMenu.scss";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { mobileMenuVariant } from "../../pageVariants/variants";
 
 //icons
@@ -12,6 +12,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 export default function MobileMenu({ Toggle, isMenuOpen, userInfo }) {
   const navigate = useNavigate()
+  const location = useLocation()
    // for log out
    const handleLogout = () => {
     localStorage.removeItem("token");
@@ -37,7 +38,7 @@ export default function MobileMenu({ Toggle, isMenuOpen, userInfo }) {
         transition={{ duration: 0.5, delay: 0.05 }}
       >
         {/* Menu items */}
-        <NavLink to="/Dashboard" onClick={Toggle} className="mobile-menu__item">
+        <NavLink to="/Dashboard" onClick={Toggle} className={`mobile-menu__item ${location.pathname === '/' ? "active" : ""}`}>
           <DashboardRoundedIcon style={{ fontSize: "2.25rem" }} />
           Dashboard
         </NavLink>
