@@ -1,6 +1,6 @@
 import "./AddReading.scss";
 
-// Packages
+// libs
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -20,10 +20,11 @@ export default function AddReading() {
 
   function handleThumbnailUpload(e) {
     const uploadedThumbnail = e.target.files[0];
+    formik.setFieldValue("cover_image", e.target.files[0]);
     const render = new FileReader();
     render.readAsDataURL(uploadedThumbnail);
     render.onload = () => {
-      formik.setFieldValue("cover_image", render.result);
+      formik.setFieldValue("cover_image_preview", render.result);
     };
   }
 
@@ -43,6 +44,7 @@ export default function AddReading() {
       total_pages: "",
       read_pages: 0,
       cover_image: "",
+      cover_image_preview: "",
     },
     validationSchema: Yup.object({
       book_name: Yup.string().required("This field is required"),
@@ -61,13 +63,30 @@ export default function AddReading() {
         .required("This field is required"),
     }),
     onSubmit: async (values) => {
+      const token = localStorage.getItem("token");
       try {
-        console.log(values);
+        const formData = new FormData();
+        formData.append("book_name", values.book_name);
+        formData.append("book_description", values.book_description);
+        formData.append("book_genre", values.book_genre);
+        formData.append("book_author", values.book_author);
+        formData.append("total_pages", values.total_pages);
+        formData.append("read_pages", values.read_pages);
+        formData.append("cover_image", values.cover_image);
+
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/user/books`, formData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+         
+        );
+        console.log(response);
       } catch (error) {
         console.log(error);
       }
     },
- 
   });
   return (
     <motion.section
@@ -99,7 +118,7 @@ export default function AddReading() {
         <div className="add-reading__left">
           <img
             className="add-reading__cover-image"
-            src={`${formik.values.cover_image || BookImagePlaceHolder}`}
+            src={`${formik.values.cover_image_preview || BookImagePlaceHolder}`}
             alt="book cover preview"
           />
         </div>
@@ -431,12 +450,13 @@ export default function AddReading() {
                 <input
                   className="add-reading__input-file"
                   type="file"
-                  name="cover_image"
+                  name="cover_image_preview"
                   accept="image/*"
                   onChange={handleThumbnailUpload}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.cover_image && formik.errors.cover_image ? (
+                {formik.touched.cover_image_preview &&
+                formik.errors.cover_image_preview ? (
                   <motion.div
                     className="add-reading__error"
                     initial="initial"
@@ -447,7 +467,7 @@ export default function AddReading() {
                   >
                     <ErrorIcon className="add-reading__error-icon" />
                     <span className="add-reading__error-msg">
-                      {formik.errors.cover_image}
+                      {formik.errors.cover_image_preview}
                     </span>
                   </motion.div>
                 ) : null}
@@ -469,7 +489,6 @@ export default function AddReading() {
               <button
                 className="add-reading__CTA-button add-reading__CTA-button--cancel"
                 type="reset"
-                
               >
                 Reset
               </button>

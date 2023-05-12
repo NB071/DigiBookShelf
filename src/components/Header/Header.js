@@ -2,7 +2,7 @@ import "./Header.scss";
 
 // libs
 import { motion } from "framer-motion";
-import { pageVariant, slideVariant } from "../../pageVariants/variants";
+import { pageVariant } from "../../pageVariants/variants";
 
 // icons
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";

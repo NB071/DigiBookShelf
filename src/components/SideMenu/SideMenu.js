@@ -3,7 +3,7 @@ import "./SideMenu.scss";
 //libs
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { pageVariant, slideVariant } from "../../pageVariants/variants";
+import { pageVariant } from "../../pageVariants/variants";
 
 // icons
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
