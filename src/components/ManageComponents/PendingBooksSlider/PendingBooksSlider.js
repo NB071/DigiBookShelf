@@ -1,9 +1,12 @@
 import "./PendingBooksSlider.scss";
 
+//libs
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { motion } from "framer-motion";
+import { pageVariant, slideVariant } from "../../../pageVariants/variants";
 
 // Import Swiper styles
 import "swiper/css";
@@ -29,7 +32,14 @@ export default function PendingBooksSlider() {
     return null;
   }
   return (
-    <section className="recent-added">
+    <motion.section
+      className="recent-added"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariant}
+      transition={{ duration: 0.7, delay: 0.4 }}
+    >
       {pendingBooks[currentSlideIndex] && (
         <div
           className="recent-added__blur-overlay"
@@ -59,28 +69,28 @@ export default function PendingBooksSlider() {
                         ? "recent-added__non-selected"
                         : "recent-added__selected"
                     }`}
+                    key={book.id}
                   >
-                    <Link to={`/user/books/${book.book}`}>
-                      <article key={book.id}>
-                        <img
-                          src={book.cover_image}
-                          alt={book.book_name}
-                          title={book.book_name}
-                        />
-                        <div className="recent-added__book-card-info">
-                          <h3 className="recent-added__book-title">
-                            {book.book_name}
-                          </h3>
+                    <article>
+                      <img
+                        className="recent-added__cover-image"
+                        src={book.cover_image}
+                        alt={book.book_name}
+                        title={book.book_name}
+                      />
+                      <div className="recent-added__book-card-info">
+                        <h3 className="recent-added__book-title">
+                          {book.book_name}
+                        </h3>
 
-                          <Link
-                            className="recent-added__CTA"
-                            to={`/user/books/${book.book}`}
-                          >
-                            More info
-                          </Link>
-                        </div>
-                      </article>
-                    </Link>
+                        <Link
+                          className="recent-added__CTA"
+                          to={`/user/books/${book.book}`}
+                        >
+                          More info
+                        </Link>
+                      </div>
+                    </article>
                   </SwiperSlide>
                 ))}
             </Swiper>
@@ -89,6 +99,6 @@ export default function PendingBooksSlider() {
           )}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

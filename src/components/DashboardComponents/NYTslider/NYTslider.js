@@ -1,10 +1,13 @@
+import "./NYTslide.scss";
+import "swiper/css";
+import "swiper/css/effect-cards";
+
+// libs
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
 import { EffectCards } from "swiper";
-import "./NYTslide.scss";
-
-import "swiper/css";
-import "swiper/css/effect-cards";
+import { motion } from "framer-motion";
+import { pageVariantTop } from "../../../pageVariants/variants";
 import axios from "axios";
 
 export default function NYTslider() {
@@ -26,15 +29,27 @@ export default function NYTslider() {
   }
 
   return (
-    <section className="books-NYT">
+    <motion.section
+      className="books-NYT"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariantTop}
+      transition={{ duration: 0.7, delay: 0.8 }}
+    >
       <h2 className="books-NYT__heading">#15 New York Times</h2>
-      <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]} className="books-NYT__slider-wrapper">
+      <Swiper
+        effect={"cards"}
+        grabCursor={true}
+        modules={[EffectCards]}
+        className="books-NYT__slider-wrapper"
+      >
         {NYTbooks.map((book) => (
           <SwiperSlide key={book.id} className="books-NYT__slide">
             <img src={book.cover_image} alt={book.name} title={book.name} />
           </SwiperSlide>
         ))}
       </Swiper>
-    </section>
+    </motion.section>
   );
 }

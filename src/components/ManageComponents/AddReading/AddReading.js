@@ -42,7 +42,7 @@ export default function AddReading() {
       book_author: "",
       total_pages: "",
       read_pages: 0,
-      cover_iamge: "",
+      cover_image: "",
     },
     validationSchema: Yup.object({
       book_name: Yup.string().required("This field is required"),
@@ -52,7 +52,7 @@ export default function AddReading() {
       total_pages: Yup.number()
         .integer("Required integer")
         .positive("Required Positive")
-        .required("This field is required")
+        .max(99999, "Long page number!")
         .required("This field is required"),
       read_pages: Yup.number()
         .integer("Required integer")
@@ -67,6 +67,7 @@ export default function AddReading() {
         console.log(error);
       }
     },
+ 
   });
   return (
     <motion.section
@@ -98,7 +99,7 @@ export default function AddReading() {
         <div className="add-reading__left">
           <img
             className="add-reading__cover-image"
-            src={formik.values.cover_image || BookImagePlaceHolder}
+            src={`${formik.values.cover_image || BookImagePlaceHolder}`}
             alt="book cover preview"
           />
         </div>
@@ -173,7 +174,7 @@ export default function AddReading() {
           </motion.div>
         </div>
       </motion.article>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} onReset={formik.resetForm}>
         <div className="add-reading__input-wrapper">
           <div className="add-reading__left-inputs">
             {/* book name input */}
@@ -378,6 +379,7 @@ export default function AddReading() {
             {/* author name input */}
             <motion.div
               className="add-reading__book-author-wrapper"
+              initial="initial"
               animate="animate"
               exit="exit"
               variants={pageVariant}
@@ -418,6 +420,7 @@ export default function AddReading() {
             {/* book cover file input */}
             <motion.div
               className="add-reading__book-cover-wrapper"
+              initial="initial"
               animate="animate"
               exit="exit"
               variants={pageVariant}
@@ -454,6 +457,7 @@ export default function AddReading() {
             {/* CTA buttons */}
             <motion.div
               className="add-reading__CTAs"
+              initial="initial"
               animate="animate"
               exit="exit"
               variants={pageVariant}
@@ -465,6 +469,7 @@ export default function AddReading() {
               <button
                 className="add-reading__CTA-button add-reading__CTA-button--cancel"
                 type="reset"
+                
               >
                 Reset
               </button>

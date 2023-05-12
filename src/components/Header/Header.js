@@ -1,17 +1,28 @@
 import "./Header.scss";
 
+// libs
+import { motion } from "framer-motion";
+import { pageVariant, slideVariant } from "../../pageVariants/variants";
+
 // icons
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import Brightness4RoundedIcon from "@mui/icons-material/Brightness4Rounded";
 import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
 import WidgetsRoundedIcon from "@mui/icons-material/WidgetsRounded";
-// images
 
+// svgs
 import Logo from "../../assets/logo/Logo.svg";
 
 export default function Header({ userAvatar, username, menuToggle }) {
   return (
-    <header className="header">
+    <motion.header
+      className="header"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariant}
+      transition={{ duration: 0.7, delay: 0.2 }}
+    >
       <section className="header__left">
         <WidgetsRoundedIcon
           className="header__mobile-menu"
@@ -48,6 +59,6 @@ export default function Header({ userAvatar, username, menuToggle }) {
           </div>
         </div>
       </section>
-    </header>
+    </motion.header>
   );
 }

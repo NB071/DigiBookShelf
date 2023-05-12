@@ -1,8 +1,12 @@
+import "./GenresPieChart.scss";
+
+//libs
 import React, { useEffect, useState, useRef } from "react";
 import Skeleton from "react-loading-skeleton";
 import axios from "axios";
 import ApexCharts from "apexcharts";
-import "./GenresPieChart.scss";
+import { motion } from "framer-motion";
+import { fadeInVariant } from "../../../pageVariants/variants";
 
 export default function GenresPieChart() {
   const [genresCount, setGenresCount] = useState(null);
@@ -31,6 +35,19 @@ export default function GenresPieChart() {
           width: 400,
           height: 400,
           fontFamily: "poppins, Arial, sans-serif",
+          animations: {
+            enabled: true,
+            easing: "easeinout",
+            speed: 1350,
+
+            animateGradually: {
+              enabled: true,
+            },
+            dynamicAnimation: {
+              enabled: true,
+              speed: 1350,
+            },
+          },
         },
         series: Object.values(genresCount),
         labels: Object.keys(genresCount),
@@ -85,8 +102,6 @@ export default function GenresPieChart() {
 
       const chart = new ApexCharts(chartRef.current, options);
       chart.render();
-
-      // Cleanup the chart when component is unmounted
       return () => {
         chart.destroy();
       };
@@ -95,15 +110,22 @@ export default function GenresPieChart() {
 
   if (!genresCount) {
     return (
-      <section className="genres-piechart">
+      <section>
         <Skeleton width={200} height={200} />
       </section>
     );
   }
 
   return (
-    <section className="genres-piechart">
+    <motion.section
+      className="genres-piechart"
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={fadeInVariant}
+      transition={{ duration: 0.7, delay: 0.7 }}
+    >
       <div ref={chartRef}></div>
-    </section>
+    </motion.section>
   );
 }

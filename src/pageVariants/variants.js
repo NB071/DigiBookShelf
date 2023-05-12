@@ -3,13 +3,32 @@ const slideVariant = {
   in: { x: 0, opacity: 1 },
   out: { x: "-100%", opacity: 0 },
 };
+
 const pageVariant = {
   initial: { opacity: 0, x: -20 },
   animate: { opacity: 1, x: 0 },
   exit: { opacity: 0, x: -20 },
 };
 
-// mobile menu bubble fade-in/out animation
+const pageVariantRight = {
+  initial: { opacity: 0, x: 20 },
+  animate: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: 20 },
+};
+
+const pageVariantTop = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: 20 },
+};
+
+
+const fadeInVariant = {
+  initial: { opacity: 0},
+  in: { opacity: 1},
+  out: { opacity: 0},
+};
+
 const mobileMenuVariant = {
   initial: {
     opacity: 0,
@@ -38,8 +57,11 @@ const loaderVariant = {
 };
 
 module.exports = {
-  slideVariant,
+  fadeInVariant,
   pageVariant,
-  mobileMenuVariant,
+  pageVariantTop,
+  pageVariantRight,
+  slideVariant,
   loaderVariant,
+  mobileMenuVariant,
 };

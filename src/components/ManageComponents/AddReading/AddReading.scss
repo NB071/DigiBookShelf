@@ -13,7 +13,7 @@
   align-items: center;
   flex-direction: column;
   padding: 1.5rem 1.5rem 3rem 1.5rem;
-  
+
   &__heading {
     margin-bottom: 1.5rem;
     align-self: start;
@@ -28,12 +28,12 @@
     width: calc(100% - 10rem);
   }
 
+
   &__left,
   &__cover-image {
     height: 18rem;
     width: 15rem;
     border-radius: 18px;
-
   }
   &__book-name,
   &__book-description,
@@ -43,8 +43,15 @@
 
   &__right {
     padding: 1rem 0;
+    overflow: hidden;
+    width: 40%;
+
     p {
       color: $placeholderColor;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+   
     }
   }
 
@@ -79,6 +86,7 @@
 
   &__input {
     @extend %textInput;
+    transition: background-color 0.3s ease;
     background-color: $whiteColor;
     &--invalid {
       border-color: $errorColor;

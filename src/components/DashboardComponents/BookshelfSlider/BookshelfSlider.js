@@ -1,15 +1,15 @@
 import "./BookshelfSlider.scss";
-
-import { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 
+//libs
+import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Link } from "react-router-dom";
 import { EffectCoverflow } from "swiper";
+import { motion } from "framer-motion";
+import { pageVariantTop } from "../../../pageVariants/variants";
+import axios from "axios";
 
 export default function BookshelfSlider() {
   const [recommendation, setRecommendation] = useState([]);
@@ -27,7 +27,14 @@ export default function BookshelfSlider() {
     return null;
   }
   return (
-    <section className="books-shelf">
+    <motion.section
+      className="books-shelf"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariantTop}
+      transition={{ duration: 0.7, delay: 1 }}
+    >
       <div className="books-shelf__left">
         <h2 className="books-shelf__heading">Books to Read</h2>
       </div>
@@ -83,6 +90,6 @@ export default function BookshelfSlider() {
           )}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

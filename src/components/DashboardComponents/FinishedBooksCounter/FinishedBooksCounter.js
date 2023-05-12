@@ -1,6 +1,10 @@
 import "./FinishedBooksCounter.scss";
+
+// libs
 import CountUp from "react-countup";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { fadeInVariant } from "../../../pageVariants/variants";
 import Skeleton from "react-loading-skeleton";
 import axios from "axios";
 
@@ -17,7 +21,14 @@ export default function FinishedBooksCounter() {
       });
   }, [token]);
   return (
-    <section className="finished-books">
+    <motion.section
+      className="finished-books"
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={fadeInVariant}
+      transition={{ duration: 0.7, delay: 1 }}
+    >
       <h2 className="finished-books__heading">Books finished</h2>
 
       {finishedBooks ? (
@@ -27,6 +38,6 @@ export default function FinishedBooksCounter() {
       ) : (
         <Skeleton width={50} height={50} />
       )}
-    </section>
+    </motion.section>
   );
 }
