@@ -16,18 +16,16 @@ export default function BookshelfSlider() {
   const token = localStorage.getItem("token");
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/user/books`, {
+      .get(`${process.env.REACT_APP_API_URL}/api/user/books?pending=1`, {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }) => {
-        console.log(data);
         setRecommendation(data);
       });
   }, [token]);
   if (!recommendation) {
     return null;
   }
-  console.log(recommendation);
   return (
     <section className="books-shelf">
       <div className="books-shelf__left">

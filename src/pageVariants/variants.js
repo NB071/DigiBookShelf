@@ -1,7 +1,7 @@
 const slideVariant = {
+  initial: { x: "-100%", opacity: 0 },
   in: { x: 0, opacity: 1 },
   out: { x: "-100%", opacity: 0 },
-  initial: { x: "-100%", opacity: 0 },
 };
 const pageVariant = {
   initial: { opacity: 0, x: -20 },
@@ -12,7 +12,7 @@ const pageVariant = {
 // mobile menu bubble fade-in/out animation
 const mobileMenuVariant = {
   initial: {
-    opacity: 1,
+    opacity: 0,
     x: -300,
     scale: 0,
     borderRadius: "50%",
@@ -24,7 +24,7 @@ const mobileMenuVariant = {
     borderRadius: "0%",
   },
   exit: {
-    opacity: 1,
+    opacity: 0,
     x: -300,
     scale: 0,
     borderRadius: "50%",

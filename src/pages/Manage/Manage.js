@@ -14,7 +14,7 @@ import MobileMenu from "../../components/MobileMenu/MobileMenu";
 import Loading from "../../components/Loading/Loading";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import PendingBooksSlider from "../../components/ManageComponents/PendingBooksSlider/PendingBooksSlider";
-
+import AddReading from "../../components/ManageComponents/AddReading/AddReading";
 import Footer from "../../components/Footer/Footer";
 
 //icons - images
@@ -70,6 +70,9 @@ export default function Dashboard() {
             
             {/* First slider of all recent books in descending order */}
             <PendingBooksSlider />
+            
+            {/* Add reading */}
+            <AddReading />
             
           </main>
           <Footer />

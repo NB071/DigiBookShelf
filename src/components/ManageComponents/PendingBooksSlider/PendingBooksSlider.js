@@ -18,7 +18,6 @@ export default function PendingBooksSlider() {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }) => {
-        console.log(data);
         setPendingBooks(data);
       });
   }, [token]);
@@ -29,7 +28,6 @@ export default function PendingBooksSlider() {
   if (!pendingBooks) {
     return null;
   }
-  console.log(pendingBooks);
   return (
     <section className="recent-added">
       {pendingBooks[currentSlideIndex] && (
