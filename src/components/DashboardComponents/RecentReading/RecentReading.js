@@ -14,7 +14,7 @@ export default function RecentReading() {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }) => {
-        setRecentBooks(data);
+        setRecentBooks(data[0]);
       });
   }, [token]);
   return (

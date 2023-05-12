@@ -8,6 +8,7 @@
   width: 100%;
   position: fixed;
   z-index: 3;
+  
   &__container {
     position: relative;
     display: flex;
@@ -43,6 +44,5 @@
     top: 2rem;
     right: 2rem;
   }
-  @include tablet {
-  }
+
 }

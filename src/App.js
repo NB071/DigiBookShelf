@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
-import Manage from "./pages/Manage/Mange";
+import Manage from "./pages/Manage/Manage";
 function App() {
   useEffect(()=> {
   })

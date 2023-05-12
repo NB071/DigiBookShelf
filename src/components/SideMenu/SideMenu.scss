@@ -18,13 +18,11 @@
     height: 3rem;
     transition: all .5s;
     cursor: pointer;
-    filter: grayscale(1);
 
     &:not(:first-child) {
       margin-left: -1rem;
     }
     &:hover {
-      filter: grayscale(0);
       margin-right: 1.5rem;
       transform: scale(1.2);
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.28);

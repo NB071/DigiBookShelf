@@ -13,7 +13,9 @@ import Header from "../../components/Header/Header";
 import MobileMenu from "../../components/MobileMenu/MobileMenu";
 import Loading from "../../components/Loading/Loading";
 import SideMenu from "../../components/SideMenu/SideMenu";
-import Footer from "../../components/DashboardComponents/Footer/Footer";
+import PendingBooksSlider from "../../components/ManageComponents/PendingBooksSlider/PendingBooksSlider";
+
+import Footer from "../../components/Footer/Footer";
 
 //icons - images
 
@@ -65,8 +67,10 @@ export default function Dashboard() {
           <main className="manage">
             {/* side menu */}
             <SideMenu friends={userInfo.friends} />
-
-           
+            
+            {/* First slider of all recent books in descending order */}
+            <PendingBooksSlider />
+            
           </main>
           <Footer />
         </>

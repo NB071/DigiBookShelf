@@ -17,11 +17,11 @@ import RecentReading from "../../components/DashboardComponents/RecentReading/Re
 import Banner from "../../components/Banner/Banner";
 import GenresPieChart from "../../components/DashboardComponents/GenresPieChart/GenresPieChart";
 import NYTslider from "../../components/DashboardComponents/NYTslider/NYTslider";
-import BookshelfSlider from "../../components/DashboardComponents/BookshelfSlider/Bookshelf";
+import BookshelfSlider from "../../components/DashboardComponents/BookshelfSlider/BookshelfSlider";
 import ManageCTAs from "../../components/DashboardComponents/MangeCTAs/ManageCTAs";
 import TotalBooksCounter from "../../components/DashboardComponents/TotalBooksCounter/TotalBooksCounter";
 import FinishedBooksCounter from "../../components/DashboardComponents/FinishedBooksCounter/FinishedBooksCounter";
-import Footer from "../../components/DashboardComponents/Footer/Footer";
+import Footer from "../../components/Footer/Footer";
 //icons - images
 
 export default function Dashboard() {
