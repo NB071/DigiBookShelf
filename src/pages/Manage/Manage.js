@@ -15,22 +15,23 @@ import Loading from "../../components/Loading/Loading";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import PendingBooksSlider from "../../components/ManageComponents/PendingBooksSlider/PendingBooksSlider";
 import AddReading from "../../components/ManageComponents/AddReading/AddReading";
+import SideBooklist from "../../components/ManageComponents/SideBooklist/SideBooklist"; 
 import Footer from "../../components/Footer/Footer";
 
 //icons - images
 
-export default function Dashboard() {
+export default function Manage() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+ const [recentBooks, setRecentBooks] = useState(null)
   // for mobile hamburger menu
   const handleLogoClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
     }
@@ -45,11 +46,18 @@ export default function Dashboard() {
         localStorage.removeItem("token");
         navigate("/login");
       });
-  }, [navigate]);
-
+      axios
+      .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
+        headers: { Authorization: `bearer ${token}` },
+      })
+      .then(({ data }) => {
+        setRecentBooks(data);
+        
+      });
+  }, [navigate, token]);
   return (
     <AnimatePresence>
-      {!userInfo ? (
+      {!userInfo || !recentBooks ? (
         <Loading key="loading" />
       ) : (
         <>
@@ -69,11 +77,14 @@ export default function Dashboard() {
             <SideMenu friends={userInfo.friends} />
             
             {/* First slider of all recent books in descending order */}
-            <PendingBooksSlider />
+            <PendingBooksSlider recentBooks={recentBooks} />
             
             {/* Add reading */}
             <AddReading />
             
+            {/* right side component */}
+          <SideBooklist recentBooks={recentBooks} />
+
           </main>
           <Footer />
         </>

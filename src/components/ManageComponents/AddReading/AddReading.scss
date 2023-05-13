@@ -175,7 +175,7 @@
   @include tablet {
     background-color: $whiteColor;
     grid-column: 3 / -1;
-    grid-row: 2 / -1;
+    grid-row: 2 / 5;
   }
 
   @include desktop {

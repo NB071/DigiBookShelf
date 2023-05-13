@@ -11,24 +11,15 @@ import { pageVariant} from "../../../pageVariants/variants";
 // Import Swiper styles
 import "swiper/css";
 
-export default function PendingBooksSlider() {
-  const [pendingBooks, setPendingBooks] = useState([]);
+export default function PendingBooksSlider({recentBooks}) {
+
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const token = localStorage.getItem("token");
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
-        headers: { Authorization: `bearer ${token}` },
-      })
-      .then(({ data }) => {
-        setPendingBooks(data);
-      });
-  }, [token]);
+  
   const handleSlideChange = (swiper) => {
     setCurrentSlideIndex(swiper.activeIndex);
   };
 
-  if (!pendingBooks) {
+  if (!recentBooks) {
     return null;
   }
   return (
@@ -40,11 +31,11 @@ export default function PendingBooksSlider() {
       variants={pageVariant}
       transition={{ duration: 0.7, delay: 0.4 }}
     >
-      {pendingBooks[currentSlideIndex] && (
+      {recentBooks[currentSlideIndex] && (
         <div
           className="recent-added__blur-overlay"
           style={{
-            backgroundImage: `url(${pendingBooks[currentSlideIndex].cover_image})`,
+            backgroundImage: `url(${recentBooks[currentSlideIndex].cover_image})`,
           }}
         ></div>
       )}
@@ -53,7 +44,7 @@ export default function PendingBooksSlider() {
       </div>
       <div className="recent-added__right-container">
         <div className="recent-added__right">
-          {pendingBooks.length !== 0 ? (
+          {recentBooks.length !== 0 ? (
             <Swiper
               className={"recent-added__slider-wrapper"}
               grabCursor={true}
@@ -61,8 +52,8 @@ export default function PendingBooksSlider() {
               slidesPerView={4}
               onSlideChangeTransitionEnd={handleSlideChange}
             >
-              {pendingBooks &&
-                pendingBooks.map((book, index) => (
+              {recentBooks &&
+                recentBooks.map((book, index) => (
                   <SwiperSlide
                     className={`recent-added__slide ${
                       index !== currentSlideIndex
