@@ -15,7 +15,9 @@ import Loading from "../../components/Loading/Loading";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import PendingBooksSlider from "../../components/ManageComponents/PendingBooksSlider/PendingBooksSlider";
 import AddReading from "../../components/ManageComponents/AddReading/AddReading";
-import SideBooklist from "../../components/ManageComponents/SideBooklist/SideBooklist"; 
+import SideBooklistEdit from "../../components/ManageComponents/SideBooklistEdit/SideBooklistEdit";
+import SideBooklistRemove from "../../components/ManageComponents/SideBooklistRemove/SideBooklistRemove";
+import SideShareReading from "../../components/ManageComponents/SideShareReading/SideShareReading";
 import Footer from "../../components/Footer/Footer";
 
 //icons - images
@@ -24,8 +26,10 @@ export default function Manage() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
- const [recentBooks, setRecentBooks] = useState(null)
+  const [rerenderFlag, setRerenderFlag] = useState(false);
+  const [recentBooks, setRecentBooks] = useState(null);
   // for mobile hamburger menu
+
   const handleLogoClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -46,15 +50,14 @@ export default function Manage() {
         localStorage.removeItem("token");
         navigate("/login");
       });
-      axios
+    axios
       .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }) => {
         setRecentBooks(data);
-        
       });
-  }, [navigate, token]);
+  }, [navigate, token, rerenderFlag]);
   return (
     <AnimatePresence>
       {!userInfo || !recentBooks ? (
@@ -75,16 +78,31 @@ export default function Manage() {
           <main className="manage">
             {/* side menu */}
             <SideMenu friends={userInfo.friends} />
-            
+
             {/* First slider of all recent books in descending order */}
             <PendingBooksSlider recentBooks={recentBooks} />
-            
-            {/* Add reading */}
-            <AddReading />
-            
-            {/* right side component */}
-          <SideBooklist recentBooks={recentBooks} />
 
+            {/* Add reading */}
+            <AddReading
+              triggerRerender={() => setRerenderFlag(!rerenderFlag)}
+            />
+
+            {/* right side edit books */}
+            <SideBooklistEdit
+              recentBooks={recentBooks}
+              token={token}
+              triggerRerender={() => setRerenderFlag(!rerenderFlag)}
+            />
+
+            {/* right side remove books */}
+            <SideBooklistRemove
+              recentBooks={recentBooks}
+              token={token}
+              triggerRerender={() => setRerenderFlag(!rerenderFlag)}
+            />
+
+            {/* right side share reading CTA */}
+            <SideShareReading  triggerRerender={() => setRerenderFlag(!rerenderFlag)}/>
           </main>
           <Footer />
         </>

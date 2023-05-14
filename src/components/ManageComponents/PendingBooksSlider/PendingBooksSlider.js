@@ -1,15 +1,12 @@
 import "./PendingBooksSlider.scss";
+import "swiper/css";
 
 //libs
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { motion } from "framer-motion";
 import { pageVariant} from "../../../pageVariants/variants";
-
-// Import Swiper styles
-import "swiper/css";
 
 export default function PendingBooksSlider({recentBooks}) {
 

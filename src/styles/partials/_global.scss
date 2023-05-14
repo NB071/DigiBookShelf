@@ -73,6 +73,7 @@ a {
 
 label {
   font-weight: 600;
+  position: relative;
 }
 
 // extend classes
@@ -84,6 +85,7 @@ label {
   font-size: 0.8rem;
   transition: all 0.5s;
   background-color: $bodyColor;
+  font-family: "Poppins", sans-serif;
 
   &:hover {
     border: 1px solid $primaryColor;
@@ -93,7 +95,6 @@ label {
   }
 
   &::placeholder {
-    font-family: "Poppins", sans-serif;
     color: $placeholderColor;
   }
   @include tablet {

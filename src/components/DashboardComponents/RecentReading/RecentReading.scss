@@ -7,6 +7,7 @@
   grid-row: 1 / 2;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-radius: 18px;
   box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
   background-color: $whiteColor;
@@ -70,6 +71,7 @@
   &__right {
     position: relative;
     @include tablet {
+      position: static;
       height: 100%;
     }
   }
@@ -85,7 +87,6 @@
       -9px -9px 0px rgba(3, 147, 50, 0.61);
     @include tablet {
       position: static;
-      margin-left: 1.75rem;
       border-radius: 18px;
       box-shadow: none;
       height: 100%;

@@ -28,9 +28,8 @@
     border-radius: 18px;
     padding: 1rem;
     width: 100%;
-
     @include tablet {
-    flex-direction: row;
+      flex-direction: row;
       width: calc(100% - 2rem);
     }
     @include desktop {
@@ -38,15 +37,16 @@
     }
   }
 
-
   &__left,
   &__cover-image {
     height: 12rem;
     width: 10rem;
+    object-fit: cover;
+    object-position: center;
     border-radius: 18px;
     @include tablet {
-      height: 18rem;
-    width: 15rem;
+      height: 17rem;
+      width: 15rem;
     }
   }
   &__book-name,
@@ -65,11 +65,9 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-   
     }
     @include tablet {
       text-align: left;
-
     }
   }
 
@@ -80,7 +78,7 @@
     gap: 3rem;
 
     @include tablet {
-    flex-direction: row;
+      flex-direction: row;
 
       justify-content: space-between;
     }
@@ -169,6 +167,16 @@
     opacity: 0.7;
     &:hover {
       opacity: 1;
+    }
+  }
+  &__status {
+    padding-left: 0.5rem;
+    border-radius: 5px;
+    &--success {
+      border-left: 5px solid $successColor;
+    }
+    &--fail {
+      border-left: 5px solid $errorColor;
     }
   }
 

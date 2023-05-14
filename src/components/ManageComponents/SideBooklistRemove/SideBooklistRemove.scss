@@ -2,9 +2,9 @@
 @use "../../../styles/partials/colors" as *;
 @use "../../../styles/partials/responsive" as *;
 
-.side-booklist {
-  grid-column: 2 / -1;
-  grid-row: 7 / 8;
+.side-booklist-remove {
+  grid-column: 1 / -1;
+  grid-row: 8 / 9;
   border-radius: 18px;
   box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -13,39 +13,41 @@
   align-items: center;
   gap: 2rem;
   padding: 4rem 1.5rem;
-  background-color: $primaryColor;
+  background-color: $whiteColor;
+  border: 1px solid $primaryColor;
   &__heading {
-    color: $whiteColor;
+    color: $primaryColor;
   }
 
   &__CTA {
     @extend %CTAbutton;
-    border: 1px solid $whiteColor;
+    border: 1px solid $primaryColor;
+    background-color: $whiteColor;
+    color: $primaryColor;
     padding: 1.5rem;
     font-size: 1.2rem;
     align-items: center;
     display: flex;
     gap: 1rem;
     &:hover {
-      background-color: #e3e3e3;
-      color: $primaryColor;
+      background-color: $primaryColor;
+      color: $whiteColor;
     }
   }
 
   @include tablet {
-    grid-column: 5 / -1;
+    grid-column: 3 / 5;
     grid-row: 5 / 6;
   }
 
   @include desktop {
     grid-column: 10 / -1;
-    grid-row: 3 / 4;
+    grid-row: 2 / 3;
   }
 }
 
-
 // modal styles
-.edit-modal {
+.remove-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -65,9 +67,10 @@
     background-color: $whiteColor;
     opacity: 0.7;
     z-index: 3;
+    backdrop-filter: blur(20px);
   }
+
   &__box {
-    padding: 3rem;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -77,27 +80,35 @@
     background-color: $whiteColor;
     border: 2px solid $primaryColor;
     z-index: 4;
-    box-shadow: 2px 10px 19px -14px rgba(51, 51, 51, 0.2);
+    box-shadow: 2px 10px 19px -14px rgba(51, 51, 51, 0.3);
     overflow-y: scroll;
     overflow-x: hidden;
     border-radius: 18px;
+    padding: 3rem;
+    gap: 2rem;
     @include tablet {
       overflow: hidden;
-      width: 60rem;
-      height: 60rem;  
+      width: 60%;
+      height: 80%;
     }
   }
+
   &__close-icon {
-    position: absolute;
-    right: 2rem;
-    top: 2rem;
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
     font-size: 2rem !important;
     cursor: pointer;
     transition: all 0.5s !important;
+    z-index: 2;
     &:hover {
       background-color: #b2b7c594;
       border-radius: 50%;
       transform: scale(0.9);
+    }
+    @include tablet {
+      position: absolute;
+      color: $textColor;
     }
   }
 
@@ -105,131 +116,42 @@
     display: flex;
     gap: 0.75rem;
     align-items: center;
+    border-bottom: 1px solid $textColor;
+    padding-bottom: 1.5rem;
+    height: 5rem;
+    color: $textColor;
+    margin-bottom: 2rem;
+    @include tablet {
+      align-items: start;
+      border: none;
+      padding-bottom: 0;
+      height: fit-content;
+    }
   }
+
   &__edit-icon {
     color: $primaryColor;
   }
+
   &__content {
     display: flex;
     width: 100%;
-    height: 100%;
-    gap: 3rem;
-    flex-direction: column-reverse;
-    @include tablet {
-      flex-direction: row;
-    }
-  }
-  &__left {
-    padding-top: 2rem;
-    width: 100%;
-    height: 100%;
-    display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 2rem;
     @include tablet {
-      width: 50%;
-    }
-  }
-  &__book-number-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  &__paegs-spliter {
-    margin-top: 1rem;
-  }
-
-  &__input {
-    @extend %textInput;
-    transition: background-color 0.3s ease;
-    background-color: $whiteColor;
-    &--invalid {
-      border-color: $errorColor;
-    }
-  }
-  &__thumbnail-wrapper > label {
-    gap: 2rem;
-    display: flex;
-    align-items: center;
-  }
-
-  &__cover-image {
-    border-radius: 18px;
-    height: 8rem;
-  }
-
-  &__book-cover-wrapper > label {
-    gap: 1.5rem;
-    display: flex;
-    align-items: center;
-  }
-
-  &__input-file::file-selector-button {
-    border: none;
-    padding: 0.8rem 1rem;
-    background: $primaryColor;
-    border-radius: 18px;
-    color: $whiteColor;
-    font-size: 0.8rem;
-    font-family: "Poppins", sans-serif;
-    cursor: pointer;
-  }
-  &__CTAs {
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-    margin-top: 0.6rem;
-    justify-content: space-between;
-  }
-  &__CTA-button {
-    flex: 1;
-
-    @extend %CTAbutton;
-    padding: 0.8rem 2rem;
-    &--cancel {
-      background-color: $whiteColor;
-      color: $placeholderColor;
-      border: 1px solid $placeholderColor;
-      &:hover {
-        border: 1px solid $placeholderColor;
-        background-color: $whiteColor;
-      }
-    }
-  }
-  // errors
-  &__error {
-    position: absolute;
-    margin-top: 0.12rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  &__error-icon {
-    color: $errorColor;
-    font-size: 1.25rem !important;
-  }
-
-  &__error-msg {
-    font-weight: 400;
-    font-size: 0.75rem;
-    transition: all 0.3s;
-    opacity: 0.7;
-    &:hover {
-      opacity: 1;
+      gap: 1rem;
+      height: 100%;
     }
   }
 
-  &__right {
+  &__cards-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    overflow-y: hidden;
-    overflow-x: scroll;
-    padding-top: 2rem;
-    padding-right: 0.5rem;
-
+    overflow-y: scroll;
+    overflow-x: hidden;
     &::-webkit-scrollbar-thumb {
       background: $primaryColor;
       border-radius: 10px;
@@ -242,28 +164,37 @@
     &::-webkit-scrollbar {
       width: 0.4rem;
     }
-    @include tablet {
-    width: 50%;
-    overflow-y: scroll;
-    overflow-x: hidden;
 
-
-    }
   }
+
+  &__trash-icon {
+    opacity: 0;
+    font-size: 3rem !important;
+    position: absolute;
+    left: 1.5rem;
+    color: $whiteColor;
+  }
+
   &__preview-card-container {
+    min-height: 10rem;
     display: flex;
-    width: 500%;
-    justify-content: space-between;
     align-items: center;
-    @include tablet {
-    flex-direction: column;
+    gap: 1rem;
     width: 100%;
-
+    flex-direction: column;
+    
+    @include tablet {
+      height: 100%;
+      gap: 2rem;
+      padding-right: 0.5rem;
+      padding: 0 4rem;
     }
   }
+
   &__preview-card {
-    width: 10rem;
-    height: 9.5rem;
+    position: relative;
+    min-width: 100%;
+    height: 9rem;
     border: 1px solid $primaryColor;
     display: flex;
     align-items: center;
@@ -274,9 +205,11 @@
     transition: all 0.5s;
     cursor: pointer;
     &:hover {
-      background-color: $primaryColor;
+      padding-left: 5.5rem;
+      background-color: $errorColor;
       color: $whiteColor;
-      .edit-modal__progress-bar {
+      border: none;
+      .remove-modal__progress-bar {
         path:nth-child(1) {
           stroke: $borderColor !important;
         }
@@ -284,41 +217,18 @@
           stroke: $whiteColor !important;
         }
       }
-    }
-    &--active-pending {
-      background-color: $primaryColor;
-      color: $whiteColor;
-      width: 95%;
-      .edit-modal__progress-bar {
-        path:nth-child(1) {
-          stroke: $borderColor !important;
-        }
-        path:nth-child(2) {
-          stroke: $whiteColor !important;
-        }
+      .remove-modal__trash-icon {
+        transition: all 0.5s ease-in-out 0.12s;
+        opacity: 1;
       }
     }
-    &--active-finished {
-      background-color: $successColor;
-      color: $whiteColor;
-      width: 95%;
-      .edit-modal__progress-bar {
-        path:nth-child(1) {
-          stroke: $borderColor !important;
-        }
-        path:nth-child(2) {
-          stroke: $whiteColor !important;
-        }
-      }
-    }
+
     &--finished {
       border: 1px solid $successColor;
       transition: all 0.5s;
 
       &:hover {
-        background-color: $successColor;
-        color: $whiteColor;
-        .edit-modal__progress-bar {
+        .remove-modal__progress-bar {
           path:nth-child(1),
           path:nth-child(2) {
             stroke: $whiteColor !important;
@@ -326,16 +236,46 @@
         }
       }
     }
+
+    &--active-pending {
+      background-color: $primaryColor;
+      color: $whiteColor;
+      width: 70%;
+      .remove-modal__progress-bar {
+        path:nth-child(1) {
+          stroke: $borderColor !important;
+        }
+        path:nth-child(2) {
+          stroke: $whiteColor !important;
+        }
+      }
+    }
+
+    &--active-finished {
+      background-color: $successColor;
+      color: $whiteColor;
+      width: 95%;
+      .remove-modal__progress-bar {
+        path:nth-child(1) {
+          stroke: $borderColor !important;
+        }
+        path:nth-child(2) {
+          stroke: $whiteColor !important;
+        }
+      }
+    }
     @include tablet {
-      width: 20rem;
+      min-height: 9rem;
     }
   }
+
   &__preview-card-image {
     width: 6.5rem;
     border-radius: 0 0 18px 0;
     height: 100%;
     box-shadow: -16px 4px 20px 16px rgba(40, 40, 40, 0.59);
   }
+
   &__preview-card-right {
     padding: 0.5rem 0;
     flex: 1;
@@ -343,6 +283,7 @@
     flex-direction: column;
     gap: 0.5rem;
   }
+
   &__preview-card-criteria {
     font-weight: 600;
   }
@@ -356,10 +297,22 @@
       -webkit-line-clamp: 2;
     }
   }
+
   &__preview-card-progress {
-    width: 4.2rem !important;
-    position: relative;
-    left: 0.4rem;
-    top: 3.45rem;
+    width: 2.5rem !important;
+    position: absolute;
+    right: -0.5rem;
+    bottom: -0.7rem;
+    z-index: 1;
+  }
+  &__status {
+    padding-left: 0.5rem;
+    border-radius: 5px;
+    &--success {
+      border-left: 5px solid $successColor;
+    }
+    &--fail {
+      border-left: 5px solid $errorColor;
+    }
   }
 }

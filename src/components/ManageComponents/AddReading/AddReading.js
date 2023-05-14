@@ -1,7 +1,7 @@
 import "./AddReading.scss";
 
 // libs
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
@@ -15,9 +15,9 @@ import BookImagePlaceHolder from "../../../assets/icons/addedBookPlaceholder.svg
 //icons
 import ErrorIcon from "@mui/icons-material/Error";
 
-export default function AddReading() {
+export default function AddReading({ triggerRerender }) {
   const navigate = useNavigate();
-
+  const [isSuccess, setIsSuccess] = useState(null);
   function handleThumbnailUpload(e) {
     const uploadedThumbnail = e.target.files[0];
     formik.setFieldValue("cover_image", e.target.files[0]);
@@ -74,17 +74,20 @@ export default function AddReading() {
         formData.append("read_pages", values.read_pages);
         formData.append("cover_image", values.cover_image);
 
-        const response = await axios.post(
-          `${process.env.REACT_APP_API_URL}/api/user/books`, formData, {
+        await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/user/books`,
+          formData,
+          {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
-         
         );
-        console.log(response);
+        setIsSuccess(true);
+        triggerRerender();
       } catch (error) {
         console.log(error);
+        setIsSuccess(false);
       }
     },
   });
@@ -493,6 +496,21 @@ export default function AddReading() {
                 Reset
               </button>
             </motion.div>
+            <motion.h5
+              className={`add-reading__status ${
+                isSuccess
+                  ? "add-reading__status--success"
+                  : "add-reading__status--fail"
+              }`}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              variants={pageVariant}
+              transition={{ duration: 0.7 }}
+            >
+              {isSuccess === true && "Edition: Success"}
+              {isSuccess === false && "Edition: Failed"}
+            </motion.h5>
           </div>
         </div>
       </form>
