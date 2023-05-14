@@ -3,11 +3,7 @@ import "react-circular-progressbar/dist/styles.css";
 
 // libs
 import { motion } from "framer-motion";
-import {
-  fadeInVariant,
-  pageVariant,
-  slideVariant,
-} from "../../../pageVariants/variants";
+import { fadeInVariant } from "../../../pageVariants/variants";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -18,7 +14,11 @@ import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-export default function SideBooklistRemove({ recentBooks, token, triggerRerender }) {
+export default function SideBooklistRemove({
+  recentBooks,
+  token,
+  triggerRerender,
+}) {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState({});
 
@@ -36,20 +36,18 @@ export default function SideBooklistRemove({ recentBooks, token, triggerRerender
     document.body.classList.remove("modal-open");
   };
 
-  const handleDelete = async(book) => {
+  const handleDelete = async (book) => {
     try {
-      await axios
-      .delete(`${process.env.REACT_APP_API_URL}/api/user/books/`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/user/books/`, {
         headers: { Authorization: `bearer ${token}` },
         data: {
           book_id: book,
         },
-      }) 
-      triggerRerender()
-
+      });
+      triggerRerender();
     } catch (error) {
       console.log(error);
-    } 
+    }
   };
 
   return (
@@ -97,7 +95,7 @@ export default function SideBooklistRemove({ recentBooks, token, triggerRerender
                       <motion.article
                         initial="initial"
                         animate="in"
-                        exit={{x: -200}}
+                        exit={{ x: -200 }}
                         variants={fadeInVariant}
                         transition={{ duration: 0.7, delay: `1.${index}` }}
                         onClick={() => {

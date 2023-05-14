@@ -13,6 +13,7 @@ import Header from "../../components/Header/Header";
 import MobileMenu from "../../components/MobileMenu/MobileMenu";
 import Loading from "../../components/Loading/Loading";
 import SideMenu from "../../components/SideMenu/SideMenu";
+import BooksToRead from "../../components/MyShelfComponents/BooksToRead/BooksToRead";
 import Footer from "../../components/Footer/Footer";
 
 //icons - images
@@ -65,7 +66,8 @@ export default function MyShelf() {
             {/* side menu */}
             <SideMenu friends={userInfo.friends} />
 
-           
+          {/* Pending books slider */}
+            <BooksToRead />
           </main>
           <Footer />
         </>
