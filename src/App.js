@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import Manage from "./pages/Manage/Manage";
+import MyShelf from "./pages/MyShelf/MyShelf";
 function App() {
   useEffect(()=> {
   })
@@ -16,7 +17,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/manage" element={< Manage/>} />
-        <Route path="/my-shelf" element={<Dashboard />} />
+        <Route path="/my-shelf" element={<MyShelf />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
       </Routes>
