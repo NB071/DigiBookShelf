@@ -86,6 +86,7 @@ export default function GenresPieChart({token}) {
                   show: true,
                   showAlways: true,
                   label: "Favorite genre",
+                  fontSize: "0.8rem",
                   formatter: function (w) {
                     const maxPercentage = Math.max(...w.globals.series);
                     const index = w.globals.series.indexOf(maxPercentage);

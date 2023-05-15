@@ -4,7 +4,6 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
@@ -17,9 +16,10 @@ import BooksToRead from "../../components/MyShelfComponents/BooksToRead/BooksToR
 import GoalSetChart from "../../components/MyShelfComponents/GoalSetChart/GoalSetChart"
 import Footer from "../../components/Footer/Footer";
 import ShelfBooks from "../../components/MyShelfComponents/ShelfBooks/ShelfBooks";
+import FinishedBooksGallery from "../../components/MyShelfComponents/FinishedBooksGallery/FinishedBooksGallery"
 
 //icons - images
-export default function MyShelf({token, handleLogout, userInfo}) {
+export default function MyShelf({token, handleLogout, userInfo, userBooks}) {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -49,19 +49,23 @@ export default function MyShelf({token, handleLogout, userInfo}) {
             userAvatar={userInfo.avatar_image}
             username={`${userInfo.first_name} ${userInfo.last_name}`}
             menuToggle={handleLogoClick}
+            userBooks={userBooks}
           />
           <main className="dashboard">
             {/* side menu */}
             <SideMenu friends={userInfo.friends} handleLogout={handleLogout}/>
 
           {/* Pending books slider */}
-            <BooksToRead token={token}/>
+            <BooksToRead token={token} />
 
             {/* Goal set semi circle */}
             <GoalSetChart token={token} goalset={userInfo.goal_set}/>
 
             {/* Shelf books */}
             <ShelfBooks token={token}/>
+
+            {/* finished books cards */}
+            <FinishedBooksGallery token={token}/>
           </main>
           <Footer />
         </>
