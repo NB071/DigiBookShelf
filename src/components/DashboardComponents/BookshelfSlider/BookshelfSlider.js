@@ -11,9 +11,9 @@ import { motion } from "framer-motion";
 import { pageVariantTop } from "../../../pageVariants/variants";
 import axios from "axios";
 
-export default function BookshelfSlider() {
+export default function BookshelfSlider({token}) {
   const [recommendation, setRecommendation] = useState([]);
-  const token = localStorage.getItem("token");
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/user/books?pending=1`, {
@@ -23,6 +23,7 @@ export default function BookshelfSlider() {
         setRecommendation(data);
       });
   }, [token]);
+  
   if (!recommendation) {
     return null;
   }

@@ -1,7 +1,7 @@
 import "./SideMenu.scss";
 
 //libs
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { pageVariant } from "../../pageVariants/variants";
 
@@ -12,14 +12,9 @@ import ClassRoundedIcon from "@mui/icons-material/ClassRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import MeetingRoomRoundedIcon from "@mui/icons-material/MeetingRoomRounded";
 
-export default function SideMenu({ friends }) {
-  const navigate = useNavigate();
+export default function SideMenu({ friends, handleLogout }) {
   const location = useLocation();
-  // for log out
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+
   return (
     <motion.aside
       className="side-menu"

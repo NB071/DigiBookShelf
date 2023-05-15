@@ -5,7 +5,7 @@ import "swiper/css/effect-cards";
 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 // components
@@ -17,9 +17,8 @@ import BooksToRead from "../../components/MyShelfComponents/BooksToRead/BooksToR
 import Footer from "../../components/Footer/Footer";
 
 //icons - images
-export default function MyShelf() {
+export default function MyShelf({token, handleLogout, userInfo}) {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // for mobile hamburger menu
@@ -27,24 +26,10 @@ export default function MyShelf() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    }
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/user`, {
-        headers: { Authorization: `bearer ${token}` },
-      })
-      .then(({ data }) => {
-        setUserInfo(data);
-      })
-      .catch((err) => {
-        localStorage.removeItem("token");
-        navigate("/login");
-      });
-  }, [navigate]);
-
+  if (!token) {
+    navigate("/login");
+  }
+  
   return (
     <AnimatePresence>
       {!userInfo ? (
@@ -56,6 +41,7 @@ export default function MyShelf() {
             Toggle={handleLogoClick}
             isMenuOpen={isMenuOpen}
             userInfo={userInfo}
+            handleLogout={handleLogout}
           />
           <Header
             userAvatar={userInfo.avatar_image}
@@ -64,10 +50,10 @@ export default function MyShelf() {
           />
           <main className="dashboard">
             {/* side menu */}
-            <SideMenu friends={userInfo.friends} />
+            <SideMenu friends={userInfo.friends} handleLogout={handleLogout}/>
 
           {/* Pending books slider */}
-            <BooksToRead />
+            <BooksToRead token={token}/>
           </main>
           <Footer />
         </>

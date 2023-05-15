@@ -8,9 +8,8 @@ import CountUp from "react-countup";
 import Skeleton from "react-loading-skeleton";
 import axios from "axios";
 
-export default function TotalBooks() {
+export default function TotalBooks({token}) {
   const [totalShelfBooks, setTotalShelfBooks] = useState();
-  const token = localStorage.getItem("token");
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/user/books`, {

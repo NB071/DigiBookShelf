@@ -10,9 +10,8 @@ import { motion } from "framer-motion";
 import { pageVariantTop } from "../../../pageVariants/variants";
 import axios from "axios";
 
-export default function NYTslider() {
+export default function NYTslider({token}) {
   const [NYTbooks, setNYTbooks] = useState([]);
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     axios

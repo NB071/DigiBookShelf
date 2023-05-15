@@ -8,11 +8,9 @@ import ApexCharts from "apexcharts";
 import { motion } from "framer-motion";
 import { fadeInVariant } from "../../../pageVariants/variants";
 
-export default function GenresPieChart() {
+export default function GenresPieChart({token}) {
   const [genresCount, setGenresCount] = useState(null);
   const chartRef = useRef(null);
-
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     axios
@@ -23,7 +21,7 @@ export default function GenresPieChart() {
         setGenresCount(data);
       })
       .catch((error) => {
-        console.log("Error fetching genres count:", error);
+        console.error("Error fetching genres count:", error);
       });
   }, [token]);
 

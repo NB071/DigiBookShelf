@@ -6,9 +6,8 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { pageVariant, pageVariantRight } from "../../../pageVariants/variants";
 
-export default function RecentReading() {
+export default function RecentReading({token}) {
   const [recentBooks, setRecentBooks] = useState();
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     axios
@@ -19,6 +18,7 @@ export default function RecentReading() {
         setRecentBooks(data[0]);
       });
   }, [token]);
+  
   return (
     <motion.section
       className="recent-reading"

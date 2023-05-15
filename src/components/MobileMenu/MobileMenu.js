@@ -1,7 +1,7 @@
 import "./MobileMenu.scss";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { NavLink, useLocation } from "react-router-dom";
 import { mobileMenuVariant } from "../../pageVariants/variants";
 
 //icons
@@ -10,15 +10,8 @@ import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import DriveFileRenameOutlineRoundedIcon from "@mui/icons-material/DriveFileRenameOutlineRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
-export default function MobileMenu({ Toggle, isMenuOpen, userInfo }) {
-  const navigate = useNavigate()
+export default function MobileMenu({ Toggle, isMenuOpen, userInfo, handleLogout }) {
   const location = useLocation()
-   // for log out
-   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
-
   return (
     <motion.nav
       className="mobile-menu"

@@ -22,34 +22,21 @@ import Footer from "../../components/Footer/Footer";
 
 //icons - images
 
-export default function Manage() {
+export default function Manage({ userInfo, token, handleLogout }) {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [rerenderFlag, setRerenderFlag] = useState(false);
   const [recentBooks, setRecentBooks] = useState(null);
-  // for mobile hamburger menu
 
+  // for mobile hamburger menu
   const handleLogoClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/login");
+  }
   useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/user`, {
-        headers: { Authorization: `bearer ${token}` },
-      })
-      .then(({ data }) => {
-        setUserInfo(data);
-      })
-      .catch((err) => {
-        localStorage.removeItem("token");
-        navigate("/login");
-      });
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
         headers: { Authorization: `bearer ${token}` },
@@ -69,6 +56,7 @@ export default function Manage() {
             Toggle={handleLogoClick}
             isMenuOpen={isMenuOpen}
             userInfo={userInfo}
+            handleLogout={handleLogout}
           />
           <Header
             userAvatar={userInfo.avatar_image}
@@ -77,7 +65,7 @@ export default function Manage() {
           />
           <main className="manage">
             {/* side menu */}
-            <SideMenu friends={userInfo.friends} />
+            <SideMenu friends={userInfo.friends} handleLogout={handleLogout} />
 
             {/* First slider of all recent books in descending order */}
             <PendingBooksSlider recentBooks={recentBooks} />
@@ -85,6 +73,7 @@ export default function Manage() {
             {/* Add reading */}
             <AddReading
               triggerRerender={() => setRerenderFlag(!rerenderFlag)}
+              token={token}
             />
 
             {/* right side edit books */}
@@ -102,7 +91,9 @@ export default function Manage() {
             />
 
             {/* right side share reading CTA */}
-            <SideShareReading  triggerRerender={() => setRerenderFlag(!rerenderFlag)}/>
+            <SideShareReading
+              triggerRerender={() => setRerenderFlag(!rerenderFlag)}
+            />
           </main>
           <Footer />
         </>

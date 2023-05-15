@@ -14,15 +14,16 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const logout = useCallback(() => {
-    setToken(null);
     localStorage.removeItem("token");
-  }, []);
+    navigate("/login");
+    setToken(null);
+  }, [navigate]);
  
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        if (!token && location.pathname !== "/sign-up") {
-          navigate("/login")
+        if ((!token || token !== localStorage.getItem("token")) && location.pathname !== "/sign-up") {
+          logout()
         }
         else if (
           token &&
@@ -37,7 +38,6 @@ export const AuthProvider = ({ children }) => {
         } 
       } catch (err) {
         logout();
-        navigate("/login");
       }
     };
 

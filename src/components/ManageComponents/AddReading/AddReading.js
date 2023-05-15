@@ -15,7 +15,7 @@ import BookImagePlaceHolder from "../../../assets/icons/addedBookPlaceholder.svg
 //icons
 import ErrorIcon from "@mui/icons-material/Error";
 
-export default function AddReading({ triggerRerender }) {
+export default function AddReading({ triggerRerender, token }) {
   const navigate = useNavigate();
   const [isSuccess, setIsSuccess] = useState(null);
   function handleThumbnailUpload(e) {
@@ -29,7 +29,6 @@ export default function AddReading({ triggerRerender }) {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/add-reading");
     }
@@ -86,7 +85,7 @@ export default function AddReading({ triggerRerender }) {
         setIsSuccess(true);
         triggerRerender();
       } catch (error) {
-        console.log(error);
+        console.error(error);
         setIsSuccess(false);
       }
     },

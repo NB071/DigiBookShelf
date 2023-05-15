@@ -18,7 +18,7 @@ import TotalBooksCounter from "../../components/DashboardComponents/TotalBooksCo
 import FinishedBooksCounter from "../../components/DashboardComponents/FinishedBooksCounter/FinishedBooksCounter";
 import Footer from "../../components/Footer/Footer";
 
-export default function Dashboard({ userInfo }) {
+export default function Dashboard({ token, userInfo, handleLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // for mobile hamburger menu
@@ -36,6 +36,7 @@ export default function Dashboard({ userInfo }) {
         Toggle={handleLogoClick}
         isMenuOpen={isMenuOpen}
         userInfo={userInfo}
+        handleLogout={handleLogout}
       />
       <Header
         userAvatar={userInfo.avatar_image}
@@ -44,24 +45,24 @@ export default function Dashboard({ userInfo }) {
       />
       <main className="dashboard">
         {/* side menu */}
-        <SideMenu friends={userInfo.friends} />
+        <SideMenu friends={userInfo.friends} handleLogout={handleLogout} />
 
         {/* Recent reading */}
-        <RecentReading />
+        <RecentReading token={token}/>
 
         {/* small components*/}
-        <TotalBooksCounter />
-        <GenresPieChart />
-        <FinishedBooksCounter />
+        <TotalBooksCounter token={token}/>
+        <GenresPieChart token={token}/>
+        <FinishedBooksCounter token={token}/>
 
         {/* Banner */}
         <Banner />
 
         {/* #15 NYT  */}
-        <NYTslider />
+        <NYTslider token={token} />
 
         {/* Books to read */}
-        <BookshelfSlider />
+        <BookshelfSlider token={token}/>
 
         {/* Manage CTAs */}
         <ManageCTAs />

@@ -8,9 +8,9 @@ import { fadeInVariant } from "../../../pageVariants/variants";
 import Skeleton from "react-loading-skeleton";
 import axios from "axios";
 
-export default function FinishedBooksCounter() {
+export default function FinishedBooksCounter({token}) {
   const [finishedBooks, setfinishedBooks] = useState();
-  const token = localStorage.getItem("token");
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/user/books?pending=0`, {
