@@ -4,8 +4,7 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 // components
@@ -20,13 +19,9 @@ import SideBooklistRemove from "../../components/ManageComponents/SideBooklistRe
 import SideShareReading from "../../components/ManageComponents/SideShareReading/SideShareReading";
 import Footer from "../../components/Footer/Footer";
 
-//icons - images
-
-export default function Manage({userBooks, userInfo, token, handleLogout }) {
+export default function Manage({setRerenderFlag, rerenderFlag, userBooks, userInfo, token, handleLogout }) {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [rerenderFlag, setRerenderFlag] = useState(false);
-  const [recentBooks, setRecentBooks] = useState(null);
 
   // for mobile hamburger menu
   const handleLogoClick = () => {
@@ -36,18 +31,9 @@ export default function Manage({userBooks, userInfo, token, handleLogout }) {
   if (!token) {
     navigate("/login");
   }
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
-        headers: { Authorization: `bearer ${token}` },
-      })
-      .then(({ data }) => {
-        setRecentBooks(data);
-      });
-  }, [navigate, token, rerenderFlag]);
   return (
     <AnimatePresence>
-      {!userInfo || !recentBooks ? (
+      {!userInfo || !userBooks ? (
         <Loading key="loading" />
       ) : (
         <>
@@ -69,7 +55,7 @@ export default function Manage({userBooks, userInfo, token, handleLogout }) {
             <SideMenu friends={userInfo.friends} handleLogout={handleLogout} />
 
             {/* First slider of all recent books in descending order */}
-            <PendingBooksSlider recentBooks={recentBooks} />
+            <PendingBooksSlider recentBooks={userBooks} />
 
             {/* Add reading */}
             <AddReading
@@ -79,14 +65,14 @@ export default function Manage({userBooks, userInfo, token, handleLogout }) {
 
             {/* right side edit books */}
             <SideBooklistEdit
-              recentBooks={recentBooks}
+              recentBooks={userBooks}
               token={token}
               triggerRerender={() => setRerenderFlag(!rerenderFlag)}
             />
 
             {/* right side remove books */}
             <SideBooklistRemove
-              recentBooks={recentBooks}
+              recentBooks={userBooks}
               token={token}
               triggerRerender={() => setRerenderFlag(!rerenderFlag)}
             />

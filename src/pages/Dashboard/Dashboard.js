@@ -49,7 +49,7 @@ export default function Dashboard({ token, userInfo, userBooks, handleLogout }) 
         <SideMenu friends={userInfo.friends} handleLogout={handleLogout} />
 
         {/* Recent reading */}
-        <RecentReading token={token}/>
+        <RecentReading recentBook={userBooks[0]} token={token}/>
 
         {/* small components*/}
         <TotalBooksCounter token={token}/>

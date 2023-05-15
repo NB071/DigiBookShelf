@@ -13,6 +13,7 @@ function App() {
   const location = useLocation();
 
   const { token, logout, login } = useContext(AuthContext);
+  const [rerenderFlag, setRerenderFlag] = useState(false);
 
   const [userInfo, setUserInfo] = useState(null);
   const [userBooks, setUserBooks] = useState(null);
@@ -29,12 +30,6 @@ function App() {
         })
         .then(({ data }) => {
           setUserInfo(data);
-          axios.get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
-            headers: { Authorization: `bearer ${token}` },
-          }).then(({data}) => {
-            setUserBooks(data)
-            console.log(data);
-          })
         })
         .catch(() => {
           logout();
@@ -42,30 +37,65 @@ function App() {
     }
   }, [token, location.pathname, logout]);
 
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
+        headers: { Authorization: `bearer ${token}` },
+      })
+      .then(({ data }) => {
+        setUserBooks(data);
+      })
+      .catch(() => {
+        logout();
+      });
+  }, [token, rerenderFlag, logout]);
+
   return (
     <Routes>
       <Route
         path="/"
         element={
-          <Dashboard token={token} userInfo={userInfo} handleLogout={logout} userBooks={userBooks} />
+          <Dashboard
+            token={token}
+            userInfo={userInfo}
+            handleLogout={logout}
+            userBooks={userBooks}
+          />
         }
       />
       <Route
         path="/dashboard"
         element={
-          <Dashboard token={token} userInfo={userInfo} handleLogout={logout} userBooks={userBooks}/>
+          <Dashboard
+            token={token}
+            userInfo={userInfo}
+            handleLogout={logout}
+            userBooks={userBooks}
+          />
         }
       />
       <Route
         path="/manage"
         element={
-          <Manage token={token} userInfo={userInfo} handleLogout={logout} userBooks={userBooks}/>
+          <Manage
+            token={token}
+            userInfo={userInfo}
+            handleLogout={logout}
+            userBooks={userBooks}
+            rerenderFlag={rerenderFlag}
+            setRerenderFlag={setRerenderFlag}
+          />
         }
       />
       <Route
         path="/my-shelf"
         element={
-          <MyShelf token={token} userInfo={userInfo} handleLogout={logout} userBooks={userBooks}/>
+          <MyShelf
+            token={token}
+            userInfo={userInfo}
+            handleLogout={logout}
+            userBooks={userBooks}
+          />
         }
       />
       <Route

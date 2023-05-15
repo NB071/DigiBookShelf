@@ -1,24 +1,12 @@
 import "./RecentReading.scss";
+
 // libs
-import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import axios from "axios";
 import { motion } from "framer-motion";
 import { pageVariant, pageVariantRight } from "../../../pageVariants/variants";
 
-export default function RecentReading({token}) {
-  const [recentBooks, setRecentBooks] = useState();
-
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
-        headers: { Authorization: `bearer ${token}` },
-      })
-      .then(({ data }) => {
-        setRecentBooks(data[0]);
-      });
-  }, [token]);
-  
+export default function RecentReading({recentBook, token}) {  
+  console.log(recentBook);
   return (
     <motion.section
       className="recent-reading"
@@ -28,7 +16,7 @@ export default function RecentReading({token}) {
       variants={pageVariant}
       transition={{ duration: 0.7, delay: 0.4 }}
     >
-      {recentBooks && recentBooks.length !== 0 ? (
+      {recentBook && recentBook.length !== 0 ? (
         <>
           <motion.div
             className="recent-reading__left"
@@ -41,22 +29,22 @@ export default function RecentReading({token}) {
             <div className="recent-reading__top-left-wrapper">
               <h3 className="recent-reading__sub-heading">Continue Reading</h3>
               <h2 className="recent-reading__book-name">
-                {recentBooks ? (
-                  recentBooks.book_name
+                {recentBook ? (
+                  recentBook.book_name
                 ) : (
                   <Skeleton width={200} height={24} />
                 )}
               </h2>
             </div>
             <p className="recent-reading__book-description">
-              {recentBooks ? (
-                recentBooks.description
+              {recentBook ? (
+                recentBook.description
               ) : (
                 <Skeleton count={3} width={300} height={12} />
               )}
             </p>
             <div className="recent-reading__bottom">
-              {recentBooks ? (
+              {recentBook ? (
                 <>
                   <button type="button" className="recent-reading__CTA">
                     Read Now
@@ -64,7 +52,7 @@ export default function RecentReading({token}) {
                   <div className="recent-reading__dot-wrapper">
                     <span className="recent-reading__dot"></span>
                     <span className="recent-reading__page-info">
-                      Page {recentBooks.read_pages} of {recentBooks.total_pages}
+                      Page {recentBook.read_pages} of {recentBook.total_pages}
                     </span>
                   </div>
                 </>
@@ -85,9 +73,9 @@ export default function RecentReading({token}) {
             variants={pageVariantRight}
             transition={{ duration: 0.7, delay: 0.5 }}
           >
-            {recentBooks ? (
+            {recentBook ? (
               <img
-                src={recentBooks.cover_image}
+                src={recentBook.cover_image}
                 className="recent-reading__book-cover"
                 alt="recent reading book cover"
               />

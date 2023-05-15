@@ -100,7 +100,7 @@
     width: 100%;
     border-radius: 18px;
     height: 30rem;
-    overflow-y: scroll;
+    overflow-y: auto;
     & > a {
       color: $textColor;
     }
