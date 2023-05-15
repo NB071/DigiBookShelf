@@ -1,17 +1,12 @@
 import "./Dashboard.scss";
-import "react-loading-skeleton/dist/skeleton.css";
-import "swiper/css";
-import "swiper/css/effect-cards";
 
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 // components
+import Loading from "../../components/Loading/Loading";
 import Header from "../../components/Header/Header";
 import MobileMenu from "../../components/MobileMenu/MobileMenu";
-import Loading from "../../components/Loading/Loading";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import RecentReading from "../../components/DashboardComponents/RecentReading/RecentReading";
 import Banner from "../../components/Banner/Banner";
@@ -22,11 +17,8 @@ import ManageCTAs from "../../components/DashboardComponents/MangeCTAs/ManageCTA
 import TotalBooksCounter from "../../components/DashboardComponents/TotalBooksCounter/TotalBooksCounter";
 import FinishedBooksCounter from "../../components/DashboardComponents/FinishedBooksCounter/FinishedBooksCounter";
 import Footer from "../../components/Footer/Footer";
-//icons - images
 
-export default function Dashboard() {
-  const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState();
+export default function Dashboard({ userInfo }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // for mobile hamburger menu
@@ -34,68 +26,47 @@ export default function Dashboard() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    }
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/user`, {
-        headers: { Authorization: `bearer ${token}` },
-      })
-      .then(({ data }) => {
-        setUserInfo(data);
-      })
-      .catch((err) => {
-        localStorage.removeItem("token");
-        navigate("/login");
-      });
-  }, [navigate]);
-
+  if (!userInfo) {
+    return <Loading/>
+  }
   return (
     <AnimatePresence>
-      {!userInfo ? (
-        <Loading key="loading" />
-      ) : (
-        <>
-          <MobileMenu
-            key="mobileMenu"
-            Toggle={handleLogoClick}
-            isMenuOpen={isMenuOpen}
-            userInfo={userInfo}
-          />
-          <Header
-            userAvatar={userInfo.avatar_image}
-            username={`${userInfo.first_name} ${userInfo.last_name}`}
-            menuToggle={handleLogoClick}
-          />
-          <main className="dashboard">
-            {/* side menu */}
-            <SideMenu friends={userInfo.friends} />
+      <MobileMenu
+        key="mobileMenu"
+        Toggle={handleLogoClick}
+        isMenuOpen={isMenuOpen}
+        userInfo={userInfo}
+      />
+      <Header
+        userAvatar={userInfo.avatar_image}
+        username={`${userInfo.first_name} ${userInfo.last_name}`}
+        menuToggle={handleLogoClick}
+      />
+      <main className="dashboard">
+        {/* side menu */}
+        <SideMenu friends={userInfo.friends} />
 
-            {/* Recent reading */}
-            <RecentReading />
+        {/* Recent reading */}
+        <RecentReading />
 
-            {/* small components*/}
-            <TotalBooksCounter />
-            <GenresPieChart />
-            <FinishedBooksCounter />
+        {/* small components*/}
+        <TotalBooksCounter />
+        <GenresPieChart />
+        <FinishedBooksCounter />
 
-            {/* Banner */}
-            <Banner />
+        {/* Banner */}
+        <Banner />
 
-            {/* #15 NYT  */}
-            <NYTslider />
+        {/* #15 NYT  */}
+        <NYTslider />
 
-            {/* Books to read */}
-            <BookshelfSlider />
+        {/* Books to read */}
+        <BookshelfSlider />
 
-            {/* Manage CTAs */}
-            <ManageCTAs />
-          </main>
-          <Footer />
-        </>
-      )}
+        {/* Manage CTAs */}
+        <ManageCTAs />
+      </main>
+      <Footer />
     </AnimatePresence>
   );
 }

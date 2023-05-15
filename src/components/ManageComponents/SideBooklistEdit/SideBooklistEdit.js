@@ -8,7 +8,7 @@ import {
   pageVariant,
   slideVariant,
 } from "../../../pageVariants/variants";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useFormik } from "formik";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";

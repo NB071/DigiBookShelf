@@ -2,32 +2,30 @@
 import "./Login.scss";
 
 // Packages
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import axios from "axios";
 import * as Yup from "yup";
 import { pageVariant, slideVariant } from "../../pageVariants/variants";
+
 // icons
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-
 import ErrorIcon from "@mui/icons-material/Error";
 
 // images
 import Logo from "../../assets/logo/Logo.svg";
 import Lines from "../../assets/Images/Lines.svg";
 
-export default function Login() {
+export default function Login({token, handleLogin}) {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/dashboard");
-    }
-  });
+  if (token) {
+    navigate("/dashboard");
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -46,7 +44,7 @@ export default function Login() {
           `${process.env.REACT_APP_API_URL}/api/login`,
           values
         );
-        localStorage.setItem("token", response.data.token);
+        handleLogin(response.data.token)
         navigate("/dashboard");
       } catch (error) {
         formik.errors.email = "Incorrect email or password";

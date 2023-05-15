@@ -2,11 +2,11 @@
 import "./SignUp.scss";
 
 // Packages
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
-import { pageVariant} from "../../pageVariants/variants";
+import { pageVariant } from "../../pageVariants/variants";
 import axios from "axios";
 import * as Yup from "yup";
 
@@ -19,15 +19,13 @@ import ErrorIcon from "@mui/icons-material/Error";
 import Logo from "../../assets/logo/Logo.svg";
 import Lines from "../../assets/Images/Lines.svg";
 
-export default function SignUp() {
+export default function SignUp({ handleLogin, token }) {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/dashboard");
-    }
-  });
+  if (token) {
+    navigate("/dashboard");
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -58,9 +56,20 @@ export default function SignUp() {
           `${process.env.REACT_APP_API_URL}/api/register`,
           values
         );
-        localStorage.setItem("token", response.data.token);
+        handleLogin(response.data.token);
         navigate("/dashboard");
-      } catch (error) {}
+      } catch (error) {
+        const errorMessage = error.response.data.error;
+        if (errorMessage.includes("Email") && errorMessage.includes("Username")) {
+          formik.errors.email = "Email already exists";
+          formik.errors.username = "Username already exists";
+        } else if (errorMessage.includes("Email")) {
+          formik.errors.email = "Email already exists";
+          
+        } else if (errorMessage.includes("Username")) {
+          formik.errors.username = "Username already exists";
+        }
+      }
     },
   });
 
