@@ -57,7 +57,7 @@ export default function MyShelf({token, handleLogout, userInfo}) {
             <BooksToRead token={token}/>
 
             {/* Goal set semi circle */}
-            <GoalSetChart token={token} goalset={userInfo}/>
+            <GoalSetChart token={token} goalset={userInfo.goal_set}/>
           </main>
           <Footer />
         </>

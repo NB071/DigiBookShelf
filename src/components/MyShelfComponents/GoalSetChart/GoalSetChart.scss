@@ -3,11 +3,11 @@
 @use "../../../styles/partials/responsive" as *;
 
 .goalset {
-  background-color: $primaryColor;
+  background-color: $whiteColor;
   border-radius: 18px;
   box-shadow: 2px 10px 19px -1px rgba(0, 0, 0, 0.05);
-  grid-column: 1 / 3;
-  grid-row: 1 / 2;
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -19,8 +19,7 @@
     width: 100%;
     padding: 1.5rem;
     color: $textColor;
-    @include tablet {
-    }
+    margin-bottom: 1rem;
   }
 
   &__container {
@@ -30,23 +29,47 @@
     justify-content: center;
     background-color: $whiteColor;
     border-radius: 18px;
+   
+  }
+  &__semi-pie-container {
+    position: relative;
+    height: min-content;
+    width: fit-content;
+  }
+  &__semi-pie {
+    transform: scaleX(1.2);
+    height: 10rem;
+
     @include tablet {
+      height: 10rem;
+    }
+    @include desktop {
+      height: 11rem;
+
     }
   }
+  &__center-text {
+    position: absolute;
+    bottom: 50%;
+    width: 100%;
+    text-align: center;
+  }
+  &__sub-center-text {
+    position: absolute;
+    bottom: 30%;
+    width: 100%;
+    text-align: center;
+    color: $primaryColor;
+  font-weight: 700;    
+  }
   
-  // &__semi-pie {
-  //   height: 10rem;
-  
-  // }
-
 
 
 
 
   @include tablet {
-    background-color: $whiteColor;
-    grid-column: 3 / -1;
-    grid-row: 1 / 2;
+    grid-column: 3 / 5;
+    grid-row: 2 / 3;
   }
   @include desktop {
     grid-column: 10 / -1;

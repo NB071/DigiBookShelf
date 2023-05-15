@@ -32,7 +32,7 @@ export default function BooksToRead({token}) {
       animate="animate"
       exit="exit"
       variants={pageVariantTop}
-      transition={{ duration: 0.7, delay: 1 }}
+      transition={{ duration: 0.7, delay: 0.5 }}
     >
       <div className="books-pending__left">
         <h2 className="books-pending__heading">Books to Read</h2>
