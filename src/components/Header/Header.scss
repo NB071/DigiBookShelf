@@ -57,8 +57,6 @@
       display: block;
       flex: 1;
       padding: 5rem;
-
-
     }
     @include desktop {
       padding: 0 10rem;
@@ -93,6 +91,86 @@
     }
   }
 
+  &__dropdown {
+    position: absolute;
+    margin-top: 1rem;
+    background-color: $whiteColor;
+    box-shadow: 0px 4px 24px -8px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    width: 100%;
+    border-radius: 18px;
+    height: 30rem;
+    overflow-y: scroll;
+    & > a {
+      color: $textColor;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $primaryColor;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: $grayColor;
+      border-radius: 18px;
+    }
+    &::-webkit-scrollbar {
+      width: 0.4rem;
+    }
+  }
+  &__dropdown-item {
+
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    height: 10rem;
+    gap: 2rem;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    transition: all 0.5s;
+    &--border-bottom {
+      border-bottom: 1px solid $bodyColor;
+    }
+    &:hover {
+      background-color: $primaryColor;
+      color: $whiteColor;
+      .header__dropdown-circle-background {
+        transition: all .5s ease-in-out ;
+        opacity: 1;
+      }
+    }
+  }
+  &__dropdown-item-image {
+    height: 5rem;
+    border-radius: 10px;
+  }
+  &__dropdown-item-criteria {
+    font-weight: 600;
+  }
+  &__dropdown-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  &__dropdown-item-info {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__dropdown-circle-background {
+    opacity: 0;
+    position: absolute;
+    max-width: 10rem;
+    max-height: 8rem;
+    left: -4rem;
+    bottom: 1rem;
+    z-index: -1;
+  }
+
   &__right {
     display: none;
     @include tablet {
@@ -107,10 +185,9 @@
     cursor: pointer;
     color: $textColor;
     font-size: 1.75rem !important;
-    transition: all .3s !important;
+    transition: all 0.3s !important;
     &:hover {
       color: $primaryColor;
-
     }
     @include tablet {
       display: block;

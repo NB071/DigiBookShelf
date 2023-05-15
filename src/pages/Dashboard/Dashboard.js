@@ -18,7 +18,7 @@ import TotalBooksCounter from "../../components/DashboardComponents/TotalBooksCo
 import FinishedBooksCounter from "../../components/DashboardComponents/FinishedBooksCounter/FinishedBooksCounter";
 import Footer from "../../components/Footer/Footer";
 
-export default function Dashboard({ token, userInfo, handleLogout }) {
+export default function Dashboard({ token, userInfo, userBooks, handleLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // for mobile hamburger menu
@@ -26,7 +26,7 @@ export default function Dashboard({ token, userInfo, handleLogout }) {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  if (!userInfo) {
+  if (!userInfo || !userBooks) {
     return <Loading/>
   }
   return (
@@ -42,6 +42,7 @@ export default function Dashboard({ token, userInfo, handleLogout }) {
         userAvatar={userInfo.avatar_image}
         username={`${userInfo.first_name} ${userInfo.last_name}`}
         menuToggle={handleLogoClick}
+        userBooks={userBooks}
       />
       <main className="dashboard">
         {/* side menu */}

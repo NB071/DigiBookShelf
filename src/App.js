@@ -15,6 +15,7 @@ function App() {
   const { token, logout, login } = useContext(AuthContext);
 
   const [userInfo, setUserInfo] = useState(null);
+  const [userBooks, setUserBooks] = useState(null);
 
   useEffect(() => {
     if (
@@ -28,6 +29,12 @@ function App() {
         })
         .then(({ data }) => {
           setUserInfo(data);
+          axios.get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
+            headers: { Authorization: `bearer ${token}` },
+          }).then(({data}) => {
+            setUserBooks(data)
+            console.log(data);
+          })
         })
         .catch(() => {
           logout();
@@ -40,25 +47,25 @@ function App() {
       <Route
         path="/"
         element={
-          <Dashboard token={token} userInfo={userInfo} handleLogout={logout} />
+          <Dashboard token={token} userInfo={userInfo} handleLogout={logout} userBooks={userBooks} />
         }
       />
       <Route
         path="/dashboard"
         element={
-          <Dashboard token={token} userInfo={userInfo} handleLogout={logout} />
+          <Dashboard token={token} userInfo={userInfo} handleLogout={logout} userBooks={userBooks}/>
         }
       />
       <Route
         path="/manage"
         element={
-          <Manage token={token} userInfo={userInfo} handleLogout={logout} />
+          <Manage token={token} userInfo={userInfo} handleLogout={logout} userBooks={userBooks}/>
         }
       />
       <Route
         path="/my-shelf"
         element={
-          <MyShelf token={token} userInfo={userInfo} handleLogout={logout} />
+          <MyShelf token={token} userInfo={userInfo} handleLogout={logout} userBooks={userBooks}/>
         }
       />
       <Route

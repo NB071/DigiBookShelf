@@ -22,7 +22,7 @@ import Footer from "../../components/Footer/Footer";
 
 //icons - images
 
-export default function Manage({ userInfo, token, handleLogout }) {
+export default function Manage({userBooks, userInfo, token, handleLogout }) {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [rerenderFlag, setRerenderFlag] = useState(false);
@@ -62,6 +62,7 @@ export default function Manage({ userInfo, token, handleLogout }) {
             userAvatar={userInfo.avatar_image}
             username={`${userInfo.first_name} ${userInfo.last_name}`}
             menuToggle={handleLogoClick}
+            userBooks={userBooks}
           />
           <main className="manage">
             {/* side menu */}

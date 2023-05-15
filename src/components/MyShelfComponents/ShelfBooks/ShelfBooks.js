@@ -17,7 +17,7 @@ export default function ShelfBooks({ token }) {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
+      .get(`${process.env.REACT_APP_API_URL}/api/user/books?pending=1?recent`, {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }) => {
@@ -79,6 +79,7 @@ export default function ShelfBooks({ token }) {
         </div>
       </div>
       <div></div>
+      
     </motion.section>
   );
 }
