@@ -16,6 +16,7 @@ import SideMenu from "../../components/SideMenu/SideMenu";
 import BooksToRead from "../../components/MyShelfComponents/BooksToRead/BooksToRead";
 import GoalSetChart from "../../components/MyShelfComponents/GoalSetChart/GoalSetChart"
 import Footer from "../../components/Footer/Footer";
+import ShelfBooks from "../../components/MyShelfComponents/ShelfBooks/ShelfBooks";
 
 //icons - images
 export default function MyShelf({token, handleLogout, userInfo}) {
@@ -58,6 +59,9 @@ export default function MyShelf({token, handleLogout, userInfo}) {
 
             {/* Goal set semi circle */}
             <GoalSetChart token={token} goalset={userInfo.goal_set}/>
+
+            {/* Shelf books */}
+            <ShelfBooks token={token}/>
           </main>
           <Footer />
         </>
