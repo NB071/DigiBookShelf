@@ -14,6 +14,7 @@ import MobileMenu from "../../components/MobileMenu/MobileMenu";
 import Loading from "../../components/Loading/Loading";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import BooksToRead from "../../components/MyShelfComponents/BooksToRead/BooksToRead";
+import GoalSetChart from "../../components/MyShelfComponents/GoalSetChart/GoalSetChart"
 import Footer from "../../components/Footer/Footer";
 
 //icons - images
@@ -54,6 +55,9 @@ export default function MyShelf({token, handleLogout, userInfo}) {
 
           {/* Pending books slider */}
             <BooksToRead token={token}/>
+
+            {/* Goal set semi circle */}
+            <GoalSetChart token={token} goalset={userInfo}/>
           </main>
           <Footer />
         </>
