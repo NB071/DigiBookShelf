@@ -15,7 +15,7 @@ import GoalSetChart from "../../components/MyShelfComponents/GoalSetChart/GoalSe
 import Footer from "../../components/Footer/Footer";
 import ShelfBooks from "../../components/MyShelfComponents/ShelfBooks/ShelfBooks";
 import FinishedBooksGallery from "../../components/MyShelfComponents/FinishedBooksGallery/FinishedBooksGallery";
-
+import Activities from "../../components/MyShelfComponents/Activities/Activities";
 //icons - images
 export default function MyShelf({ token, handleLogout, userInfo, userBooks }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -59,6 +59,8 @@ export default function MyShelf({ token, handleLogout, userInfo, userBooks }) {
 
             {/* finished books cards */}
             <FinishedBooksGallery token={token} />
+
+            <Activities token={token}/>
           </main>
           <Footer />
         </>

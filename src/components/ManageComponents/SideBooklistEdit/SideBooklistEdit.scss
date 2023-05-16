@@ -301,7 +301,7 @@
     position: relative;
     border-radius: 18px 0 18px 0;
     overflow: hidden;
-    gap: 1rem;
+    gap: 1.3rem;
     transition: all 0.5s;
     cursor: pointer;
     &:hover {
@@ -358,7 +358,7 @@
       }
     }
     @include tablet {
-      height: 8rem;
+      height: 10rem;
     }
   }
   &__preview-card-image {

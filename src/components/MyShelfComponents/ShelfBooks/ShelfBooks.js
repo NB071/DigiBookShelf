@@ -44,26 +44,28 @@ export default function ShelfBooks({ token }) {
               alt={`${recentBook[0].cover_image} cover`}
             />
             <div className="recent-book__info-wrapper">
-              <span className="recent-book__progress-wrapper">
+              <span className={`recent-book__progress-wrapper ${+recentBook[0].total_pages === +recentBook[0].read_pages ? "recent-book__progress-wrapper--finished": ""}`}>
                 <CircularProgressbar
                   className="recent-book__progress-bar"
                   strokeWidth={50}
                   styles={buildStyles({
                     strokeLinecap: "butt",
-                    trailColor: "#f3f3f3e0",
-                    pathColor: "#B2B7C5",
+                    trailColor: `#f3f3f3e0`,
+                    pathColor: +recentBook[0].total_pages === +recentBook[0].read_pages
+                    ? "#578C7A"
+                    : "#f3f3f3e0",
                   })}
                   value={
                     recentBook[0].total_pages === 0
                       ? 0
                       : (
-                          (recentBook[0].read_pages /
-                            recentBook[0].total_pages) *
+                          (+recentBook[0].read_pages /
+                            +recentBook[0].total_pages) *
                           100
                         ).toFixed(0)
                   }
                 />
-                {recentBook[0].read_pages} of {recentBook[0].total_pages}
+                {recentBook[0].read_pages} of {recentBook[0].total_pages} {+recentBook[0].total_pages === +recentBook[0].read_pages ? "(Finished)" : ""}
               </span>
               <p className="recent-book__author">
                 <span className="recent-book__book-criteria">Author:</span>{" "}

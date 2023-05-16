@@ -24,7 +24,6 @@ export default function FinishedBooksGallery({ token }) {
       })
       .then(({ data }) => {
         setDoneBooks(data);
-        console.log(data);
       });
   }, [token]);
 
@@ -51,8 +50,8 @@ export default function FinishedBooksGallery({ token }) {
           doneBooks.map(
             (book, index) =>
               index < 5 && (
-                <Link to={`/user/books/${book.book}`}>
-                  <article className="done-reading__card" key={book.id}>
+                <Link to={`/user/books/${book.book}`} key={book.book}>
+                  <article className="done-reading__card">
                     <img
                       src={book.cover_image}
                       className="done-reading__card-image"

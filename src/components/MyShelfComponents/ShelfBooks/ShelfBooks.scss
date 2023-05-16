@@ -68,6 +68,10 @@
     gap: 0.5rem;
     color: $placeholderColor;
     margin-bottom: 0.75rem;
+    &--finished {
+      color: $successColor;
+      font-weight: 600;
+    }
   }
   &__progress-bar {
     height: 1.5rem;

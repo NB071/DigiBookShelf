@@ -12,7 +12,7 @@ import { pageVariantTop } from "../../../pageVariants/variants";
 import axios from "axios";
 
 //svg
-import Lost from "../../../assets/icons/Lost.svg"
+import Lost from "../../../assets/icons/Lost.svg";
 
 export default function BooksToRead({ token }) {
   const [bookToRead, setBookToRead] = useState(null);
@@ -22,11 +22,9 @@ export default function BooksToRead({ token }) {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }) => {
-        console.log(data);
         setBookToRead(data);
       });
   }, [token]);
-  console.log(bookToRead);
   return (
     <motion.section
       className="books-pending"
@@ -59,8 +57,8 @@ export default function BooksToRead({ token }) {
               modules={[EffectCoverflow]}
             >
               {bookToRead.map((book) => (
-                <SwiperSlide className="books-pending__slide">
-                  <article key={book.id} className="books-pending__book-card">
+                <SwiperSlide key={book.book} className="books-pending__slide">
+                  <article className="books-pending__book-card">
                     <img
                       src={book.cover_image}
                       alt={book.name}
@@ -87,8 +85,12 @@ export default function BooksToRead({ token }) {
             </Swiper>
           ) : (
             <>
-            <img src={Lost} className="books-pending__not-found-vector" alt="" />
-            <p>Currently, there's no book in you're shelf...</p>
+              <img
+                src={Lost}
+                className="books-pending__not-found-vector"
+                alt=""
+              />
+              <p>Currently, there's no book in you're shelf...</p>
             </>
           )}
         </div>
