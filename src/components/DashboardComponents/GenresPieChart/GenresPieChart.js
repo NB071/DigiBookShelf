@@ -79,7 +79,7 @@ export default function GenresPieChart({ token }) {
                 value: {
                   show: true,
                   fontWeight: "bold",
-                  fontSize: "0.9rem",
+                  fontSize: "0.7rem",
                 },
                 total: {
                   show: true,

@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { pageVariant, slideVariant } from "../../../pageVariants/variants";
 import axios from "axios";
 import * as Yup from "yup";
+import { useSnackbar } from "notistack";
 
 // svgs
 import BookImagePlaceHolder from "../../../assets/icons/addedBookPlaceholder.svg";
@@ -17,7 +18,8 @@ import ErrorIcon from "@mui/icons-material/Error";
 export default function AddReading({ triggerRerender, token }) {
 
   const [isSuccess, setIsSuccess] = useState(null);
-  
+  const { enqueueSnackbar } = useSnackbar();
+
   function handleThumbnailUpload(e) {
     const uploadedThumbnail = e.target.files[0];
     formik.setFieldValue("cover_image", e.target.files[0]);
@@ -76,9 +78,25 @@ export default function AddReading({ triggerRerender, token }) {
           }
         );
         setIsSuccess(true);
+        enqueueSnackbar("Success", {
+          variant: "success",
+          style: {
+            backgroundColor: "#578C7A",
+            height: "4rem",
+            borderRadius: "18px",
+          },
+        });
         triggerRerender();
       } catch (error) {
         console.error(error);
+        enqueueSnackbar("Failure", {
+          variant: "error",
+          style: {
+            backgroundColor: "#eb4343",
+            height: "4rem",
+            borderRadius: "18px",
+          },
+        });
         setIsSuccess(false);
       }
     },
@@ -488,21 +506,6 @@ export default function AddReading({ triggerRerender, token }) {
                 Reset
               </button>
             </motion.div>
-            <motion.h5
-              className={`add-reading__status ${
-                isSuccess
-                  ? "add-reading__status--success"
-                  : "add-reading__status--fail"
-              }`}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              variants={pageVariant}
-              transition={{ duration: 0.7 }}
-            >
-              {isSuccess === true && "Edition: Success"}
-              {isSuccess === false && "Edition: Failed"}
-            </motion.h5>
           </div>
         </div>
       </form>

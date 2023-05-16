@@ -1,9 +1,9 @@
 import "./Header.scss";
 
 // libs
+import Fuse from "fuse.js";
 import { motion } from "framer-motion";
 import { pageVariant } from "../../pageVariants/variants";
-import Fuse from "fuse.js";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 
@@ -64,6 +64,7 @@ export default function Header({
   }, []);
 
   return (
+    
     <motion.header
       className="header"
       initial="initial"
@@ -72,6 +73,7 @@ export default function Header({
       variants={pageVariant}
       transition={{ duration: 0.7, delay: 0.2 }}
     >
+ 
       <section className="header__left">
         <WidgetsRoundedIcon
           className="header__mobile-menu"
@@ -132,7 +134,11 @@ export default function Header({
                         {result.description}
                       </p>
                     </div>
-                    <img src={CircleBackground} className="header__dropdown-circle-background" alt="" />
+                    <img
+                      src={CircleBackground}
+                      className="header__dropdown-circle-background"
+                      alt=""
+                    />
                   </div>
                 </Link>
               ))}
@@ -141,7 +147,9 @@ export default function Header({
         </div>
       </section>
       <section className="header__right">
-        <Brightness4RoundedIcon className="header__darkmode-icon" />
+        <Brightness4RoundedIcon
+          className="header__darkmode-icon"
+        />
         <NotificationsNoneRoundedIcon className="header__ringbell-icon" />
         <div className="header__user-area">
           <img
@@ -151,7 +159,7 @@ export default function Header({
           />
           <div className="header__user-info">
             <h3 className="header__username">{username}</h3>
-            <p className="header__level">Level 1</p>
+            <p className="header__level">Level 4</p>
           </div>
         </div>
       </section>

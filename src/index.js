@@ -8,13 +8,13 @@ import { SnackbarProvider } from "notistack";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <BrowserRouter>
-      <AuthProvider>
-        <SnackbarProvider autoHideDuration="4000">
-          <App />
-        </SnackbarProvider>
-      </AuthProvider>
-    </BrowserRouter>
+  <BrowserRouter>
+    <AuthProvider>
+      <SnackbarProvider autoHideDuration="4000">
+        <App />
+      </SnackbarProvider>
+    </AuthProvider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
