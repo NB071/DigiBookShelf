@@ -2,13 +2,12 @@ import "./GenresPieChart.scss";
 
 //libs
 import React, { useEffect, useState, useRef } from "react";
-import Skeleton from "react-loading-skeleton";
 import axios from "axios";
 import ApexCharts from "apexcharts";
 import { motion } from "framer-motion";
 import { fadeInVariant } from "../../../pageVariants/variants";
 
-export default function GenresPieChart({token}) {
+export default function GenresPieChart({ token }) {
   const [genresCount, setGenresCount] = useState(null);
   const chartRef = useRef(null);
 
@@ -108,11 +107,7 @@ export default function GenresPieChart({token}) {
   }, [genresCount]);
 
   if (!genresCount) {
-    return (
-      <section>
-        <Skeleton width={200} height={200} />
-      </section>
-    );
+    return null;
   }
 
   return (

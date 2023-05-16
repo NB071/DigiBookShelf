@@ -12,7 +12,8 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  overflow-x: hidden;
+  position: relative;
+  overflow: hidden;
   // info overlay
   &__book-card-info {
     display: flex;
@@ -102,6 +103,19 @@
         opacity: 1;
       }
     }
+  }
+  &__not-found-vector {
+    position: absolute;
+    height: 9rem;
+    bottom: -.5rem;
+    right: -1rem;
+  }
+
+  &__not-found-text {
+color: $textColor;
+@include tablet {
+color: $whiteColor;
+}
   }
 
   @include tablet {

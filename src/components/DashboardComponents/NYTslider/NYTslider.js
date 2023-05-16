@@ -9,6 +9,7 @@ import { EffectCards } from "swiper";
 import { motion } from "framer-motion";
 import { pageVariantTop } from "../../../pageVariants/variants";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function NYTslider({token}) {
   const [NYTbooks, setNYTbooks] = useState([]);
@@ -44,9 +45,11 @@ export default function NYTslider({token}) {
         className="books-NYT__slider-wrapper"
       >
         {NYTbooks.map((book) => (
-          <SwiperSlide key={book.id} className="books-NYT__slide">
+         <Link to={`/books/${book.book}`}>
+         <SwiperSlide key={book.id} className="books-NYT__slide">
             <img src={book.cover_image} alt={book.name} title={book.name} />
           </SwiperSlide>
+          </Link>
         ))}
       </Swiper>
     </motion.section>

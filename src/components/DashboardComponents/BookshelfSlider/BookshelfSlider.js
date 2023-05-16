@@ -11,6 +11,8 @@ import { motion } from "framer-motion";
 import { pageVariantTop } from "../../../pageVariants/variants";
 import axios from "axios";
 
+//svgs
+import NotFound from "../../../assets/icons/NotFound.svg"
 export default function BookshelfSlider({token}) {
   const [recommendation, setRecommendation] = useState([]);
 
@@ -87,7 +89,10 @@ export default function BookshelfSlider({token}) {
                 ))}
             </Swiper>
           ) : (
-            <p>Currently, there's no book in you're shelf...</p>
+            <>
+            <img src={NotFound} className="books-shelf__not-found-vector" alt="" />
+            <p className="books-shelf__not-found-text">Currently, there's no book in you're shelf...</p>
+            </>
           )}
         </div>
       </div>

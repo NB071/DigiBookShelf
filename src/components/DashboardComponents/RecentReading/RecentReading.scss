@@ -14,7 +14,7 @@
   padding: 1.5rem;
   overflow-x: hidden;
   overflow-y: hidden;
-
+position: relative;
   &__left {
     display: flex;
     flex-direction: column;
@@ -92,7 +92,12 @@
       height: 100%;
     }
   }
-
+&__not-found-vector {
+  position: absolute;
+  height: 12rem;
+  right: 0;
+  bottom: 0;
+}
   @include tablet {
     flex-direction: row;
     grid-column: 3 / -1;

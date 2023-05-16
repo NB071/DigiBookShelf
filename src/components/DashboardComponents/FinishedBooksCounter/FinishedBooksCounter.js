@@ -5,10 +5,10 @@ import CountUp from "react-countup";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInVariant } from "../../../pageVariants/variants";
-import Skeleton from "react-loading-skeleton";
 import axios from "axios";
+import Wave from "react-wavify";
 
-export default function FinishedBooksCounter({token}) {
+export default function FinishedBooksCounter({ token }) {
   const [finishedBooks, setfinishedBooks] = useState();
 
   useEffect(() => {
@@ -35,9 +35,17 @@ export default function FinishedBooksCounter({token}) {
         <span className="finished-books__number">
           <CountUp delay={0.5} duration={4} end={finishedBooks.length} />
         </span>
-      ) : (
-        <Skeleton width={50} height={50} />
-      )}
+      ) : null}
+       <Wave
+          fill="#6936F5"
+          paused={false}
+          options={{
+            amplitude: 20,
+            speed: 0.4,
+            points: 3,
+          }}
+          className="finished-books__background-wave"
+        />
     </motion.section>
   );
 }
