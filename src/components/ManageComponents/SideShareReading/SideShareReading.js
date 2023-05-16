@@ -1,36 +1,33 @@
 import "./SideShareReading.scss";
-import "react-circular-progressbar/dist/styles.css";
+
+// libs
+import { motion } from "framer-motion";
+import {
+  fadeInVariant,
+  pageVariant,
+  slideVariant,
+} from "../../../pageVariants/variants";
 
 // icons
-import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
-export default function SideShareReading({ recentBooks, token, triggerRerender }) {
-
-  // const handleDelete = async(book) => {
-  //   try {
-  //     // await axios
-  //     // .delete(`${process.env.REACT_APP_API_URL}/api/user/books/`, {
-  //     //   headers: { Authorization: `bearer ${token}` },
-  //     //   data: {
-  //     //     book_id: book,
-  //     //   },
-  //     // }) 
-  //     triggerRerender()
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   } 
-  // };
-
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+export default function SideShareReading({
+  recentBooks,
+  token,
+  triggerRerender,
+}) {
   return (
-    <section className="side-share-reading">
+    <motion.section
+      className="side-share-reading"
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={fadeInVariant}
+      transition={{ duration: 0.7, delay: 0.9 }}
+    >
       <h2 className="side-share-reading__heading">Share reading</h2>
-      <button
-        className="side-share-reading__CTA"
-        type="button"
-      >
+      <button className="side-share-reading__CTA" type="button">
         <GroupsRoundedIcon /> Explore
       </button>
-
-    </section>
+    </motion.section>
   );
 }

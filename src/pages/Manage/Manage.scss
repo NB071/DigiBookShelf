@@ -13,7 +13,7 @@
 
   @include tablet {
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    grid-template-rows: repeat(10, minmax(0, 17rem));
+    grid-template-rows: repeat(6, minmax(0, 17rem));
   }
   @include desktop {
     max-width: 1440px;

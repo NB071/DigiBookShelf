@@ -12,8 +12,8 @@
   justify-content: space-between;
   flex-direction: column;
   overflow-x: hidden;
-
-  
+  position: relative;
+  overflow: hidden;
 
   &__left {
     width: 100%;
@@ -29,7 +29,6 @@
     justify-content: center;
     background-color: $whiteColor;
     border-radius: 18px;
-   
   }
   &__semi-pie-container {
     position: relative;
@@ -45,7 +44,6 @@
     }
     @include desktop {
       height: 11rem;
-
     }
   }
   &__center-text {
@@ -60,12 +58,14 @@
     width: 100%;
     text-align: center;
     color: $primaryColor;
-  font-weight: 700;    
+    font-weight: 700;
   }
-  
 
-
-
+  &__not-found-vector {
+    position: absolute;
+    bottom: -.54rem;
+    height: 10rem;
+  }
 
   @include tablet {
     grid-column: 3 / 5;

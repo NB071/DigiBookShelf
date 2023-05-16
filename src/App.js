@@ -38,17 +38,23 @@ function App() {
   }, [token, location.pathname, logout]);
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
-        headers: { Authorization: `bearer ${token}` },
-      })
-      .then(({ data }) => {
-        setUserBooks(data);
-      })
-      .catch(() => {
-        logout();
-      });
-  }, [token, rerenderFlag, logout]);
+    if (
+      token &&
+      location.pathname !== "/sign-up" &&
+      location.pathname !== "/login"
+    ) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
+          headers: { Authorization: `bearer ${token}` },
+        })
+        .then(({ data }) => {
+          setUserBooks(data);
+        })
+        .catch(() => {
+          logout();
+        });
+    }
+  }, [token, location.pathname, rerenderFlag, logout]);
 
   return (
     <Routes>

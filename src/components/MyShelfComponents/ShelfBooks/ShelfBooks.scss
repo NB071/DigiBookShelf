@@ -86,4 +86,9 @@
     height: 27rem;
     z-index: -1;
   }
+  &__not-found-vector {
+    position: absolute;
+    height: 15rem;
+    right: 2rem;
+  }
 }

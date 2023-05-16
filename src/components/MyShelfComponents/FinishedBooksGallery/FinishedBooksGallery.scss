@@ -94,6 +94,14 @@
         height: 50%;
     }
   }
+  
+  &__empty-shelf-vector {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 15rem;
+    z-index: 2;
+  }
   @include tablet {
     grid-column: 3 / -1;
     grid-row: 4 / -1;

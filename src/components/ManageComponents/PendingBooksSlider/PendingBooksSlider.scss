@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
   z-index: 1;
 
@@ -136,6 +136,12 @@
     opacity: 0.4;
   }
 
+  &__no-book-vector {
+    position: absolute;
+    height: 10rem !important;
+    left: 0rem;
+  }
+
   @include tablet {
     background-color: $whiteColor;
     grid-column: 3 / -1;
@@ -147,7 +153,6 @@
     grid-row: 1 / 2;
   }
 }
-
 .swiper-slide-shadow-right,
 .swiper-slide-shadow-left {
   border-radius: 18px;

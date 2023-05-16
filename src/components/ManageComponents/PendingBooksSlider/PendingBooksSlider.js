@@ -6,19 +6,18 @@ import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { pageVariant} from "../../../pageVariants/variants";
+import { pageVariant } from "../../../pageVariants/variants";
 
-export default function PendingBooksSlider({recentBooks}) {
+//svgs
+import EmptyShelf from "../../../assets/icons/EmptyShelf.svg";
 
+export default function PendingBooksSlider({ recentBooks }) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  
+
   const handleSlideChange = (swiper) => {
     setCurrentSlideIndex(swiper.activeIndex);
   };
 
-  if (!recentBooks) {
-    return null;
-  }
   return (
     <motion.section
       className="recent-added"
@@ -28,7 +27,7 @@ export default function PendingBooksSlider({recentBooks}) {
       variants={pageVariant}
       transition={{ duration: 0.7, delay: 0.4 }}
     >
-      {recentBooks[currentSlideIndex] && (
+      {recentBooks && recentBooks[currentSlideIndex] && (
         <div
           className="recent-added__blur-overlay"
           style={{
@@ -83,7 +82,11 @@ export default function PendingBooksSlider({recentBooks}) {
                 ))}
             </Swiper>
           ) : (
-            <p>Currently, there's no book in you're shelf...</p>
+            <img
+              src={EmptyShelf}
+              className="recent-added__no-book-vector"
+              alt="no book vector"
+            />
           )}
         </div>
       </div>

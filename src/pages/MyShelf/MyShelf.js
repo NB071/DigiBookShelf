@@ -3,24 +3,21 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "swiper/css";
 import "swiper/css/effect-cards";
 
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-
 // components
 import Header from "../../components/Header/Header";
 import MobileMenu from "../../components/MobileMenu/MobileMenu";
 import Loading from "../../components/Loading/Loading";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import BooksToRead from "../../components/MyShelfComponents/BooksToRead/BooksToRead";
-import GoalSetChart from "../../components/MyShelfComponents/GoalSetChart/GoalSetChart"
+import GoalSetChart from "../../components/MyShelfComponents/GoalSetChart/GoalSetChart";
 import Footer from "../../components/Footer/Footer";
 import ShelfBooks from "../../components/MyShelfComponents/ShelfBooks/ShelfBooks";
-import FinishedBooksGallery from "../../components/MyShelfComponents/FinishedBooksGallery/FinishedBooksGallery"
+import FinishedBooksGallery from "../../components/MyShelfComponents/FinishedBooksGallery/FinishedBooksGallery";
 
 //icons - images
-export default function MyShelf({token, handleLogout, userInfo, userBooks}) {
-  const navigate = useNavigate();
+export default function MyShelf({ token, handleLogout, userInfo, userBooks }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // for mobile hamburger menu
@@ -28,10 +25,6 @@ export default function MyShelf({token, handleLogout, userInfo, userBooks}) {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  if (!token) {
-    navigate("/login");
-  }
-  
   return (
     <AnimatePresence>
       {!userInfo ? (
@@ -53,19 +46,19 @@ export default function MyShelf({token, handleLogout, userInfo, userBooks}) {
           />
           <main className="dashboard">
             {/* side menu */}
-            <SideMenu friends={userInfo.friends} handleLogout={handleLogout}/>
+            <SideMenu friends={userInfo.friends} handleLogout={handleLogout} />
 
-          {/* Pending books slider */}
+            {/* Pending books slider */}
             <BooksToRead token={token} />
 
             {/* Goal set semi circle */}
-            <GoalSetChart token={token} goalset={userInfo.goal_set}/>
+            <GoalSetChart token={token} goalset={userInfo.goal_set} />
 
             {/* Shelf books */}
-            <ShelfBooks token={token}/>
+            <ShelfBooks token={token} />
 
             {/* finished books cards */}
-            <FinishedBooksGallery token={token}/>
+            <FinishedBooksGallery token={token} />
           </main>
           <Footer />
         </>

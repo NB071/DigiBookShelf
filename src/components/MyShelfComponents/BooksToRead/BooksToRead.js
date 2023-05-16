@@ -11,20 +11,22 @@ import { motion } from "framer-motion";
 import { pageVariantTop } from "../../../pageVariants/variants";
 import axios from "axios";
 
-export default function BooksToRead({token}) {
-  const [bookToRead, setBookToRead] = useState([]);
+//svg
+import Lost from "../../../assets/icons/Lost.svg"
+
+export default function BooksToRead({ token }) {
+  const [bookToRead, setBookToRead] = useState(null);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/user/books?pending=1`, {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }) => {
+        console.log(data);
         setBookToRead(data);
       });
   }, [token]);
-  if (!bookToRead) {
-    return null;
-  }
+  console.log(bookToRead);
   return (
     <motion.section
       className="books-pending"
@@ -40,7 +42,7 @@ export default function BooksToRead({token}) {
 
       <div className="books-pending__right-container">
         <div className="books-pending__right">
-          {bookToRead.length !== 0 ? (
+          {bookToRead && bookToRead.length !== 0 ? (
             <Swiper
               className={"books-pending__slider-wrapper"}
               effect={"coverflow"}
@@ -56,36 +58,38 @@ export default function BooksToRead({token}) {
               }}
               modules={[EffectCoverflow]}
             >
-              {bookToRead &&
-                bookToRead.map((book) => (
-                  <SwiperSlide className="books-pending__slide">
-                    <article key={book.id} className="books-pending__book-card">
-                      <img
-                        src={book.cover_image}
-                        alt={book.name}
-                        title={book.name}
-                      />
-                      <div className="books-pending__book-card-info">
-                        <h3 className="books-pending__book-title">
-                          {book.book_name}
-                        </h3>
-                        <p className="books-pending__book-description">
-                          {book.description}
-                        </p>
-                        <Link
-                          className="books-pending__CTA"
-                          to={`/user/books/${book.book}`}
-                        >
-                          {" "}
-                          More info
-                        </Link>
-                      </div>
-                    </article>
-                  </SwiperSlide>
-                ))}
+              {bookToRead.map((book) => (
+                <SwiperSlide className="books-pending__slide">
+                  <article key={book.id} className="books-pending__book-card">
+                    <img
+                      src={book.cover_image}
+                      alt={book.name}
+                      title={book.name}
+                    />
+                    <div className="books-pending__book-card-info">
+                      <h3 className="books-pending__book-title">
+                        {book.book_name}
+                      </h3>
+                      <p className="books-pending__book-description">
+                        {book.description}
+                      </p>
+                      <Link
+                        className="books-pending__CTA"
+                        to={`/user/books/${book.book}`}
+                      >
+                        {" "}
+                        More info
+                      </Link>
+                    </div>
+                  </article>
+                </SwiperSlide>
+              ))}
             </Swiper>
           ) : (
+            <>
+            <img src={Lost} className="books-pending__not-found-vector" alt="" />
             <p>Currently, there's no book in you're shelf...</p>
+            </>
           )}
         </div>
       </div>

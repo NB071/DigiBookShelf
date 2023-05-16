@@ -8,6 +8,9 @@ import { pageVariantTop } from "../../../pageVariants/variants";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import axios from "axios";
 
+//svgs
+import NotFound from "../../../assets/icons/NotFound.svg"
+
 export default function GoalSetChart({ token, goalset }) {
   const [booksFinished, setBooksFinished] = useState(null);
 
@@ -34,8 +37,9 @@ export default function GoalSetChart({ token, goalset }) {
       </div>
 
       <div className="goalset__container">
+      {goalset ? (
         <div className="goalset__semi-pie-container">
-        <CircularProgressbar
+         <CircularProgressbar
           circleRatio={0.6}
           strokeWidth={12}
           styles={buildStyles({
@@ -50,7 +54,10 @@ export default function GoalSetChart({ token, goalset }) {
         />
         <h3 className="goalset__center-text">Book read</h3>
         <h4 className="goalset__sub-center-text"> {booksFinished} : {goalset} </h4>
-        </div>
+        </div>) : <>
+        <img src={NotFound} className="goalset__not-found-vector" alt="" />
+        <p>You haven't set the goal yet...</p>
+        </>}
       </div>
     </motion.section>
   );

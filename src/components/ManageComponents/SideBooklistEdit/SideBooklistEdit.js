@@ -12,6 +12,7 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useFormik } from "formik";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { useSnackbar } from "notistack";
 import * as Yup from "yup";
 import axios from "axios";
 
@@ -29,11 +30,10 @@ export default function SideBooklistEdit({
   triggerRerender,
 }) {
   const [openEditModal, setOpenEditModal] = useState(false);
-  const [selectedBook, setSelectedBook] = useState({});
-  const [isSuccess, setIsSuccess] = useState(null);
+  const [selectedBook, setSelectedBook] = useState(recentBooks?.[0]);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSelectedBook = (book) => {
-    setIsSuccess(null);
     // reset the input field
     const fileInput = document.querySelector(".edit-modal__input-file");
     if (fileInput) {
@@ -47,7 +47,7 @@ export default function SideBooklistEdit({
     formik.setFieldValue("book_description", book.description);
     formik.setFieldValue("book_genre", book.genre);
     formik.setFieldValue("book_author", book.author);
-    formik.setFieldValue("total_pages", book.total_pages);
+    formik.setFieldValue("total_pages", +book.total_pages);
     formik.setFieldValue("read_pages", +book.read_pages);
     formik.setFieldValue("cover_image_preview", book.cover_image);
   };
@@ -83,7 +83,7 @@ export default function SideBooklistEdit({
       book_genre: "",
       book_author: "",
       total_pages: "",
-      read_pages: 0,
+      read_pages: "",
       cover_image: "",
       cover_image_preview: "",
     },
@@ -104,7 +104,6 @@ export default function SideBooklistEdit({
         .required("This field is required"),
     }),
     onSubmit: async (values) => {
-      const token = localStorage.getItem("token");
       try {
         const formData = new FormData();
         formData.append("name", values.book_name);
@@ -125,16 +124,37 @@ export default function SideBooklistEdit({
             },
           }
         );
-        setIsSuccess(true);
+        enqueueSnackbar("Success", {
+          variant: "success",
+          style: {
+            backgroundColor: "#578C7A",
+            height: "4rem",
+            borderRadius: "18px",
+          },
+        });
         triggerRerender();
       } catch (error) {
-        setIsSuccess(false);
+        enqueueSnackbar("Failure", {
+          variant: "error",
+          style: {
+            backgroundColor: "#eb4343",
+            height: "4rem",
+            borderRadius: "18px",
+          },
+        });
       }
     },
   });
 
   return (
-    <section className="side-booklist-edit">
+    <motion.section
+      className="side-booklist-edit"
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={fadeInVariant}
+      transition={{ duration: 0.7, delay: 0.8 }}
+    >
       <h2 className="side-booklist-edit__heading">Edit book information</h2>
       <button
         className="side-booklist-edit__CTA"
@@ -165,7 +185,11 @@ export default function SideBooklistEdit({
                 onClick={closeModal}
                 className="edit-modal__close-icon"
               />
-              <form onSubmit={formik.handleSubmit} onReset={formik.resetForm} className="edit-modal__form">
+              <form
+                onSubmit={formik.handleSubmit}
+                onReset={formik.resetForm}
+                className="edit-modal__form"
+              >
                 <div className="edit-modal__content">
                   <div className="edit-modal__heading-wrapper">
                     <EditRoundedIcon className="edit-modal__edit-icon" />
@@ -510,21 +534,6 @@ export default function SideBooklistEdit({
                         >
                           Reset
                         </button>
-                        <motion.h5
-                          className={`edit-modal__status ${
-                            isSuccess
-                              ? "edit-modal__status--success"
-                              : "edit-modal__status--fail"
-                          }`}
-                          initial="initial"
-                          animate="animate"
-                          exit="exit"
-                          variants={pageVariant}
-                          transition={{ duration: 0.7 }}
-                        >
-                          {isSuccess === true && "Edition: Success"}
-                          {isSuccess === false && "Edition: Failed"}
-                        </motion.h5>
                       </motion.div>
                     </div>
 
@@ -545,9 +554,7 @@ export default function SideBooklistEdit({
                                 : ""
                             } ${
                               selectedBook.id === book.id
-                                ? +selectedBook.read_pages ===
-                                    +selectedBook.total_pages &&
-                                  +selectedBook.total_pages !== 0
+                                ? +book.read_pages === +book.total_pages && +book.total_pages !== 0
                                   ? "edit-modal__preview-card--active-finished"
                                   : "edit-modal__preview-card--active-pending"
                                 : ""
@@ -627,6 +634,6 @@ export default function SideBooklistEdit({
           </motion.div>
         </AnimatePresence>
       )}
-    </section>
+    </motion.section>
   );
 }

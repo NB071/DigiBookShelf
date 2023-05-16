@@ -10,8 +10,8 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import axios from "axios";
 
 // svgs
-import RecentBookCircle from "../../../assets/icons/BannerCircleBackground.svg"
-
+import RecentBookCircle from "../../../assets/icons/BannerCircleBackground.svg";
+import NotFound from "../../../assets/icons/NotFound2.svg"
 export default function ShelfBooks({ token }) {
   const [recentBook, setRecentBook] = useState(null);
 
@@ -24,9 +24,7 @@ export default function ShelfBooks({ token }) {
         setRecentBook(data);
       });
   }, [token]);
-  if (!recentBook) {
-    return null;
-  }
+
   return (
     <motion.section
       className="shelf-books"
@@ -38,48 +36,62 @@ export default function ShelfBooks({ token }) {
     >
       <div className="recent-book">
         <h2 className="recent-book__heading">Recent reading</h2>
-        <div className="recent-book__content">
-          <img
-            src={recentBook[0].cover_image}
-            className="recent-book__cover-image"
-            alt={`${recentBook[0].cover_image} cover`}
-          />
-          <div className="recent-book__info-wrapper">
-            <span className="recent-book__progress-wrapper">
-              <CircularProgressbar
-                className="recent-book__progress-bar"
-                strokeWidth={50}
-                styles={buildStyles({
-                  strokeLinecap: "butt",
-                  trailColor: "#f3f3f3e0",
-                  pathColor: "#B2B7C5",
-                })}
-                value={
-                  recentBook[0].total_pages === 0
-                    ? 0
-                    : (
-                        (recentBook[0].read_pages / recentBook[0].total_pages) *
-                        100
-                      ).toFixed(0)
-                }
-              />
-              {recentBook[0].read_pages} of {recentBook[0].total_pages}
-            </span>
-            <p className="recent-book__author">
-              <span className="recent-book__book-criteria">Author:</span>{" "}
-              {recentBook[0].author}
-            </p>
-            <p className="recent-book__description">
-              <span className="recent-book__book-criteria">Description: </span>
-              {recentBook[0].description}
-            </p>
-            <Link to="/manage" className="recent-book__CTA">Manage</Link>
+        {recentBook?.[0] ? (
+          <div className="recent-book__content">
+            <img
+              src={recentBook[0].cover_image}
+              className="recent-book__cover-image"
+              alt={`${recentBook[0].cover_image} cover`}
+            />
+            <div className="recent-book__info-wrapper">
+              <span className="recent-book__progress-wrapper">
+                <CircularProgressbar
+                  className="recent-book__progress-bar"
+                  strokeWidth={50}
+                  styles={buildStyles({
+                    strokeLinecap: "butt",
+                    trailColor: "#f3f3f3e0",
+                    pathColor: "#B2B7C5",
+                  })}
+                  value={
+                    recentBook[0].total_pages === 0
+                      ? 0
+                      : (
+                          (recentBook[0].read_pages /
+                            recentBook[0].total_pages) *
+                          100
+                        ).toFixed(0)
+                  }
+                />
+                {recentBook[0].read_pages} of {recentBook[0].total_pages}
+              </span>
+              <p className="recent-book__author">
+                <span className="recent-book__book-criteria">Author:</span>{" "}
+                {recentBook[0].author}
+              </p>
+              <p className="recent-book__description">
+                <span className="recent-book__book-criteria">
+                  Description:{" "}
+                </span>
+                {recentBook[0].description}
+              </p>
+              <Link to="/manage" className="recent-book__CTA">
+                Manage
+              </Link>
+            </div>
+            <img
+              src={RecentBookCircle}
+              className="recent-book__circle-backhround"
+              alt="background circle"
+            />
           </div>
-          <img src={RecentBookCircle} className="recent-book__circle-backhround" alt="" />
-        </div>
+        ) : (
+          <>
+          <img src={NotFound} className="recent-book__not-found-vector" alt="" />
+          <p>no book found on your shelf</p>
+          </>
+        )}
       </div>
-      <div></div>
-      
     </motion.section>
   );
 }

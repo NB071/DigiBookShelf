@@ -11,8 +11,9 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  overflow-x: hidden;
-  
+  overflow: hidden;
+  position: relative;
+
   // info overlay
   &__book-card-info {
     display: flex;
@@ -71,7 +72,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $whiteColor;
   }
 
   &__slider-wrapper {
@@ -101,6 +101,16 @@
       .books-pending__book-card-info {
         opacity: 1;
       }
+    }
+  }
+
+  &__not-found-vector {
+    height: 5.5rem;
+    bottom: 0;
+    position: absolute;
+    @include tablet {
+      height: 10rem;
+      left: 0;
     }
   }
 

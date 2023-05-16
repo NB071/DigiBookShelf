@@ -1,8 +1,7 @@
 import "./AddReading.scss";
 
 // libs
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import { pageVariant, slideVariant } from "../../../pageVariants/variants";
@@ -16,8 +15,9 @@ import BookImagePlaceHolder from "../../../assets/icons/addedBookPlaceholder.svg
 import ErrorIcon from "@mui/icons-material/Error";
 
 export default function AddReading({ triggerRerender, token }) {
-  const navigate = useNavigate();
+
   const [isSuccess, setIsSuccess] = useState(null);
+  
   function handleThumbnailUpload(e) {
     const uploadedThumbnail = e.target.files[0];
     formik.setFieldValue("cover_image", e.target.files[0]);
@@ -27,13 +27,6 @@ export default function AddReading({ triggerRerender, token }) {
       formik.setFieldValue("cover_image_preview", render.result);
     };
   }
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/add-reading");
-    }
-  });
-
   const formik = useFormik({
     initialValues: {
       book_name: "",
@@ -97,7 +90,7 @@ export default function AddReading({ triggerRerender, token }) {
       animate="animate"
       exit="exit"
       variants={pageVariant}
-      transition={{ duration: 0.7, delay: 0.5 }}
+      transition={{ duration: 0.7, delay: 0.6 }}
     >
       <motion.h2
         className="add-reading__heading"
