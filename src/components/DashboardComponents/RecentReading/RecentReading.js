@@ -3,7 +3,7 @@ import "./RecentReading.scss";
 // libs
 import { motion } from "framer-motion";
 import { pageVariant, pageVariantRight } from "../../../pageVariants/variants";
-
+import { Link } from "react-router-dom";
 //svgs
 import Lost from "../../../assets/icons/Lost.svg";
 
@@ -34,13 +34,14 @@ export default function RecentReading({ recentBook, token }) {
                 {recentBook.book_name}
               </h2>
             </div>
+            
             <p className="recent-reading__book-description">
               {recentBook.description}
             </p>
             <div className="recent-reading__bottom">
-              <button type="button" className="recent-reading__CTA">
+              <Link to={`/user/books/${recentBook.book}`} className="recent-reading__CTA">
                 Read Now
-              </button>
+              </Link>
               <div className="recent-reading__dot-wrapper">
                 <span className="recent-reading__dot"></span>
                 <span className="recent-reading__page-info">

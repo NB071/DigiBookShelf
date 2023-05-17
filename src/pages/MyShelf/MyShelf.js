@@ -16,6 +16,7 @@ import Footer from "../../components/Footer/Footer";
 import ShelfBooks from "../../components/MyShelfComponents/ShelfBooks/ShelfBooks";
 import FinishedBooksGallery from "../../components/MyShelfComponents/FinishedBooksGallery/FinishedBooksGallery";
 import Activities from "../../components/MyShelfComponents/Activities/Activities";
+
 //icons - images
 export default function MyShelf({ token, handleLogout, userInfo, userBooks }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,13 +26,9 @@ export default function MyShelf({ token, handleLogout, userInfo, userBooks }) {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  if(!userBooks) {
-    return <Loading />
-  }
-
   return (
     <AnimatePresence>
-      {!userInfo ? (
+      {!userInfo || !userBooks ? (
         <Loading key="loading" />
       ) : (
         <>
@@ -48,7 +45,7 @@ export default function MyShelf({ token, handleLogout, userInfo, userBooks }) {
             menuToggle={handleLogoClick}
             userBooks={userBooks}
           />
-          <main className="dashboard">
+          <main className="my-shelf">
             {/* side menu */}
             <SideMenu friends={userInfo.friends} handleLogout={handleLogout} />
 

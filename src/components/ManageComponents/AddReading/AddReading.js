@@ -1,7 +1,6 @@
 import "./AddReading.scss";
 
 // libs
-import { useState } from "react";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import { pageVariant, slideVariant } from "../../../pageVariants/variants";
@@ -57,7 +56,6 @@ export default function AddReading({ triggerRerender, token }) {
         .required("This field is required"),
     }),
     onSubmit: async (values) => {
-      const token = localStorage.getItem("token");
       try {
         const formData = new FormData();
         formData.append("book_name", values.book_name);

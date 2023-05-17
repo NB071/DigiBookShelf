@@ -4,9 +4,6 @@ import "./Banner.scss";
 import { motion } from "framer-motion";
 import { fadeInVariant } from "../../pageVariants/variants";
 
-// icons
-import BannerCircleVector from "../../assets/icons/BannerCircleBackground.svg";
-
 export default function Banner() {
   return (
     <motion.section

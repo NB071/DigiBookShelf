@@ -299,6 +299,17 @@ label {
         color: $whiteColor;
       }
     }
+    .book {
+      &__heading {
+        color: $whiteColor;
+      }
+      &__criteria, &__purchase {
+        color: $whiteColor;
+      }
+      &__in-shelf {
+        color: $whiteColor;
+      }
+    }
 
     label {
       color: $whiteColor;

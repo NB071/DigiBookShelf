@@ -9,6 +9,8 @@ import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import Manage from "./pages/Manage/Manage";
 import MyShelf from "./pages/MyShelf/MyShelf";
+import SingleBookPage from "./pages/SingleBookPage/SingleBookPage";
+
 function App() {
   const location = useLocation();
 
@@ -111,6 +113,19 @@ function App() {
       <Route
         path="/sign-up"
         element={<SignUp handleLogin={login} token={token} />}
+      />
+      <Route
+        path="/user/books/:book_id"
+        element={
+          <SingleBookPage
+            userInfo={userInfo}
+            userBooks={userBooks}
+            handleLogout={logout}
+            token={token}
+            rerenderFlag={rerenderFlag}
+            setRerenderFlag={setRerenderFlag}
+          />
+        }
       />
     </Routes>
   );

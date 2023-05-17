@@ -38,8 +38,6 @@ export default function Header({
   };
 
   const darkmode = new Darkmode(options);
-  const ignoredElements = darkmode;
-  console.log(ignoredElements);
   const fuse = useMemo(() => {
     const options = {
       keys: ["book_name", "description", "author"],
@@ -173,7 +171,7 @@ export default function Header({
             <h3 className="header__username">{username}</h3>
             <p className="header__level">
               Level{" "}
-              {Math.floor(
+              {userBooks && Math.floor(
                 userBooks.filter((book) => book.is_pending === 0).length / 2
               )}
             </p>

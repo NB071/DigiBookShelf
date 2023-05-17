@@ -20,6 +20,7 @@ export default function NYTslider({token}) {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }) => {
+        console.log(data);
         setNYTbooks(data);
       });
   }, [token]);
@@ -45,11 +46,11 @@ export default function NYTslider({token}) {
         className="books-NYT__slider-wrapper"
       >
         {NYTbooks.map((book) => (
-         <Link to={`/books/${book.book}`}>
-         <SwiperSlide key={book.id} className="books-NYT__slide">
+          <SwiperSlide key={book.id} className="books-NYT__slide">
+           <Link to={`/user/books/${book.id}`}>
             <img src={book.cover_image} alt={book.name} title={book.name} />
-          </SwiperSlide>
           </Link>
+          </SwiperSlide>
         ))}
       </Swiper>
     </motion.section>

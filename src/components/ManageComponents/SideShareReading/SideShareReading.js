@@ -2,11 +2,7 @@ import "./SideShareReading.scss";
 
 // libs
 import { motion } from "framer-motion";
-import {
-  fadeInVariant,
-  pageVariant,
-  slideVariant,
-} from "../../../pageVariants/variants";
+import { fadeInVariant } from "../../../pageVariants/variants";
 
 // icons
 import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
