@@ -67,7 +67,7 @@ export default function GenresPieChart({ token }) {
         stroke: {
           show: false,
         },
-        colors: ["#6936F5", "#333333", "#F2831B", "#B2B7C5", "#578C7A"],
+        colors: ["#6936F5", "#853333", "#F2831B", "#B2B7C5", "#578C7A"],
         plotOptions: {
           pie: {
             donut: {
@@ -80,8 +80,10 @@ export default function GenresPieChart({ token }) {
                   show: true,
                   fontWeight: "bold",
                   fontSize: "0.7rem",
+                  cssClass: "favorite-genre__center-value",
                 },
                 total: {
+                  cssClass: "favorite-genre__center-heading",
                   show: true,
                   showAlways: true,
                   label: "Favorite genre",

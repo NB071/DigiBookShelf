@@ -66,7 +66,6 @@ h4 {
   }
 }
 
-
 a {
   text-decoration: none;
 }
@@ -135,4 +134,192 @@ label {
 
 .modal-open {
   overflow: hidden;
+}
+
+.darkmode--activated {
+  .header {
+    background-color: $darkmodeBackground;
+    color: $whiteColor;
+
+    & svg {
+      color: $whiteColor;
+      border-radius: 18px;
+      &:hover {
+        background-color: #6936f5bc;
+        padding: 0.2rem;
+      }
+    }
+    &__dropdown {
+      background-color: #333;
+    }
+    &__dropdown-item h3 {
+      color: $whiteColor;
+    }
+    &__dropdown-info-wrapper {
+      color: $whiteColor;
+    }
+  }
+  .side-menu {
+    background-color: $darkmodeBackground !important;
+    color: $placeholderColor !important;
+  }
+  .nav {
+    &__item {
+      color: $placeholderColor;
+    }
+  }
+  section {
+    isolation: isolate;
+    background-color: $darkmodeBackground !important;
+    .recent-reading {
+      &__book-name {
+        color: $whiteColor;
+      }
+    }
+    .apexcharts-text,
+    .apexcharts-title-text,
+    .apexcharts-legend-text {
+      fill: $whiteColor;
+      color: $whiteColor !important;
+    }
+    .books-NYT {
+      &__heading {
+        color: $whiteColor;
+      }
+    }
+    .banner {
+      &__circle circle {
+        fill: #4c4c4c;
+      }
+    }
+    .manage-CTA {
+      &__heading {
+        color: $whiteColor;
+      }
+      &__option {
+        background-color: #333;
+      }
+    }
+    .books-shelf {
+      &__heading {
+        color: $whiteColor;
+      }
+    }
+    .recent-added {
+      position: relative;
+      &__left {
+        background-color: $darkmodeBackground;
+        color: $whiteColor;
+      }
+    }
+    .add-reading {
+      &__heading {
+        color: $whiteColor;
+      }
+      &__card-info {
+        background-color: #333;
+        color: $whiteColor;
+      }
+    }
+
+    .edit-modal {
+      &__overlay {
+        background-color: #333;
+      }
+      &__box {
+        background-color: $darkmodeBackground;
+      }
+      &__heading {
+        color: $whiteColor;
+      }
+      &__preview-card {
+        color: $whiteColor;
+      }
+    }
+
+    .remove-modal {
+      &__overlay {
+        background-color: #333;
+      }
+      &__box {
+        background-color: $darkmodeBackground;
+      }
+      &__heading {
+        color: $whiteColor;
+      }
+      &__preview-card {
+        color: $whiteColor;
+      }
+    }
+
+    .books-pending {
+      &__heading {
+        color: $whiteColor;
+      }
+      &__right {
+        background-color: #333;
+      }
+      &__book-card-info {
+        color: $whiteColor;
+      }
+    }
+
+    .goalset {
+      &__heading {
+        color: $whiteColor;
+      }
+      &__container {
+        background-color: $darkmodeBackground;
+      }
+      &__center-text {
+        color: $whiteColor;
+      }
+      &__sub-center-text {
+        color: $placeholderColor;
+      }
+    }
+    .done-reading {
+      background-color: $darkmodeBackground;
+    }
+    .apexcharts-canvas {
+      background-color: $darkmodeBackground;
+    }
+
+    .recent-book {
+      &__heading {
+        color: $whiteColor;
+      }
+      &__info-wrapper p,
+      span {
+        color: $whiteColor;
+      }
+    }
+    .done-reading {
+      &__heading {
+        color: $whiteColor;
+      }
+    }
+
+    label {
+      color: $whiteColor;
+    }
+    button {
+      background-color: #3b3b3b;
+      color: $whiteColor;
+    }
+    input,
+    textarea {
+      transition: all 0.5s;
+      color: $whiteColor;
+      background-color: #3f3f3f;
+      &[type="file"] {
+        background-color: $darkmodeBackground;
+      }
+    }
+    footer {
+      isolation: isolate;
+      background-color: $darkmodeBackground !important;
+      color: $whiteColor;
+    }
+  }
 }

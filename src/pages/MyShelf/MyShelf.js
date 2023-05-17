@@ -25,6 +25,10 @@ export default function MyShelf({ token, handleLogout, userInfo, userBooks }) {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  if(!userBooks) {
+    return <Loading />
+  }
+
   return (
     <AnimatePresence>
       {!userInfo ? (
@@ -49,13 +53,13 @@ export default function MyShelf({ token, handleLogout, userInfo, userBooks }) {
             <SideMenu friends={userInfo.friends} handleLogout={handleLogout} />
 
             {/* Pending books slider */}
-            <BooksToRead token={token} />
+            <BooksToRead token={token}  />
 
             {/* Goal set semi circle */}
             <GoalSetChart token={token} goalset={userInfo.goal_set} />
 
             {/* Shelf books */}
-            <ShelfBooks token={token} />
+            <ShelfBooks userBooks={userBooks} token={token} />
 
             {/* finished books cards */}
             <FinishedBooksGallery token={token} />

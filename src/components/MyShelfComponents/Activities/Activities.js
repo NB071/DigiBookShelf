@@ -1,16 +1,12 @@
 import "./Activities.scss";
 
 //libs
-import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import { EffectCoverflow } from "swiper";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { pageVariantTop } from "../../../pageVariants/variants";
 import axios from "axios";
 import ReactApexChart from "react-apexcharts";
 
-//svg
-import Lost from "../../../assets/icons/Lost.svg";
 
 export default function Activities({ token }) {
   const [activities, setActivities] = useState(null);

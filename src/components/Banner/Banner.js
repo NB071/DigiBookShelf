@@ -22,16 +22,41 @@ export default function Banner() {
           Join our book lovers community here now
         </h1>
         <button className="banner__CTA">Join now</button>
-        <img
-          src={BannerCircleVector}
-          className="banner__circle banner__circle--top"
-          alt="banner background for circle vector"
-        />
-        <img
-          src={BannerCircleVector}
-          className="banner__circle banner__circle--bottom"
-          alt="banner background for circle vector"
-        />
+        <div className="banner__circle banner__circle--top">
+          <svg
+            width="162"
+            height="162"
+            viewBox="0 0 162 162"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="80.5919"
+              cy="80.592"
+              r="80.5"
+              transform="rotate(75 80.5919 80.592)"
+              fill="#8156F7"
+            />
+          </svg>
+        </div>
+        <div className="banner__circle banner__circle--bottom">
+          <svg
+            width="162"
+            height="162"
+            viewBox="0 0 162 162"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="80.5919"
+              cy="80.592"
+              r="80.5"
+              transform="rotate(75 80.5919 80.592)"
+              fill="#8156F7"
+            />
+          </svg>
+        </div>
+        
       </div>
     </motion.section>
   );

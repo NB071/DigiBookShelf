@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { pageVariant } from "../../pageVariants/variants";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
+import Darkmode from "darkmode-js";
 
 // icons
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
@@ -27,6 +28,18 @@ export default function Header({
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
 
+  const options = {
+    mixColor: "#fff",
+    backgroundColor: "#F1F2F9",
+    buttonColorDark: "#6936F5",
+    buttonColorLight: "#6936F5",
+    saveInCookies: false,
+    autoMatchOsTheme: false,
+  };
+
+  const darkmode = new Darkmode(options);
+  const ignoredElements = darkmode;
+  console.log(ignoredElements);
   const fuse = useMemo(() => {
     const options = {
       keys: ["book_name", "description", "author"],
@@ -64,7 +77,6 @@ export default function Header({
   }, []);
 
   return (
-    
     <motion.header
       className="header"
       initial="initial"
@@ -73,7 +85,6 @@ export default function Header({
       variants={pageVariant}
       transition={{ duration: 0.7, delay: 0.2 }}
     >
- 
       <section className="header__left">
         <WidgetsRoundedIcon
           className="header__mobile-menu"
@@ -148,6 +159,7 @@ export default function Header({
       </section>
       <section className="header__right">
         <Brightness4RoundedIcon
+          onClick={() => darkmode.toggle()}
           className="header__darkmode-icon"
         />
         <NotificationsNoneRoundedIcon className="header__ringbell-icon" />
@@ -159,7 +171,12 @@ export default function Header({
           />
           <div className="header__user-info">
             <h3 className="header__username">{username}</h3>
-            <p className="header__level">Level 4</p>
+            <p className="header__level">
+              Level{" "}
+              {Math.floor(
+                userBooks.filter((book) => book.is_pending === 0).length / 2
+              )}
+            </p>
           </div>
         </div>
       </section>

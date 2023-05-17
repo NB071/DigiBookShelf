@@ -16,18 +16,18 @@ import BookImagePlaceHolder from "../../../assets/icons/addedBookPlaceholder.svg
 import ErrorIcon from "@mui/icons-material/Error";
 
 export default function AddReading({ triggerRerender, token }) {
-
-  const [isSuccess, setIsSuccess] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
 
   function handleThumbnailUpload(e) {
     const uploadedThumbnail = e.target.files[0];
-    formik.setFieldValue("cover_image", e.target.files[0]);
-    const render = new FileReader();
-    render.readAsDataURL(uploadedThumbnail);
-    render.onload = () => {
-      formik.setFieldValue("cover_image_preview", render.result);
-    };
+    if (uploadedThumbnail) {
+      formik.setFieldValue("cover_image", e.target.files[0]);
+      const render = new FileReader();
+      render.readAsDataURL(uploadedThumbnail);
+      render.onload = () => {
+        formik.setFieldValue("cover_image_preview", render.result);
+      };
+    }
   }
   const formik = useFormik({
     initialValues: {
@@ -77,7 +77,6 @@ export default function AddReading({ triggerRerender, token }) {
             },
           }
         );
-        setIsSuccess(true);
         enqueueSnackbar("Success", {
           variant: "success",
           style: {
@@ -97,7 +96,6 @@ export default function AddReading({ triggerRerender, token }) {
             borderRadius: "18px",
           },
         });
-        setIsSuccess(false);
       }
     },
   });

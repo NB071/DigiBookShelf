@@ -66,7 +66,6 @@ export default function SideBooklistRemove({
           borderRadius: "18px",
         },
       });
-      console.log(error);
     }
   };
 

@@ -54,7 +54,7 @@ export default function Dashboard({ token, userInfo, userBooks, handleLogout }) 
         {/* small components*/}
         <TotalBooksCounter token={token}/>
         <GenresPieChart token={token}/>
-        <FinishedBooksCounter token={token}/>
+        <FinishedBooksCounter userBooks={userBooks}/>
 
         {/* Banner */}
         <Banner />
