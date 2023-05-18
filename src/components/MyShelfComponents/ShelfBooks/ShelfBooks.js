@@ -12,7 +12,6 @@ import RecentBookCircle from "../../../assets/icons/BannerCircleBackground.svg";
 import NotFound from "../../../assets/icons/NotFound2.svg"
 
 export default function ShelfBooks({ userBooks }) {
-console.log(userBooks);
   return (
     <motion.section
       className="shelf-books"

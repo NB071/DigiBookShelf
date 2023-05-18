@@ -12,7 +12,7 @@ import ClassRoundedIcon from "@mui/icons-material/ClassRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import MeetingRoomRoundedIcon from "@mui/icons-material/MeetingRoomRounded";
 
-export default function SideMenu({ friends, handleLogout }) {
+export default function SideMenu({ friends, handleLogout, setJoyrideActive }) {
   const location = useLocation();
 
   return (
@@ -62,7 +62,7 @@ export default function SideMenu({ friends, handleLogout }) {
         </div>
       </div>
       <div className="side-menu__bottom">
-        <div className="side-menu__bottom-option">
+        <div className="side-menu__bottom-option" onClick={()=>setJoyrideActive(true)}>
           <InfoRoundedIcon style={{ fontSize: "2.25rem" }} />
           <h3>Help</h3>
         </div>

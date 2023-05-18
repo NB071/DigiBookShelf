@@ -78,14 +78,14 @@ export default function SideBooklistEdit({
   };
   const formik = useFormik({
     initialValues: {
-      book_name: "",
-      book_description: "",
-      book_genre: "",
-      book_author: "",
-      total_pages: "",
-      read_pages: "",
+      book_name: selectedBook?.book_name,
+      book_description: selectedBook?.description ,
+      book_genre: selectedBook?.genre,
+      book_author: selectedBook?.author,
+      total_pages: String(selectedBook?.total_pages),
+      read_pages: String(selectedBook?.read_pages),
       cover_image: "",
-      cover_image_preview: "",
+      cover_image_preview: selectedBook?.cover_image,
     },
     validationSchema: Yup.object({
       book_name: Yup.string().required("This field is required"),

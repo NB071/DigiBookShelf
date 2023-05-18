@@ -20,7 +20,6 @@ export default function NYTslider({token}) {
         headers: { Authorization: `bearer ${token}` },
       })
       .then(({ data }) => {
-        console.log(data);
         setNYTbooks(data);
       });
   }, [token]);

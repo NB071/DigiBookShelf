@@ -18,21 +18,19 @@ export default function Activities({ token }) {
       })
       .then(({ data }) => {
         setActivities(data);
-        console.log(data);
       });
   }, [token]);
 
   if (!activities) {
     return null;
   }
-
   const labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const counts = Array(7).fill(0);
 
   activities.forEach((item) => {
-    const date = new Date(item.add_date);
-    const dayOfWeek = date.getDay();
-    counts[dayOfWeek]++;
+    const updatedAtDate = new Date(item.updated_at);
+    const updatedAtDayOfWeek = updatedAtDate.getDay();
+    counts[updatedAtDayOfWeek]++;
   });
 
   const series = [

@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import Lost from "../../../assets/icons/Lost.svg";
 
 export default function RecentReading({ recentBook, token }) {
-  console.log(recentBook);
   return (
     <motion.section
       className="recent-reading"
