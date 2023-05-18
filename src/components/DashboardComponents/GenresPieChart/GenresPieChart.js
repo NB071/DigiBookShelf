@@ -29,7 +29,7 @@ export default function GenresPieChart({ token }) {
       const options = {
         chart: {
           type: "donut",
-          width: 400,
+          width: 450,
           height: 400,
           fontFamily: "poppins, Arial, sans-serif",
           animations: {
@@ -79,8 +79,8 @@ export default function GenresPieChart({ token }) {
                 value: {
                   show: true,
                   fontWeight: "bold",
-                  fontSize: "0.7rem",
-                  cssClass: "favorite-genre__center-value",
+                  fontSize: "0.9rem",
+
                 },
                 total: {
                   cssClass: "favorite-genre__center-heading",

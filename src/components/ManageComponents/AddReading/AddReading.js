@@ -257,8 +257,8 @@ export default function AddReading({ triggerRerender, token }) {
             >
               <label>
                 Book description
-                <input
-                  className={`add-reading__input  ${
+                <textarea
+                  className={`add-reading__input add-reading__input--description ${
                     formik.touched.book_description &&
                     formik.errors.book_description
                       ? "add-reading__input--invalid"
@@ -330,6 +330,10 @@ export default function AddReading({ triggerRerender, token }) {
               </label>
             </motion.div>
             {/* book pages input */}
+            
+          </div>
+          <div className="add-reading__right-inputs">
+            {/* author name input */}
             <motion.div
               className="add-reading__book-number-wrapper"
               initial="initial"
@@ -402,9 +406,7 @@ export default function AddReading({ triggerRerender, token }) {
                 ) : null}
               </label>
             </motion.div>
-          </div>
-          <div className="add-reading__right-inputs">
-            {/* author name input */}
+
             <motion.div
               className="add-reading__book-author-wrapper"
               initial="initial"

@@ -15,6 +15,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+ 
+  .apexcharts-datalabels-group {
+    width: 1rem !important;
+  }
+ 
   @include tablet {
     grid-column: 3 / -1;
     grid-row: 2 / 3;

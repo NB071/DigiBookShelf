@@ -46,6 +46,7 @@ export default function PendingBooksSlider({ recentBooks }) {
               grabCursor={true}
               centeredSlides={true}
               slidesPerView={4}
+              initialSlide={6}
               onSlideChangeTransitionEnd={handleSlideChange}
             >
               {recentBooks &&

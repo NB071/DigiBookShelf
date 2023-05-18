@@ -105,11 +105,29 @@
   &__paegs-spliter {
     margin-top: 1rem;
   }
-
+  &__book-description-wrapper {
+    flex: 1;
+  }
   &__input {
     @extend %textInput;
     transition: background-color 0.3s ease;
     background-color: $whiteColor;
+    resize: none;
+    &--description {
+      height: 100%;
+      &::-webkit-scrollbar-thumb {
+        background: $primaryColor;
+        border-radius: 10px;
+      }
+  
+      &::-webkit-scrollbar-track {
+        background-color: $grayColor;
+        border-radius: 18px;
+      }
+      &::-webkit-scrollbar {
+        width: 0.4rem;
+      }
+    }
     &--invalid {
       border-color: $errorColor;
     }

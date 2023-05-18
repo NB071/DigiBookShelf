@@ -30,8 +30,9 @@
     padding: 1rem;
     transition: all 0.5s;
     opacity: 0;
+
   }
-  &__book-description {
+  &__book-description, &__book-title {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;

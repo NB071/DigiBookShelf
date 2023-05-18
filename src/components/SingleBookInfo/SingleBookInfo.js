@@ -196,7 +196,7 @@ export default function SingleBookInfo({
                 <div className="book__criteria-wrapper">
                   <h3 className="book__criteria">Added At: </h3>
                   <p className="book__info-value">
-                    {new Date(bookObject.add_date)
+                    {new Date(bookObject.created_at)
                       .toISOString()
                       .slice(0, 19)
                       .replace("T", " ")}

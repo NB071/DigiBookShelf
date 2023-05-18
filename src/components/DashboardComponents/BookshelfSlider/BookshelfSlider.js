@@ -51,6 +51,7 @@ export default function BookshelfSlider({token}) {
               grabCursor={true}
               centeredSlides={true}
               slidesPerView={"auto"}
+              initialSlide={8}
               coverflowEffect={{
                 rotate: 50,
                 stretch: 0,
