@@ -28,6 +28,8 @@ export default function Dashboard({
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [joyrideActive, setJoyrideActive] = useState(false);
+  
+
 
   // for mobile hamburger menu
   const handleLogoClick = () => {

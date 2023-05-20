@@ -19,7 +19,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import Logo from "../../assets/logo/Logo.svg";
 import Lines from "../../assets/Images/Lines.svg";
 
-export default function Login({token, handleLogin}) {
+export default function Login({ token, handleLogin }) {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -44,7 +44,7 @@ export default function Login({token, handleLogin}) {
           `${process.env.REACT_APP_API_URL}/api/login`,
           values
         );
-        handleLogin(response.data.token)
+        handleLogin(response.data.token);
         navigate("/dashboard");
       } catch (error) {
         formik.errors.email = "Incorrect email or password";

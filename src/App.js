@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import AuthContext from "./auth/AuthProvider";
+import { io } from "socket.io-client";
 
 // components
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -12,51 +13,62 @@ import MyShelf from "./pages/MyShelf/MyShelf";
 import SingleBookPage from "./pages/SingleBookPage/SingleBookPage";
 
 function App() {
-  const location = useLocation();
+  // const location = useLocation();
 
   const { token, logout, login } = useContext(AuthContext);
   const [rerenderFlag, setRerenderFlag] = useState(false);
+  const [socket, setSocket] = useState(null);
 
   const [userInfo, setUserInfo] = useState(null);
   const [userBooks, setUserBooks] = useState(null);
+  useEffect(() => {
+    const socket = io(process.env.REACT_APP_API_URL, { auth: { token } });
+    setSocket(socket);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [token]);
 
   useEffect(() => {
-    if (
-      token &&
-      location.pathname !== "/sign-up" &&
-      location.pathname !== "/login"
-    ) {
-      axios
-        .get(`${process.env.REACT_APP_API_URL}/api/user`, {
-          headers: { Authorization: `bearer ${token}` },
-        })
-        .then(({ data }) => {
-          setUserInfo(data);
-        })
-        .catch(() => {
-          logout();
-        });
-    }
-  }, [token, location.pathname, logout]);
+    if (socket) {
+      // Listen to socket events and handle data
+      socket.on("userData", (data) => {
+        setUserInfo(data);
+      });
 
-  useEffect(() => {
-    if (
-      token &&
-      location.pathname !== "/sign-up" &&
-      location.pathname !== "/login"
-    ) {
-      axios
-        .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
-          headers: { Authorization: `bearer ${token}` },
-        })
-        .then(({ data }) => {
-          setUserBooks(data);
-        })
-        .catch(() => {
-          logout();
-        });
+      socket.on("friendOnlineStatus", (data) => {
+        console.log(data);
+      });
+
+      socket.on("userBooks", (data) => {
+        setUserBooks(data);
+      });
+
+      socket.on("disconnect", () => {
+        console.log("Socket disconnected");
+      });
     }
-  }, [token, location.pathname, rerenderFlag, logout]);
+  }, [socket]);
+
+  // useEffect(() => {
+  //   if (
+  //     token &&
+  //     location.pathname !== "/sign-up" &&
+  //     location.pathname !== "/login"
+  //   ) {
+  //     axios
+  //       .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
+  //         headers: { Authorization: `bearer ${token}` },
+  //       })
+  //       .then(({ data }) => {
+  //         setUserBooks(data);
+  //       })
+  //       .catch(() => {
+  //         logout();
+  //       });
+  //   }
+  // }, [token, location.pathname, rerenderFlag, logout]);
 
   return (
     <Routes>

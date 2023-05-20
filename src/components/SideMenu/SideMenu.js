@@ -47,13 +47,16 @@ export default function SideMenu({ friends, handleLogout, setJoyrideActive }) {
           {friends.length !== 0 ? (
             friends.map((friend) => {
               return (
-                <img
-                  src={friend.avatar_image}
-                  className="side-menu__friends-avatar"
-                  alt={friend.username}
-                  title={friend.username}
-                  key={friend.username}
-                />
+                <div className="side-menu__avatar-wrapper" key={friend.username}>
+                  <div className={`side-menu__avatar-status ${friend.is_online === 0 ? "side-menu__avatar-status--offline" : "side-menu__avatar-status--online"}`}></div>
+                  <img
+                    src={friend.avatar_image}
+                    className={`side-menu__friends-avatar ${friend.is_online === 0 ? "side-menu__friends-avatar--offline" : "side-menu__friends-avatar--online"}`}
+                    alt={friend.username}
+                    title={friend.username}
+                    
+                  />
+                </div>
               );
             })
           ) : (
@@ -62,7 +65,10 @@ export default function SideMenu({ friends, handleLogout, setJoyrideActive }) {
         </div>
       </div>
       <div className="side-menu__bottom">
-        <div className="side-menu__bottom-option" onClick={()=>setJoyrideActive(true)}>
+        <div
+          className="side-menu__bottom-option"
+          onClick={() => setJoyrideActive(true)}
+        >
           <InfoRoundedIcon style={{ fontSize: "2.25rem" }} />
           <h3>Help</h3>
         </div>
