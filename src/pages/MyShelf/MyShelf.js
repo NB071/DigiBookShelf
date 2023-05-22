@@ -21,7 +21,7 @@ import FinishedBooksGallery from "../../components/MyShelfComponents/FinishedBoo
 import Activities from "../../components/MyShelfComponents/Activities/Activities";
 
 //icons - images
-export default function MyShelf({ token, handleLogout, userInfo, userBooks }) {
+export default function MyShelf({ token, handleLogout, userInfo, userBooks, onlineFriends }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [joyrideActive, setJoyrideActive] = useState(false);
 
@@ -162,6 +162,7 @@ export default function MyShelf({ token, handleLogout, userInfo, userBooks }) {
             {/* side menu */}
             <SideMenu
               friends={userInfo.friends}
+              onlineFriends={onlineFriends}
               setJoyrideActive={setJoyrideActive}
               handleLogout={handleLogout}
             />

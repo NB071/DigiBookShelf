@@ -28,6 +28,7 @@ export default function Manage({
   userInfo,
   token,
   handleLogout,
+  onlineFriends,
 }) {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -177,6 +178,7 @@ export default function Manage({
               friends={userInfo.friends}
               setJoyrideActive={setJoyrideActive}
               handleLogout={handleLogout}
+              onlineFriends={onlineFriends}
             />
 
             {/* First slider of all recent books in descending order */}

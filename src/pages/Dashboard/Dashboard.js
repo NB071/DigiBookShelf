@@ -25,10 +25,11 @@ export default function Dashboard({
   userInfo,
   userBooks,
   handleLogout,
+  onlineFriends
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [joyrideActive, setJoyrideActive] = useState(false);
-  
+
 
 
   // for mobile hamburger menu
@@ -181,6 +182,8 @@ export default function Dashboard({
               friends={userInfo.friends}
               setJoyrideActive={setJoyrideActive}
               handleLogout={handleLogout}
+            onlineFriends={onlineFriends}
+
             />
 
             {/* Recent reading */}

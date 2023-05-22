@@ -21,6 +21,7 @@ export default function SingleBookPage({
   handleLogout,
   userInfo,
   userBooks,
+  onlineFriends
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [bookData, setBookData] = useState(null);
@@ -65,7 +66,7 @@ export default function SingleBookPage({
           />
           <main className="single-book">
             {/* side menu */}
-            <SideMenu friends={userInfo.friends} handleLogout={handleLogout} />
+            <SideMenu friends={userInfo.friends} handleLogout={handleLogout} onlineFriends={onlineFriends}/>
 
             <SingleBookInfo
               isInShelf={isInShelf}

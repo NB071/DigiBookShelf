@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import AuthContext from "./auth/AuthProvider";
@@ -17,58 +17,67 @@ function App() {
 
   const { token, logout, login } = useContext(AuthContext);
   const [rerenderFlag, setRerenderFlag] = useState(false);
-  const [socket, setSocket] = useState(null);
-
   const [userInfo, setUserInfo] = useState(null);
   const [userBooks, setUserBooks] = useState(null);
-  useEffect(() => {
-    const socket = io(process.env.REACT_APP_API_URL, { auth: { token } });
-    setSocket(socket);
+  const [onlineFriends, setOnlineFriends] = useState([]);
 
-    return () => {
-      socket.disconnect();
-    };
+  useEffect(() => {
+    if (token) {
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/user`,
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          setUserInfo(response.data);
+        } catch (error) {
+          console.error("Failed to fetch user info:", error);
+        }
+      };
+
+      const fetchUserBooks = async () => {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/user/books`,
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          setUserBooks(response.data);
+        } catch (error) {
+          console.error("Failed to fetch user books:", error);
+        }
+      };
+
+      fetchUserData();
+      fetchUserBooks();
+    }
   }, [token]);
 
   useEffect(() => {
-    if (socket) {
-      // Listen to socket events and handle data
-      socket.on("userData", (data) => {
-        setUserInfo(data);
+    if (token && userInfo) {
+      const socket = io(process.env.REACT_APP_API_URL, { auth: { token } });
+  
+      const friendIds = userInfo.friends.map((friend) => friend);
+      socket.emit("userFriends", friendIds);
+  
+      socket.on("onlineUsers", (users) => {
+        setOnlineFriends(users)
       });
-
-      socket.on("friendOnlineStatus", (data) => {
-        console.log(data);
-      });
-
-      socket.on("userBooks", (data) => {
-        setUserBooks(data);
-      });
-
-      socket.on("disconnect", () => {
-        console.log("Socket disconnected");
-      });
+  
+      return () => {
+        socket.off("onlineUsers");
+        socket.disconnect();
+      };
     }
-  }, [socket]);
-
-  // useEffect(() => {
-  //   if (
-  //     token &&
-  //     location.pathname !== "/sign-up" &&
-  //     location.pathname !== "/login"
-  //   ) {
-  //     axios
-  //       .get(`${process.env.REACT_APP_API_URL}/api/user/books?recent`, {
-  //         headers: { Authorization: `bearer ${token}` },
-  //       })
-  //       .then(({ data }) => {
-  //         setUserBooks(data);
-  //       })
-  //       .catch(() => {
-  //         logout();
-  //       });
-  //   }
-  // }, [token, location.pathname, rerenderFlag, logout]);
+  }, [token, userInfo]);
+  
 
   return (
     <Routes>
@@ -78,6 +87,7 @@ function App() {
           <Dashboard
             token={token}
             userInfo={userInfo}
+            onlineFriends={onlineFriends}
             handleLogout={logout}
             userBooks={userBooks}
           />
@@ -91,6 +101,7 @@ function App() {
             userInfo={userInfo}
             handleLogout={logout}
             userBooks={userBooks}
+            onlineFriends={onlineFriends}
           />
         }
       />
@@ -104,6 +115,8 @@ function App() {
             userBooks={userBooks}
             rerenderFlag={rerenderFlag}
             setRerenderFlag={setRerenderFlag}
+            onlineFriends={onlineFriends}
+
           />
         }
       />
@@ -115,6 +128,7 @@ function App() {
             userInfo={userInfo}
             handleLogout={logout}
             userBooks={userBooks}
+            onlineFriends={onlineFriends}
           />
         }
       />
@@ -136,6 +150,7 @@ function App() {
             token={token}
             rerenderFlag={rerenderFlag}
             setRerenderFlag={setRerenderFlag}
+            onlineFriends={onlineFriends}
           />
         }
       />

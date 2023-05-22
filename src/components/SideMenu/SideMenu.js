@@ -12,9 +12,8 @@ import ClassRoundedIcon from "@mui/icons-material/ClassRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import MeetingRoomRoundedIcon from "@mui/icons-material/MeetingRoomRounded";
 
-export default function SideMenu({ friends, handleLogout, setJoyrideActive }) {
+export default function SideMenu({ friends, handleLogout, setJoyrideActive, onlineFriends }) {
   const location = useLocation();
-
   return (
     <motion.aside
       className="side-menu"
@@ -44,17 +43,26 @@ export default function SideMenu({ friends, handleLogout, setJoyrideActive }) {
       <div className="side-menu__friends">
         <h4 className="side-menu__friends-heading">Friends</h4>
         <div className="side-menu__friends-avatars-wrapper">
-          {friends.length !== 0 ? (
+          {friends.length !== 0 && onlineFriends? (
             friends.map((friend) => {
+              console.log(onlineFriends);
+              const isFriendOnline = onlineFriends.some(
+                (onlineFriend) => onlineFriend.user_id === friend.friend
+              );
               return (
                 <div className="side-menu__avatar-wrapper" key={friend.username}>
-                  <div className={`side-menu__avatar-status ${friend.is_online === 0 ? "side-menu__avatar-status--offline" : "side-menu__avatar-status--online"}`}></div>
+                  <div
+                    className={`side-menu__avatar-status ${
+                      isFriendOnline ? "side-menu__avatar-status--online" : "side-menu__avatar-status--offline"
+                    }`}
+                  ></div>
                   <img
                     src={friend.avatar_image}
-                    className={`side-menu__friends-avatar ${friend.is_online === 0 ? "side-menu__friends-avatar--offline" : "side-menu__friends-avatar--online"}`}
+                    className={`side-menu__friends-avatar ${
+                      isFriendOnline ? "side-menu__friends-avatar--online" : "side-menu__friends-avatar--offline"
+                    }`}
                     alt={friend.username}
                     title={friend.username}
-                    
                   />
                 </div>
               );
