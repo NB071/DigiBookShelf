@@ -1,7 +1,7 @@
 import "./UserProfile.scss";
 
 import { useState } from "react";
-
+import { useLocation } from 'react-router-dom';
 import { AnimatePresence } from "framer-motion";
 
 // components
@@ -10,6 +10,7 @@ import MobileMenu from "../../components/MobileMenu/MobileMenu";
 import Loading from "../../components/Loading/Loading";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import CurrentUser from "../../components/UserProfileComponents/CurrentUser/CurrentUser";
+import UserPrivacy from "../../components/UserProfileComponents/UserPrivacy/UserPrivacy";
 import Footer from "../../components/Footer/Footer";
 
 //icons - images
@@ -23,6 +24,9 @@ export default function UserProfile({
   onlineFriends
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const location = useLocation();
+
   // for mobile hamburger menu}
   const handleLogoClick = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -51,8 +55,12 @@ export default function UserProfile({
             {/* side menu */}
             <SideMenu friends={userInfo.friends} handleLogout={handleLogout} onlineFriends={onlineFriends}/>
 
-            
-            <CurrentUser userInfo={userInfo} token={token}  triggerRerender={() => setRerenderFlag(!rerenderFlag)}/>
+            {location.pathname === "/user/profile" && (
+              <CurrentUser userInfo={userInfo} token={token}  triggerRerender={() => setRerenderFlag(!rerenderFlag)}/>
+            )}
+            {location.pathname === "/user/privacy" && (
+              <UserPrivacy userInfo={userInfo} token={token} handleLogout={handleLogout}/>
+            )}
           </main>
           <Footer />
         </>

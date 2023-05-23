@@ -165,6 +165,18 @@ function App() {
           />
         }
       />
+      <Route
+        path="/user/privacy"
+        element={
+          <UserProfile
+            userInfo={userInfo}
+            userBooks={userBooks}
+            handleLogout={logout}
+            token={token}
+            onlineFriends={onlineFriends}
+          />
+        }
+      />
     </Routes>
   );
 }

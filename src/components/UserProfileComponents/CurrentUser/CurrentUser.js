@@ -1,7 +1,7 @@
 import "./CurrentUser.scss";
 
 // libs
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { motion } from "framer-motion";
 import {
@@ -18,11 +18,12 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import ErrorIcon from "@mui/icons-material/Error";
-import AttachFileIcon from '@mui/icons-material/AttachFile';
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 
 export default function CurrentUser({ userInfo, token, triggerRerender }) {
+  const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
- 
+
   function handleAvatarChange(e) {
     const avatarImage = e.target.files[0];
     if (avatarImage) {
@@ -34,7 +35,7 @@ export default function CurrentUser({ userInfo, token, triggerRerender }) {
       };
     }
   }
- 
+
   const formik = useFormik({
     initialValues: {
       first_name: userInfo.first_name,
@@ -96,7 +97,8 @@ export default function CurrentUser({ userInfo, token, triggerRerender }) {
             borderRadius: "18px",
           },
         });
-      }    },
+      }
+    },
   });
 
   return (
@@ -115,27 +117,50 @@ export default function CurrentUser({ userInfo, token, triggerRerender }) {
       >
         <label htmlFor="user__avatar-input" className="user__avatar-input">
           <img
-            src={formik.values.avatar_image_preview || formik.values.avatar_image}
+            src={
+              formik.values.avatar_image_preview || formik.values.avatar_image
+            }
             className="user__avatar"
             alt="user avatar"
           />
-          <AttachFileIcon className="user__avatar-hover-icon"/>
+          <AttachFileIcon className="user__avatar-hover-icon" />
           <input
             type="file"
             accept="image/*"
             id="user__avatar-input"
             style={{ display: "none" }}
             onChange={handleAvatarChange}
-            />
+          />
         </label>
         <div className="user__links">
-          <Link className="user__link-item user__link-item--selected">
+          <Link
+          to="/user/profile"
+            className={`user__link-item ${
+              location.pathname === "/user/profile"
+                ? "user__link-item--selected"
+                : ""
+            }`}
+          >
             <AccountCircleIcon /> Profile
           </Link>
-          <Link className="user__link-item">
-            <AdminPanelSettingsIcon /> Privacy{" "}
+          <Link
+          to="/user/privacy"
+            className={`user__link-item ${
+              location.pathname === "/user/privacy"
+                ? "user__link-item--selected"
+                : ""
+            }`}
+          >
+            <AdminPanelSettingsIcon /> Privacy
           </Link>
-          <Link className="user__link-item">
+          <Link
+          to="/user/friends"
+            className={`user__link-item ${
+              location.pathname === "/user/privacy"
+                ? "user__link-item--selected"
+                : ""
+            }`}
+          >
             <PeopleAltIcon /> Friends
           </Link>
         </div>
