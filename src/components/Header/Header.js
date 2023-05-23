@@ -161,22 +161,25 @@ export default function Header({
           className="header__darkmode-icon"
         />
         <NotificationsNoneRoundedIcon className="header__ringbell-icon" />
-        <div className="header__user-area">
-          <img
-            src={userAvatar}
-            className="header__user-avatar"
-            alt="user avatar"
-          />
-          <div className="header__user-info">
-            <h3 className="header__username">{username}</h3>
-            <p className="header__level">
-              Level{" "}
-              {userBooks && Math.floor(
-                userBooks.filter((book) => book.is_pending === 0).length / 2
-              )}
-            </p>
+        <Link to="/user/profile">
+          <div className="header__user-area">
+            <img
+              src={userAvatar}
+              className="header__user-avatar"
+              alt="user avatar"
+            />
+            <div className="header__user-info">
+              <h3 className="header__username">{username}</h3>
+              <p className="header__level">
+                Level{" "}
+                {userBooks &&
+                  Math.floor(
+                    userBooks.filter((book) => book.is_pending === 0).length / 2
+                  )}
+              </p>
+            </div>
           </div>
-        </div>
+        </Link>
       </section>
     </motion.header>
   );

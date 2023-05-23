@@ -14,6 +14,8 @@ import MeetingRoomRoundedIcon from "@mui/icons-material/MeetingRoomRounded";
 
 export default function SideMenu({ friends, handleLogout, setJoyrideActive, onlineFriends }) {
   const location = useLocation();
+  console.log(onlineFriends);
+
   return (
     <motion.aside
       className="side-menu"
@@ -45,12 +47,11 @@ export default function SideMenu({ friends, handleLogout, setJoyrideActive, onli
         <div className="side-menu__friends-avatars-wrapper">
           {friends.length !== 0 && onlineFriends? (
             friends.map((friend) => {
-              console.log(onlineFriends);
               const isFriendOnline = onlineFriends.some(
                 (onlineFriend) => onlineFriend.user_id === friend.friend
               );
               return (
-                <div className="side-menu__avatar-wrapper" key={friend.username}>
+                <div className="side-menu__avatar-wrapper" key={friend.friend}>
                   <div
                     className={`side-menu__avatar-status ${
                       isFriendOnline ? "side-menu__avatar-status--online" : "side-menu__avatar-status--offline"

@@ -11,10 +11,9 @@ import SignUp from "./pages/SignUp/SignUp";
 import Manage from "./pages/Manage/Manage";
 import MyShelf from "./pages/MyShelf/MyShelf";
 import SingleBookPage from "./pages/SingleBookPage/SingleBookPage";
+import UserProfile from "./pages/UserProfile/UserProfile";
 
 function App() {
-  // const location = useLocation();
-
   const { token, logout, login } = useContext(AuthContext);
   const [rerenderFlag, setRerenderFlag] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
@@ -22,62 +21,61 @@ function App() {
   const [onlineFriends, setOnlineFriends] = useState([]);
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/user`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        setUserInfo(response.data);
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+      }
+    };
+
+    const fetchUserBooks = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/user/books`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        setUserBooks(response.data);
+      } catch (error) {
+        console.error("Failed to fetch user books:", error);
+      }
+    };
+
     if (token) {
-      const fetchUserData = async () => {
-        try {
-          const response = await axios.get(
-            `${process.env.REACT_APP_API_URL}/api/user`,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          setUserInfo(response.data);
-        } catch (error) {
-          console.error("Failed to fetch user info:", error);
-        }
-      };
-
-      const fetchUserBooks = async () => {
-        try {
-          const response = await axios.get(
-            `${process.env.REACT_APP_API_URL}/api/user/books`,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          setUserBooks(response.data);
-        } catch (error) {
-          console.error("Failed to fetch user books:", error);
-        }
-      };
-
       fetchUserData();
       fetchUserBooks();
     }
-  }, [token]);
+  }, [token, rerenderFlag]);
 
   useEffect(() => {
-    if (token && userInfo) {
-      const socket = io(process.env.REACT_APP_API_URL, { auth: { token } });
-  
-      const friendIds = userInfo.friends.map((friend) => friend);
-      socket.emit("userFriends", friendIds);
-  
-      socket.on("onlineUsers", (users) => {
-        setOnlineFriends(users)
+    const socket = io(process.env.REACT_APP_API_URL, { auth: { token } });
+    if (userInfo) {
+      socket.on("connect", () => {
+        const friendIds = userInfo.friends.map((friend) => friend);
+        socket.emit("userFriends", friendIds);
       });
-  
-      return () => {
-        socket.off("onlineUsers");
-        socket.disconnect();
-      };
+
+      socket.on("onlineUsers", (users) => {
+        setOnlineFriends(users);
+      });
     }
+
+    return () => {
+      socket.disconnect();
+    };
   }, [token, userInfo]);
-  
 
   return (
     <Routes>
@@ -116,7 +114,6 @@ function App() {
             rerenderFlag={rerenderFlag}
             setRerenderFlag={setRerenderFlag}
             onlineFriends={onlineFriends}
-
           />
         }
       />
@@ -144,6 +141,20 @@ function App() {
         path="/user/books/:book_id"
         element={
           <SingleBookPage
+            userInfo={userInfo}
+            userBooks={userBooks}
+            handleLogout={logout}
+            token={token}
+            rerenderFlag={rerenderFlag}
+            setRerenderFlag={setRerenderFlag}
+            onlineFriends={onlineFriends}
+          />
+        }
+      />
+      <Route
+        path="/user/profile"
+        element={
+          <UserProfile
             userInfo={userInfo}
             userBooks={userBooks}
             handleLogout={logout}

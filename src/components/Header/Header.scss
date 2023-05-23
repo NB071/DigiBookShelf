@@ -204,6 +204,7 @@
   &__user-avatar {
     border-radius: 50%;
     height: 3rem;
+    width: 3rem;
     margin-left: 0.5rem;
   }
   
@@ -223,6 +224,7 @@
   
   &__username {
     font-size: 1rem;
+    color: $textColor;
     line-height: 1.2rem;
   }
   
