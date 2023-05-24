@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useMemo } from "react";
 import axios from "axios";
 import AuthContext from "./auth/AuthProvider";
 import { io } from "socket.io-client";
@@ -19,6 +19,12 @@ function App() {
   const [userInfo, setUserInfo] = useState(null);
   const [userBooks, setUserBooks] = useState(null);
   const [onlineFriends, setOnlineFriends] = useState([]);
+  const socket = useMemo(() => {
+    if (token) {
+      return io(process.env.REACT_APP_API_URL, { auth: { token } });
+    }
+    return null;
+  }, [token]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -60,22 +66,31 @@ function App() {
   }, [token, rerenderFlag]);
 
   useEffect(() => {
-    const socket = io(process.env.REACT_APP_API_URL, { auth: { token } });
-    if (userInfo) {
-      socket.on("connect", () => {
-        const friendIds = userInfo.friends.map((friend) => friend);
-        socket.emit("userFriends", friendIds);
-      });
-
-      socket.on("onlineUsers", (users) => {
-        setOnlineFriends(users);
-      });
+    if (token && userInfo) {
+      if (socket) {
+        socket.on("connect", () => {
+          const friendIds = userInfo.friends.map((friend) => friend);
+          socket.emit("userFriends", friendIds);
+        });
+  
+        socket.on("onlineUsers", (users) => {
+          setOnlineFriends(users);
+        });
+  
+        socket.on("addFriend", (friend) => {
+          console.log("Received friend request:", friend);
+        });
+  
+        socket.on("removeFriend", (friend) => {
+          console.log("Received friend request:", friend);
+        });
+  
+        return () => {
+          socket.disconnect();
+        };
+      }
     }
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [token, userInfo]);
+  }, [socket, userInfo, token]);
 
   return (
     <Routes>
@@ -174,6 +189,21 @@ function App() {
             handleLogout={logout}
             token={token}
             onlineFriends={onlineFriends}
+          />
+        }
+      />
+      <Route
+        path="/user/friends"
+        element={
+          <UserProfile
+            userInfo={userInfo}
+            userBooks={userBooks}
+            handleLogout={logout}
+            token={token}
+            rerenderFlag={rerenderFlag}
+            setRerenderFlag={setRerenderFlag}
+            onlineFriends={onlineFriends}
+            socket={socket}
           />
         }
       />

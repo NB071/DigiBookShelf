@@ -11,6 +11,7 @@ import Loading from "../../components/Loading/Loading";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import CurrentUser from "../../components/UserProfileComponents/CurrentUser/CurrentUser";
 import UserPrivacy from "../../components/UserProfileComponents/UserPrivacy/UserPrivacy";
+import UserFriends from "../../components/UserProfileComponents/UserFriends/UserFriends";
 import Footer from "../../components/Footer/Footer";
 
 //icons - images
@@ -21,7 +22,8 @@ export default function UserProfile({
   handleLogout,
   userInfo,
   userBooks,
-  onlineFriends
+  onlineFriends,
+  socket
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -34,7 +36,7 @@ export default function UserProfile({
 
   return (
     <AnimatePresence>
-      {!userBooks || !userInfo ? (
+      {!userBooks || !userInfo || !socket ? (
         <Loading key="loading" />
       ) : (
         <>
@@ -53,13 +55,16 @@ export default function UserProfile({
           />
           <main className="user-profile">
             {/* side menu */}
-            <SideMenu friends={userInfo.friends} handleLogout={handleLogout} onlineFriends={onlineFriends}/>
+            <SideMenu friends={userInfo.friends} handleLogout={handleLogout} onlineFriends={onlineFriends} />
 
             {location.pathname === "/user/profile" && (
-              <CurrentUser userInfo={userInfo} token={token}  triggerRerender={() => setRerenderFlag(!rerenderFlag)}/>
+              <CurrentUser userInfo={userInfo} token={token}  triggerRerender={() => setRerenderFlag(!rerenderFlag)} />
             )}
             {location.pathname === "/user/privacy" && (
               <UserPrivacy userInfo={userInfo} token={token} handleLogout={handleLogout}/>
+            )}
+             {location.pathname === "/user/friends" && (
+              <UserFriends socket={socket} userInfo={userInfo} token={token}  triggerRerender={() => setRerenderFlag(!rerenderFlag)} />
             )}
           </main>
           <Footer />

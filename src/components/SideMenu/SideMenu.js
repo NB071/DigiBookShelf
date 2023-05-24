@@ -12,9 +12,14 @@ import ClassRoundedIcon from "@mui/icons-material/ClassRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import MeetingRoomRoundedIcon from "@mui/icons-material/MeetingRoomRounded";
 
-export default function SideMenu({ friends, handleLogout, setJoyrideActive, onlineFriends }) {
+export default function SideMenu({
+  friends,
+  handleLogout,
+  setJoyrideActive,
+  onlineFriends,
+}) {
   const location = useLocation();
-  console.log(onlineFriends);
+  console.log(friends);
 
   return (
     <motion.aside
@@ -45,29 +50,38 @@ export default function SideMenu({ friends, handleLogout, setJoyrideActive, onli
       <div className="side-menu__friends">
         <h4 className="side-menu__friends-heading">Friends</h4>
         <div className="side-menu__friends-avatars-wrapper">
-          {friends.length !== 0 && onlineFriends? (
-            friends.map((friend) => {
-              const isFriendOnline = onlineFriends.some(
-                (onlineFriend) => onlineFriend.user_id === friend.friend
-              );
-              return (
-                <div className="side-menu__avatar-wrapper" key={friend.friend}>
+          {friends.length !== 0 && onlineFriends ? (
+            friends
+              .filter((friend) => friend.status === "accepted")
+              .map((friend) => {
+                const isFriendOnline = onlineFriends.some(
+                  (onlineFriend) => onlineFriend.user_id === friend.friend
+                );
+                return (
                   <div
-                    className={`side-menu__avatar-status ${
-                      isFriendOnline ? "side-menu__avatar-status--online" : "side-menu__avatar-status--offline"
-                    }`}
-                  ></div>
-                  <img
-                    src={friend.avatar_image}
-                    className={`side-menu__friends-avatar ${
-                      isFriendOnline ? "side-menu__friends-avatar--online" : "side-menu__friends-avatar--offline"
-                    }`}
-                    alt={friend.username}
-                    title={friend.username}
-                  />
-                </div>
-              );
-            })
+                    className="side-menu__avatar-wrapper"
+                    key={friend.friend}
+                  >
+                    <div
+                      className={`side-menu__avatar-status ${
+                        isFriendOnline
+                          ? "side-menu__avatar-status--online"
+                          : "side-menu__avatar-status--offline"
+                      }`}
+                    ></div>
+                    <img
+                      src={friend.avatar_image}
+                      className={`side-menu__friends-avatar ${
+                        isFriendOnline
+                          ? "side-menu__friends-avatar--online"
+                          : "side-menu__friends-avatar--offline"
+                      }`}
+                      alt={friend.username}
+                      title={friend.username}
+                    />
+                  </div>
+                );
+              })
           ) : (
             <p>no friends...</p>
           )}
