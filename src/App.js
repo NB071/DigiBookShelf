@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useState, useContext, useMemo } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import AuthContext from "./auth/AuthProvider";
-import { io } from "socket.io-client";
+import { initializeSocket } from "./socket";
+import { useQuery } from "react-query";
 
 // components
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -13,84 +14,50 @@ import MyShelf from "./pages/MyShelf/MyShelf";
 import SingleBookPage from "./pages/SingleBookPage/SingleBookPage";
 import UserProfile from "./pages/UserProfile/UserProfile";
 
-function App() {
+export default function App() {
   const { token, logout, login } = useContext(AuthContext);
   const [rerenderFlag, setRerenderFlag] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
-  const [userBooks, setUserBooks] = useState(null);
   const [onlineFriends, setOnlineFriends] = useState([]);
-  const socket = useMemo(() => {
-    if (token) {
-      return io(process.env.REACT_APP_API_URL, { auth: { token } });
-    }
-    return null;
-  }, [token]);
+  const [socket, setSocket] = useState(null);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/user`,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-        setUserInfo(response.data);
-      } catch (error) {
-        console.error("Failed to fetch user info:", error);
+  const userInfoQuery = useQuery("userInfo", async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/user`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
       }
-    };
-
-    const fetchUserBooks = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/user/books`,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-        setUserBooks(response.data);
-      } catch (error) {
-        console.error("Failed to fetch user books:", error);
+    );
+    return response.data;
+  });
+  const userBooksQuery = useQuery("userBooks", async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/user/books`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
       }
-    };
-
-    if (token) {
-      fetchUserData();
-      fetchUserBooks();
-    }
-  }, [token, rerenderFlag]);
-
+    );
+    return response.data;
+  });
+console.log(userInfoQuery);
   useEffect(() => {
-    if (token && userInfo) {
+    if (socket) {
+      socket.connect();
+      console.log(socket);
+    }
+    if (token && userInfoQuery.data && !socket) {
+      initializeSocket(token, userInfoQuery.data, setOnlineFriends, setSocket);
+    }
+
+    return () => {
       if (socket) {
-        socket.on("connect", () => {
-          const friendIds = userInfo.friends.map((friend) => friend);
-          socket.emit("userFriends", friendIds);
-        });
-  
-        socket.on("onlineUsers", (users) => {
-          setOnlineFriends(users);
-        });
-  
-        socket.on("addFriend", (friend) => {
-          console.log("Received friend request:", friend);
-        });
-  
-        socket.on("removeFriend", (friend) => {
-          console.log("Received friend request:", friend);
-        });
-  
-        return () => {
-          socket.disconnect();
-        };
+        socket.disconnect();
       }
-    }
-  }, [socket, userInfo, token]);
+    };
+  }, [token, userInfoQuery.data, socket]);
 
   return (
     <Routes>
@@ -99,10 +66,10 @@ function App() {
         element={
           <Dashboard
             token={token}
-            userInfo={userInfo}
+            userInfo={userInfoQuery.data}
             onlineFriends={onlineFriends}
             handleLogout={logout}
-            userBooks={userBooks}
+            userBooks={userBooksQuery.data}
           />
         }
       />
@@ -111,9 +78,9 @@ function App() {
         element={
           <Dashboard
             token={token}
-            userInfo={userInfo}
+            userInfo={userInfoQuery.data}
             handleLogout={logout}
-            userBooks={userBooks}
+            userBooks={userBooksQuery.data}
             onlineFriends={onlineFriends}
           />
         }
@@ -123,9 +90,9 @@ function App() {
         element={
           <Manage
             token={token}
-            userInfo={userInfo}
+            userInfo={userInfoQuery.data}
             handleLogout={logout}
-            userBooks={userBooks}
+            userBooks={userBooksQuery.data}
             rerenderFlag={rerenderFlag}
             setRerenderFlag={setRerenderFlag}
             onlineFriends={onlineFriends}
@@ -137,9 +104,9 @@ function App() {
         element={
           <MyShelf
             token={token}
-            userInfo={userInfo}
+            userInfo={userInfoQuery.data}
             handleLogout={logout}
-            userBooks={userBooks}
+            userBooks={userBooksQuery.data}
             onlineFriends={onlineFriends}
           />
         }
@@ -156,8 +123,8 @@ function App() {
         path="/user/books/:book_id"
         element={
           <SingleBookPage
-            userInfo={userInfo}
-            userBooks={userBooks}
+            userInfo={userInfoQuery.data}
+            userBooks={userBooksQuery.data}
             handleLogout={logout}
             token={token}
             rerenderFlag={rerenderFlag}
@@ -170,13 +137,12 @@ function App() {
         path="/user/profile"
         element={
           <UserProfile
-            userInfo={userInfo}
-            userBooks={userBooks}
+            userInfo={userInfoQuery.data}
+            userBooks={userBooksQuery.data}
             handleLogout={logout}
             token={token}
-            rerenderFlag={rerenderFlag}
-            setRerenderFlag={setRerenderFlag}
             onlineFriends={onlineFriends}
+            socket={socket}
           />
         }
       />
@@ -184,11 +150,12 @@ function App() {
         path="/user/privacy"
         element={
           <UserProfile
-            userInfo={userInfo}
-            userBooks={userBooks}
+            userInfo={userInfoQuery.data}
+            userBooks={userBooksQuery.data}
             handleLogout={logout}
             token={token}
             onlineFriends={onlineFriends}
+            socket={socket}
           />
         }
       />
@@ -196,12 +163,10 @@ function App() {
         path="/user/friends"
         element={
           <UserProfile
-            userInfo={userInfo}
-            userBooks={userBooks}
+            userInfo={userInfoQuery.data}
+            userBooks={userBooksQuery.data}
             handleLogout={logout}
             token={token}
-            rerenderFlag={rerenderFlag}
-            setRerenderFlag={setRerenderFlag}
             onlineFriends={onlineFriends}
             socket={socket}
           />
@@ -210,5 +175,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;

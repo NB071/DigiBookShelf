@@ -3,6 +3,7 @@ import "./CurrentUser.scss";
 // libs
 import { Link, useLocation } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { useQueryClient } from "react-query";
 import { motion } from "framer-motion";
 import {
   fadeInVariant,
@@ -20,7 +21,8 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import ErrorIcon from "@mui/icons-material/Error";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 
-export default function CurrentUser({ userInfo, token, triggerRerender }) {
+export default function CurrentUser({ userInfo, token }) {
+  const queryClient = useQueryClient();
   const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -87,7 +89,7 @@ export default function CurrentUser({ userInfo, token, triggerRerender }) {
             borderRadius: "18px",
           },
         });
-        triggerRerender();
+        queryClient.refetchQueries("userInfo");
       } catch (error) {
         enqueueSnackbar("Failure", {
           variant: "error",

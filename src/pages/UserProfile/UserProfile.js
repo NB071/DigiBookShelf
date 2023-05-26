@@ -17,8 +17,6 @@ import Footer from "../../components/Footer/Footer";
 //icons - images
 export default function UserProfile({
   token,
-  setRerenderFlag,
-  rerenderFlag,
   handleLogout,
   userInfo,
   userBooks,
@@ -26,6 +24,7 @@ export default function UserProfile({
   socket
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 
   const location = useLocation();
 
@@ -58,13 +57,13 @@ export default function UserProfile({
             <SideMenu friends={userInfo.friends} handleLogout={handleLogout} onlineFriends={onlineFriends} />
 
             {location.pathname === "/user/profile" && (
-              <CurrentUser userInfo={userInfo} token={token}  triggerRerender={() => setRerenderFlag(!rerenderFlag)} />
+              <CurrentUser userInfo={userInfo} token={token}  />
             )}
             {location.pathname === "/user/privacy" && (
               <UserPrivacy userInfo={userInfo} token={token} handleLogout={handleLogout}/>
             )}
              {location.pathname === "/user/friends" && (
-              <UserFriends socket={socket} userInfo={userInfo} token={token}  triggerRerender={() => setRerenderFlag(!rerenderFlag)} />
+              <UserFriends socket={socket} userInfo={userInfo} token={token} />
             )}
           </main>
           <Footer />

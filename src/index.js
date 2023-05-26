@@ -5,19 +5,21 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthProvider";
 import { SnackbarProvider } from "notistack";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const queryClient = new QueryClient()
+
 root.render(
   <BrowserRouter>
     <AuthProvider>
       <SnackbarProvider autoHideDuration="4000">
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App queryClient={queryClient}/>
+        </QueryClientProvider>
       </SnackbarProvider>
     </AuthProvider>
   </BrowserRouter>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

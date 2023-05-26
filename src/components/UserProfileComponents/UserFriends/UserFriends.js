@@ -5,6 +5,7 @@ import { useEffect, useState, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { motion } from "framer-motion";
+import { useMutation, useQueryClient } from "react-query";
 import {
   fadeInVariant,
   pageVariant,
@@ -25,7 +26,6 @@ import SyncRoundedIcon from "@mui/icons-material/SyncRounded";
 export default function UserFriends({
   userInfo,
   token,
-  triggerRerender,
   socket,
 }) {
   const location = useLocation();
@@ -45,6 +45,8 @@ export default function UserFriends({
     return null;
   }, [users]);
 
+  const queryClient = useQueryClient();
+
   const handleSearch = (text) => {
     if (fuse && text.trim() !== "") {
       const results = fuse.search(text);
@@ -55,42 +57,8 @@ export default function UserFriends({
     }
   };
 
-  const handleRemoveFriend = async (friendId) => {
-    console.log(friendId);
-
-    try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/user/friends`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-        data: {
-          friend: friendId,
-        },
-      });
-      enqueueSnackbar("Success", {
-        variant: "success",
-        style: {
-          backgroundColor: "#578C7A",
-          height: "4rem",
-          borderRadius: "18px",
-        },
-      });
-      socket.emit("removeFriend", friendId);
-      triggerRerender();
-    } catch (error) {
-      console.error("Failed to fetch remove friend: ", error);
-      enqueueSnackbar("Failure", {
-        variant: "error",
-        style: {
-          backgroundColor: "#eb4343",
-          height: "4rem",
-          borderRadius: "18px",
-        },
-      });
-    }
-  };
-  const handleAddFriend = async (friendId) => {
-    try {
+  const addFriendMutation = useMutation(
+    async (friendId) => {
       await axios.post(
         `${process.env.REACT_APP_API_URL}/api/user/friends`,
         { friend: friendId },
@@ -100,26 +68,85 @@ export default function UserFriends({
           },
         }
       );
-      enqueueSnackbar("Success", {
-        variant: "success",
-        style: {
-          backgroundColor: "#578C7A",
-          height: "4rem",
-          borderRadius: "18px",
-        },
-      });
-      socket.emit("addFriend", friendId);
-      triggerRerender();
+    },
+    {
+      onSuccess: (_data, variables) => {
+        enqueueSnackbar("Success", {
+          variant: "success",
+          style: {
+            backgroundColor: "#578C7A",
+            height: "4rem",
+            borderRadius: "18px",
+          },
+        });
+        socket.emit("addFriend", variables);
+        queryClient.refetchQueries("userInfo");
+      },
+      onError: (error) => {
+        console.error("Failed to fetch add friend: ", error);
+        enqueueSnackbar("Failure", {
+          variant: "error",
+          style: {
+            backgroundColor: "#eb4343",
+            height: "4rem",
+            borderRadius: "18px",
+          },
+        });
+      },
+    }
+  );
+
+  const handleAddFriend = async (friendId) => {
+    try {
+      await addFriendMutation.mutateAsync(friendId);
     } catch (error) {
       console.error("Failed to fetch add friend: ", error);
-      enqueueSnackbar("Failure", {
-        variant: "error",
-        style: {
-          backgroundColor: "#eb4343",
-          height: "4rem",
-          borderRadius: "18px",
+    }
+  };
+
+  const removeFriendMutation = useMutation(
+    async (friendId) => {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/user/friends`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+        data: {
+          friend: friendId,
         },
       });
+    },
+    {
+      onSuccess: (_data, variables) => {
+        enqueueSnackbar("Success", {
+          variant: "success",
+          style: {
+            backgroundColor: "#578C7A",
+            height: "4rem",
+            borderRadius: "18px",
+          },
+        });
+        socket.emit("removeFriend", variables);
+        queryClient.refetchQueries("userInfo");
+      },
+      onError: (error) => {
+        console.error("Failed to fetch remove friend: ", error);
+        enqueueSnackbar("Failure", {
+          variant: "error",
+          style: {
+            backgroundColor: "#eb4343",
+            height: "4rem",
+            borderRadius: "18px",
+          },
+        });
+      },
+    }
+  );
+
+  const handleRemoveFriend = async (friendId) => {
+    try {
+      await removeFriendMutation.mutateAsync(friendId);
+    } catch (error) {
+      console.error("Failed to fetch remove friend: ", error);
     }
   };
 

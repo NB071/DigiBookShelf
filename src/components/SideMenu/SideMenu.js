@@ -19,7 +19,6 @@ export default function SideMenu({
   onlineFriends,
 }) {
   const location = useLocation();
-  console.log(friends);
 
   return (
     <motion.aside
