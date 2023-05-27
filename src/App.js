@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext, useMemo } from "react";
 import axios from "axios";
-import AuthContext from "./auth/AuthProvider";
-import { initializeSocket } from "./socket";
+import AuthContext from "./contexts/auth/AuthProvider";
+import SocketContext from "./contexts/socket/SocketProvider";
 import { useQuery } from "react-query";
 
 // components
@@ -15,10 +15,10 @@ import SingleBookPage from "./pages/SingleBookPage/SingleBookPage";
 import UserProfile from "./pages/UserProfile/UserProfile";
 
 export default function App() {
-  const { token, logout, login } = useContext(AuthContext);
-  const [rerenderFlag, setRerenderFlag] = useState(false);
   const [onlineFriends, setOnlineFriends] = useState([]);
-  const [socket, setSocket] = useState(null);
+
+  const { token, logout, login } = useContext(AuthContext);
+  const { socket, notifications, setNotifications } = useContext(SocketContext);
 
   const userInfoQuery = useQuery("userInfo", async () => {
     const response = await axios.get(
@@ -42,22 +42,15 @@ export default function App() {
     );
     return response.data;
   });
-console.log(userInfoQuery);
-  useEffect(() => {
-    if (socket) {
-      socket.connect();
-      console.log(socket);
-    }
-    if (token && userInfoQuery.data && !socket) {
-      initializeSocket(token, userInfoQuery.data, setOnlineFriends, setSocket);
-    }
 
-    return () => {
-      if (socket) {
-        socket.disconnect();
-      }
-    };
-  }, [token, userInfoQuery.data, socket]);
+  useMemo(() => {
+    if (socket && userInfoQuery.data) {
+      socket.emit("userFriends", userInfoQuery.data.friends);
+      socket.on("onlineUsers", (users) => {
+        setOnlineFriends(users);
+      });
+    }
+  }, [socket, userInfoQuery.data]);
 
   return (
     <Routes>
@@ -67,9 +60,11 @@ console.log(userInfoQuery);
           <Dashboard
             token={token}
             userInfo={userInfoQuery.data}
-            onlineFriends={onlineFriends}
-            handleLogout={logout}
             userBooks={userBooksQuery.data}
+            onlineFriends={onlineFriends}
+            notifications={notifications}
+            setNotifications={setNotifications}
+            handleLogout={logout}
           />
         }
       />
@@ -79,9 +74,11 @@ console.log(userInfoQuery);
           <Dashboard
             token={token}
             userInfo={userInfoQuery.data}
-            handleLogout={logout}
             userBooks={userBooksQuery.data}
             onlineFriends={onlineFriends}
+            notifications={notifications}
+            setNotifications={setNotifications}
+            handleLogout={logout}
           />
         }
       />
@@ -91,11 +88,11 @@ console.log(userInfoQuery);
           <Manage
             token={token}
             userInfo={userInfoQuery.data}
-            handleLogout={logout}
             userBooks={userBooksQuery.data}
-            rerenderFlag={rerenderFlag}
-            setRerenderFlag={setRerenderFlag}
             onlineFriends={onlineFriends}
+            notifications={notifications}
+            setNotifications={setNotifications}
+            handleLogout={logout}
           />
         }
       />
@@ -105,9 +102,12 @@ console.log(userInfoQuery);
           <MyShelf
             token={token}
             userInfo={userInfoQuery.data}
-            handleLogout={logout}
             userBooks={userBooksQuery.data}
+            socket={socket}
             onlineFriends={onlineFriends}
+            notifications={notifications}
+            setNotifications={setNotifications}
+            handleLogout={logout}
           />
         }
       />
@@ -127,9 +127,9 @@ console.log(userInfoQuery);
             userBooks={userBooksQuery.data}
             handleLogout={logout}
             token={token}
-            rerenderFlag={rerenderFlag}
-            setRerenderFlag={setRerenderFlag}
             onlineFriends={onlineFriends}
+            notifications={notifications}
+            setNotifications={setNotifications}
           />
         }
       />
@@ -141,8 +141,10 @@ console.log(userInfoQuery);
             userBooks={userBooksQuery.data}
             handleLogout={logout}
             token={token}
-            onlineFriends={onlineFriends}
             socket={socket}
+            onlineFriends={onlineFriends}
+            notifications={notifications}
+            setNotifications={setNotifications}
           />
         }
       />
@@ -154,8 +156,10 @@ console.log(userInfoQuery);
             userBooks={userBooksQuery.data}
             handleLogout={logout}
             token={token}
-            onlineFriends={onlineFriends}
             socket={socket}
+            onlineFriends={onlineFriends}
+            notifications={notifications}
+            setNotifications={setNotifications}
           />
         }
       />
@@ -167,8 +171,10 @@ console.log(userInfoQuery);
             userBooks={userBooksQuery.data}
             handleLogout={logout}
             token={token}
-            onlineFriends={onlineFriends}
             socket={socket}
+            onlineFriends={onlineFriends}
+            notifications={notifications}
+            setNotifications={setNotifications}
           />
         }
       />

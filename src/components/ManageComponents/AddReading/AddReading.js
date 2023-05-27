@@ -7,6 +7,8 @@ import { pageVariant, slideVariant } from "../../../pageVariants/variants";
 import axios from "axios";
 import * as Yup from "yup";
 import { useSnackbar } from "notistack";
+import { useQueryClient } from "react-query";
+
 
 // svgs
 import BookImagePlaceHolder from "../../../assets/icons/addedBookPlaceholder.svg";
@@ -14,8 +16,9 @@ import BookImagePlaceHolder from "../../../assets/icons/addedBookPlaceholder.svg
 //icons
 import ErrorIcon from "@mui/icons-material/Error";
 
-export default function AddReading({ triggerRerender, token }) {
+export default function AddReading({ token }) {
   const { enqueueSnackbar } = useSnackbar();
+  const queryClient = useQueryClient();
 
   function handleThumbnailUpload(e) {
     const uploadedThumbnail = e.target.files[0];
@@ -83,7 +86,8 @@ export default function AddReading({ triggerRerender, token }) {
             borderRadius: "18px",
           },
         });
-        triggerRerender();
+        
+        queryClient.refetchQueries("userBooks");
       } catch (error) {
         console.error(error);
         enqueueSnackbar("Failure", {

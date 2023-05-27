@@ -46,15 +46,19 @@ export default function SideMenu({
           <h3>My shelf</h3>
         </NavLink>
       </nav>
+      {console.log(friends)}
       <div className="side-menu__friends">
         <h4 className="side-menu__friends-heading">Friends</h4>
         <div className="side-menu__friends-avatars-wrapper">
-          {friends.length !== 0 && onlineFriends ? (
+          {friends.filter((friend) => friend.status === "accepted").length !==
+            0 && onlineFriends ? (
             friends
               .filter((friend) => friend.status === "accepted")
               .map((friend) => {
                 const isFriendOnline = onlineFriends.some(
-                  (onlineFriend) => onlineFriend.user_id === friend.friend
+                  (onlineFriend) =>
+                    onlineFriend.user_id === friend.friend ||
+                    friend.friend === onlineFriend.user_id
                 );
                 return (
                   <div

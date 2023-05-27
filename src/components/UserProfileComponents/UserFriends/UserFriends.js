@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 import { useMutation, useQueryClient } from "react-query";
 import {
   fadeInVariant,
-  pageVariant,
   slideVariant,
 } from "../../../pageVariants/variants";
 import axios from "axios";
@@ -23,16 +22,13 @@ import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import PersonRemoveRoundedIcon from "@mui/icons-material/PersonRemoveRounded";
 import SyncRoundedIcon from "@mui/icons-material/SyncRounded";
 
-export default function UserFriends({
-  userInfo,
-  token,
-  socket,
-}) {
+export default function UserFriends({ userInfo, token, socket }) {
   const location = useLocation();
   const [searchResults, setSearchResults] = useState(null);
   const [users, setUsers] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
+  const queryClient = useQueryClient();
 
   const fuse = useMemo(() => {
     const options = {
@@ -45,8 +41,6 @@ export default function UserFriends({
     return null;
   }, [users]);
 
-  const queryClient = useQueryClient();
-
   const handleSearch = (text) => {
     if (fuse && text.trim() !== "") {
       const results = fuse.search(text);
@@ -58,10 +52,10 @@ export default function UserFriends({
   };
 
   const addFriendMutation = useMutation(
-    async (friendId) => {
+    async (friend) => {
       await axios.post(
         `${process.env.REACT_APP_API_URL}/api/user/friends`,
-        { friend: friendId },
+        { friend: friend[0] },
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -79,7 +73,18 @@ export default function UserFriends({
             borderRadius: "18px",
           },
         });
-        socket.emit("addFriend", variables);
+        socket.emit("notifications", {
+          notification: "friendRequest/add",
+          notificationFrom: {
+            username: userInfo.username,
+            user_id: userInfo.user_id,
+            avatar_image: userInfo.avatar_image,
+          },
+          notificationTo: {
+            id: variables[0],
+            username: variables[1],
+          },
+        });
         queryClient.refetchQueries("userInfo");
       },
       onError: (error) => {
@@ -96,22 +101,25 @@ export default function UserFriends({
     }
   );
 
-  const handleAddFriend = async (friendId) => {
+  const handleAddFriend = async (friend) => {
+    const [friendId, username] = friend;
+    console.log(friendId, username);
+
     try {
-      await addFriendMutation.mutateAsync(friendId);
+      await addFriendMutation.mutateAsync(friend);
     } catch (error) {
       console.error("Failed to fetch add friend: ", error);
     }
   };
 
   const removeFriendMutation = useMutation(
-    async (friendId) => {
+    async (friend) => {
       await axios.delete(`${process.env.REACT_APP_API_URL}/api/user/friends`, {
         headers: {
           Authorization: "Bearer " + token,
         },
         data: {
-          friend: friendId,
+          friend: friend[0],
         },
       });
     },
@@ -125,7 +133,18 @@ export default function UserFriends({
             borderRadius: "18px",
           },
         });
-        socket.emit("removeFriend", variables);
+        socket.emit("notifications", {
+          notification: "friendRequest/remove",
+          notificationFrom: {
+            username: userInfo.username,
+            user_id: userInfo.user_id,
+            avatar_image: userInfo.avatar_image,
+          },
+          notificationTo: {
+            id: variables[0],
+            username: variables[1],
+          },
+        });
         queryClient.refetchQueries("userInfo");
       },
       onError: (error) => {
@@ -142,9 +161,12 @@ export default function UserFriends({
     }
   );
 
-  const handleRemoveFriend = async (friendId) => {
+  const handleRemoveFriend = async (friend) => {
+    const [friendId, username] = friend;
+    console.log(friendId, username);
+
     try {
-      await removeFriendMutation.mutateAsync(friendId);
+      await removeFriendMutation.mutateAsync(friend);
     } catch (error) {
       console.error("Failed to fetch remove friend: ", error);
     }
@@ -217,7 +239,14 @@ export default function UserFriends({
         </Link>
       </div>
 
-      <div className="friends">
+      <motion.div
+        className="friends"
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={slideVariant}
+        transition={{ duration: 0.7 }}
+      >
         <div className="friends__search-input-wrapper">
           <div className="friends__search-wrapper">
             <SearchRoundedIcon className="friends__search-icon" />
@@ -269,14 +298,24 @@ export default function UserFriends({
                       <div className="friends__item-info">
                         {isFriend ? (
                           <button
-                            onClick={() => handleRemoveFriend(result.user_id)}
+                            onClick={() =>
+                              handleRemoveFriend([
+                                result.user_id,
+                                result.username,
+                              ])
+                            }
                             className="friends__CTA friends__CTA--remove"
                           >
                             <PersonRemoveRoundedIcon /> Remove friend
                           </button>
                         ) : isPending ? (
                           <button
-                            onClick={() => handleRemoveFriend(result.user_id)}
+                            onClick={() =>
+                              handleRemoveFriend([
+                                result.user_id,
+                                result.username,
+                              ])
+                            }
                             className="friends__CTA friends__CTA--pending"
                           >
                             <SyncRoundedIcon />
@@ -284,7 +323,9 @@ export default function UserFriends({
                           </button>
                         ) : (
                           <button
-                            onClick={() => handleAddFriend(result.user_id)}
+                            onClick={() =>
+                              handleAddFriend([result.user_id, result.username])
+                            }
                             className="friends__CTA friends__CTA--add"
                           >
                             <PersonAddAltRoundedIcon /> Add as a friend
@@ -297,7 +338,7 @@ export default function UserFriends({
               );
             })}
         </div>
-      </div>
+      </motion.div>
     </motion.section>
   );
 }

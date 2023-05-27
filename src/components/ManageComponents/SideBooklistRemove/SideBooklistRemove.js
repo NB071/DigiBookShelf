@@ -8,6 +8,8 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useSnackbar } from "notistack";
+import { useQueryClient } from "react-query";
+
 import axios from "axios";
 
 // icons
@@ -21,7 +23,6 @@ import NotFound from "../../../assets/icons/NotFound.svg";
 export default function SideBooklistRemove({
   recentBooks,
   token,
-  triggerRerender,
 }) {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState({});
@@ -29,6 +30,9 @@ export default function SideBooklistRemove({
   const handleSelectedBook = (book) => {
     setSelectedBook(book);
   };
+
+  const queryClient = useQueryClient();
+
 
   const openModal = () => {
     setOpenEditModal(true);
@@ -56,7 +60,7 @@ export default function SideBooklistRemove({
           borderRadius: "18px",
         },
       });
-      triggerRerender();
+      queryClient.refetchQueries("userBooks");
     } catch (error) {
       enqueueSnackbar("Failure", {
         variant: "error",

@@ -1,7 +1,7 @@
 import "./UserProfile.scss";
 
 import { useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 // components
@@ -20,11 +20,12 @@ export default function UserProfile({
   handleLogout,
   userInfo,
   userBooks,
+  socket,
   onlineFriends,
-  socket
+  notifications,
+  setNotifications,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
 
   const location = useLocation();
 
@@ -51,18 +52,29 @@ export default function UserProfile({
             username={`${userInfo.first_name} ${userInfo.last_name}`}
             menuToggle={handleLogoClick}
             userBooks={userBooks}
+            notifications={notifications}
+            handleNotification={setNotifications}
+            token={token}
           />
           <main className="user-profile">
             {/* side menu */}
-            <SideMenu friends={userInfo.friends} handleLogout={handleLogout} onlineFriends={onlineFriends} />
+            <SideMenu
+              onlineFriends={onlineFriends}
+              friends={userInfo.friends}
+              handleLogout={handleLogout}
+            />
 
             {location.pathname === "/user/profile" && (
-              <CurrentUser userInfo={userInfo} token={token}  />
+              <CurrentUser userInfo={userInfo} token={token} />
             )}
             {location.pathname === "/user/privacy" && (
-              <UserPrivacy userInfo={userInfo} token={token} handleLogout={handleLogout}/>
+              <UserPrivacy
+                userInfo={userInfo}
+                token={token}
+                handleLogout={handleLogout}
+              />
             )}
-             {location.pathname === "/user/friends" && (
+            {location.pathname === "/user/friends" && (
               <UserFriends socket={socket} userInfo={userInfo} token={token} />
             )}
           </main>

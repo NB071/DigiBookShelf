@@ -22,13 +22,13 @@ import SideShareReading from "../../components/ManageComponents/SideShareReading
 import Footer from "../../components/Footer/Footer";
 
 export default function Manage({
-  setRerenderFlag,
-  rerenderFlag,
   userBooks,
   userInfo,
   token,
   handleLogout,
   onlineFriends,
+  notifications,
+  setNotifications
 }) {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -137,6 +137,9 @@ export default function Manage({
             username={`${userInfo.first_name} ${userInfo.last_name}`}
             menuToggle={handleLogoClick}
             userBooks={userBooks}
+            notifications={notifications}
+            handleNotification={setNotifications}
+            token={token}
           />
           <main className="manage">
             <Joyride
@@ -185,29 +188,16 @@ export default function Manage({
             <PendingBooksSlider recentBooks={userBooks} />
 
             {/* Add reading */}
-            <AddReading
-              triggerRerender={() => setRerenderFlag(!rerenderFlag)}
-              token={token}
-            />
+            <AddReading token={token} />
 
             {/* right side edit books */}
-            <SideBooklistEdit
-              recentBooks={userBooks}
-              token={token}
-              triggerRerender={() => setRerenderFlag(!rerenderFlag)}
-            />
+            <SideBooklistEdit recentBooks={userBooks} token={token} />
 
             {/* right side remove books */}
-            <SideBooklistRemove
-              recentBooks={userBooks}
-              token={token}
-              triggerRerender={() => setRerenderFlag(!rerenderFlag)}
-            />
+            <SideBooklistRemove recentBooks={userBooks} token={token} />
 
             {/* right side share reading CTA */}
-            <SideShareReading
-              triggerRerender={() => setRerenderFlag(!rerenderFlag)}
-            />
+            <SideShareReading />
           </main>
           <Footer />
         </>

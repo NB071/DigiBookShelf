@@ -43,7 +43,7 @@ export default function MobileMenu({ Toggle, isMenuOpen, userInfo, handleLogout 
           <ClassRoundedIcon style={{ fontSize: "2.25rem" }} />
           My Shelf
         </NavLink>
-        <NavLink className="mobile-menu__item" onClick={handleLogout}>
+        <NavLink className="mobile-menu__item" to="/user/profile">
           <img
             src={userInfo.avatar_image}
             className="mobile-menu__user-avatar"

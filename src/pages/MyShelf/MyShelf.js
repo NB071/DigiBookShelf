@@ -21,7 +21,15 @@ import FinishedBooksGallery from "../../components/MyShelfComponents/FinishedBoo
 import Activities from "../../components/MyShelfComponents/Activities/Activities";
 
 //icons - images
-export default function MyShelf({ token, handleLogout, userInfo, userBooks, onlineFriends }) {
+export default function MyShelf({
+  token,
+  handleLogout,
+  userInfo,
+  userBooks,
+  onlineFriends,
+  notifications,
+  setNotifications,
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [joyrideActive, setJoyrideActive] = useState(false);
 
@@ -91,8 +99,7 @@ export default function MyShelf({ token, handleLogout, userInfo, userBooks, onli
     {
       target: ".user-activity",
       title: "You progress activity",
-      content:
-        "You can see the trend of your activity",
+      content: "You can see the trend of your activity",
       disableScrolling: false,
       disableBeacon: true,
     },
@@ -123,6 +130,9 @@ export default function MyShelf({ token, handleLogout, userInfo, userBooks, onli
             username={`${userInfo.first_name} ${userInfo.last_name}`}
             menuToggle={handleLogoClick}
             userBooks={userBooks}
+            notifications={notifications}
+            handleNotification={setNotifications}
+            token={token}
           />
           <main className="my-shelf">
             <Joyride
@@ -162,9 +172,9 @@ export default function MyShelf({ token, handleLogout, userInfo, userBooks, onli
             {/* side menu */}
             <SideMenu
               friends={userInfo.friends}
-              onlineFriends={onlineFriends}
               setJoyrideActive={setJoyrideActive}
               handleLogout={handleLogout}
+              onlineFriends={onlineFriends}
             />
 
             {/* Pending books slider */}

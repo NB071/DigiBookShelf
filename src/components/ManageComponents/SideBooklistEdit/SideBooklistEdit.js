@@ -13,6 +13,8 @@ import { AnimatePresence } from "framer-motion";
 import { useFormik } from "formik";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useSnackbar } from "notistack";
+import { useQueryClient } from "react-query";
+
 import * as Yup from "yup";
 import axios from "axios";
 
@@ -24,14 +26,12 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
 import BookImagePlaceHolder from "../../../assets/icons/addedBookPlaceholder.svg";
 
-export default function SideBooklistEdit({
-  recentBooks,
-  token,
-  triggerRerender,
-}) {
+export default function SideBooklistEdit({ recentBooks, token }) {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState(recentBooks?.[0]);
   const { enqueueSnackbar } = useSnackbar();
+
+  const queryClient = useQueryClient();
 
   const handleSelectedBook = (book) => {
     // reset the input field
@@ -79,7 +79,7 @@ export default function SideBooklistEdit({
   const formik = useFormik({
     initialValues: {
       book_name: selectedBook?.book_name,
-      book_description: selectedBook?.description ,
+      book_description: selectedBook?.description,
       book_genre: selectedBook?.genre,
       book_author: selectedBook?.author,
       total_pages: String(selectedBook?.total_pages),
@@ -132,7 +132,7 @@ export default function SideBooklistEdit({
             borderRadius: "18px",
           },
         });
-        triggerRerender();
+        queryClient.refetchQueries("userBooks");
       } catch (error) {
         enqueueSnackbar("Failure", {
           variant: "error",
@@ -554,7 +554,8 @@ export default function SideBooklistEdit({
                                 : ""
                             } ${
                               selectedBook.id === book.id
-                                ? +book.read_pages === +book.total_pages && +book.total_pages !== 0
+                                ? +book.read_pages === +book.total_pages &&
+                                  +book.total_pages !== 0
                                   ? "edit-modal__preview-card--active-finished"
                                   : "edit-modal__preview-card--active-pending"
                                 : ""

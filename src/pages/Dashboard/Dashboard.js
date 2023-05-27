@@ -25,12 +25,12 @@ export default function Dashboard({
   userInfo,
   userBooks,
   handleLogout,
-  onlineFriends
+  onlineFriends,
+  notifications,
+  setNotifications
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [joyrideActive, setJoyrideActive] = useState(false);
-
-
 
   // for mobile hamburger menu
   const handleLogoClick = () => {
@@ -143,6 +143,9 @@ export default function Dashboard({
             username={`${userInfo.first_name} ${userInfo.last_name}`}
             menuToggle={handleLogoClick}
             userBooks={userBooks}
+            notifications={notifications}
+            handleNotification={setNotifications}
+            token={token}
           />
           <main className="dashboard">
             <Joyride
@@ -165,11 +168,12 @@ export default function Dashboard({
                 },
                 buttonClose: {
                   top: ".5rem",
-                  right: ".5rem"
-                }, tooltip: {
+                  right: ".5rem",
+                },
+                tooltip: {
                   borderRadius: "18px",
-                  padding: "1.5rem 1.5rem"
-                }
+                  padding: "1.5rem 1.5rem",
+                },
               }}
               callback={(data) => {
                 if (data.action === "close" || data.status === "finished") {
@@ -177,13 +181,13 @@ export default function Dashboard({
                 }
               }}
             />
+
             {/* side menu */}
             <SideMenu
               friends={userInfo.friends}
               setJoyrideActive={setJoyrideActive}
               handleLogout={handleLogout}
-            onlineFriends={onlineFriends}
-
+              onlineFriends={onlineFriends}
             />
 
             {/* Recent reading */}
@@ -206,7 +210,7 @@ export default function Dashboard({
             {/* Manage CTAs */}
             <ManageCTAs />
           </main>
-          <Footer />{" "}
+          <Footer />
         </>
       )}
     </AnimatePresence>

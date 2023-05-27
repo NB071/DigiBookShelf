@@ -9,7 +9,6 @@ import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
 export default function SideShareReading({
   recentBooks,
   token,
-  triggerRerender,
 }) {
   return (
     <motion.section
