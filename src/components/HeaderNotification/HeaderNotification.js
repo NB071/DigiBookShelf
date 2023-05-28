@@ -7,6 +7,8 @@ import { pageVariantTop } from "../../pageVariants/variants";
 import { useMutation, useQueryClient } from "react-query";
 import { useSnackbar } from "notistack";
 import axios from "axios";
+import TimeAgo from 'react-timeago'
+
 
 // icons
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
@@ -44,9 +46,9 @@ const HeaderNotification = React.forwardRef(
           handleNotification((prev) =>
             prev.filter(
               (notification) =>
-                (notification.notification === "friendRequest/remove" ||
-                  notification.notification === "friendRequest/add") &&
-                notification.notificationFrom.user_id !== variables
+                (notification.notification_type === "friendRequest/remove" ||
+                  notification.notification_type === "friendRequest/add") &&
+                notification.sender_id !== variables
             )
           );
         },
@@ -101,9 +103,9 @@ const HeaderNotification = React.forwardRef(
           handleNotification((prev) =>
             prev.filter(
               (notification) =>
-                (notification.notification === "friendRequest/remove" ||
-                  notification.notification === "friendRequest/add") &&
-                notification.notificationFrom.user_id !== variables
+                (notification.notification_type === "friendRequest/remove" ||
+                  notification.notification_type === "friendRequest/add") &&
+                notification.sender_id !== variables
             )
           );
         },
@@ -145,33 +147,37 @@ const HeaderNotification = React.forwardRef(
               {console.log(notificationItem)}
               <div className="notification__left">
                 <img
-                  src={notificationItem.notificationFrom.avatar_image}
+                  src={notificationItem.sender_avatar}
                   className="notification__sender-avatar"
                   alt="sender avatar"
                 />
               </div>
               <div className="notification__right">
+                <div className="notification__date">
+                  <p className="notification__date-text">
+                  <TimeAgo date={new Date(notificationItem.created_at)} />
+                  </p>
+                </div>
                 <h2 className="notification__heading">
-                  {notificationItem.notification.startsWith("friendRequest/add")
+                  {notificationItem.notification_type === "friendRequest/add"
                     ? "New friend request!"
-                    : notificationItem.notification.startsWith(
-                        "friendRequest/remove"
-                      )
+                    : notificationItem.notification_type ===
+                      "friendRequest/remove"
                     ? "Remove friend!"
                     : null}
                 </h2>
-                <p>from: {notificationItem.notificationFrom.username}</p>
+                <p className="notification__from">
+                  from: {notificationItem.sender_username}
+                </p>
                 <div className="notification__CTA">
-                  {notificationItem.notification.startsWith(
+                  {notificationItem.notification_type.startsWith(
                     "friendRequest/add"
                   ) ? (
                     <>
                       <button
                         type="button"
                         onClick={() =>
-                          handleAcceptFriend(
-                            notificationItem.notificationFrom.user_id
-                          )
+                          handleAcceptFriend(notificationItem.sender_id)
                         }
                         className="notification__CTA-button notification__CTA-button--accept"
                       >
@@ -180,9 +186,7 @@ const HeaderNotification = React.forwardRef(
                       <button
                         type="button"
                         onClick={() =>
-                          handleRejectFriend(
-                            notificationItem.notificationFrom.user_id
-                          )
+                          handleRejectFriend(notificationItem.sender_id)
                         }
                         className="notification__CTA-button notification__CTA-button--reject"
                       >

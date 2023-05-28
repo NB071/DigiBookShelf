@@ -51,7 +51,11 @@
     gap: 0.2rem;
   }
   &__heading {
-    font-size: 0.95rem;
+    font-size: 0.75rem;
+  }
+
+  &__from {
+    font-size: 0.7rem;
   }
   &__CTA {
     display: flex;
@@ -83,6 +87,13 @@
   &__CTA-button-accept,
   &__CTA-button-reject {
     font-size: 1.75rem !important;
+  }
+
+  &__date-text {
+    color: $placeholderColor;
+    font-style: italic;
+    font-size: 0.65rem;
+
   }
 
   &__empty-text {

@@ -5,14 +5,16 @@ import "swiper/css/effect-cards";
 // libs
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { EffectCards } from "swiper";
 import { motion } from "framer-motion";
 import { pageVariantTop } from "../../../pageVariants/variants";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
-export default function NYTslider({token}) {
+export default function NYTslider({ token }) {
   const [NYTbooks, setNYTbooks] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -44,11 +46,14 @@ export default function NYTslider({token}) {
         modules={[EffectCards]}
         className="books-NYT__slider-wrapper"
       >
-        {NYTbooks.map((book) => (
-          <SwiperSlide key={book.id} className="books-NYT__slide">
-           <Link to={`/user/books/${book.id}`}>
+        {NYTbooks.map((book, index) => (
+          <SwiperSlide
+            className="books-NYT__slide"
+            onClick={() => navigate(`/user/books/${book.id}`)}
+            key={book.id}
+
+          >
             <img src={book.cover_image} alt={book.name} title={book.name} />
-          </Link>
           </SwiperSlide>
         ))}
       </Swiper>

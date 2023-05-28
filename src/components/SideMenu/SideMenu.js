@@ -46,7 +46,6 @@ export default function SideMenu({
           <h3>My shelf</h3>
         </NavLink>
       </nav>
-      {console.log(friends)}
       <div className="side-menu__friends">
         <h4 className="side-menu__friends-heading">Friends</h4>
         <div className="side-menu__friends-avatars-wrapper">

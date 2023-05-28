@@ -19,8 +19,8 @@ export default function SideShareReading({
       variants={fadeInVariant}
       transition={{ duration: 0.7, delay: 0.9 }}
     >
-      <h2 className="side-share-reading__heading">Share reading</h2>
-      <button className="side-share-reading__CTA" type="button">
+      <h2 className="side-share-reading__heading">Share reading (soon...)</h2>
+      <button disabled={true} className="side-share-reading__CTA" type="button">
         <GroupsRoundedIcon /> Explore
       </button>
     </motion.section>

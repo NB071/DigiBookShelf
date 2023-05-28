@@ -63,7 +63,7 @@ export default function BookshelfSlider({token}) {
             >
               {recommendation &&
                 recommendation.map((book) => (
-                  <SwiperSlide className="books-shelf__slide" key={book.book}>
+                  <SwiperSlide className="books-shelf__slide" key={book.id}>
                     <article key={book.id} className="books-shelf__book-card">
                       <img
                         src={book.cover_image}

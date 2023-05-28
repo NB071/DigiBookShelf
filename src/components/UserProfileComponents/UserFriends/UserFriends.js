@@ -73,17 +73,11 @@ export default function UserFriends({ userInfo, token, socket }) {
             borderRadius: "18px",
           },
         });
-        socket.emit("notifications", {
-          notification: "friendRequest/add",
-          notificationFrom: {
-            username: userInfo.username,
-            user_id: userInfo.user_id,
-            avatar_image: userInfo.avatar_image,
-          },
-          notificationTo: {
-            id: variables[0],
-            username: variables[1],
-          },
+        socket.emit("sendNotification", {
+          recipient_id: variables[0],
+          sender_id: userInfo.user_id,
+          message: `Friend request from ${userInfo.username} to ${variables[0]}`,
+          notification_type: "friendRequest/add",
         });
         queryClient.refetchQueries("userInfo");
       },
@@ -102,9 +96,7 @@ export default function UserFriends({ userInfo, token, socket }) {
   );
 
   const handleAddFriend = async (friend) => {
-    const [friendId, username] = friend;
-    console.log(friendId, username);
-
+ 
     try {
       await addFriendMutation.mutateAsync(friend);
     } catch (error) {
@@ -133,17 +125,11 @@ export default function UserFriends({ userInfo, token, socket }) {
             borderRadius: "18px",
           },
         });
-        socket.emit("notifications", {
-          notification: "friendRequest/remove",
-          notificationFrom: {
-            username: userInfo.username,
-            user_id: userInfo.user_id,
-            avatar_image: userInfo.avatar_image,
-          },
-          notificationTo: {
-            id: variables[0],
-            username: variables[1],
-          },
+        socket.emit("sendNotification", {
+          recipient_id: variables[0],
+          sender_id: userInfo.user_id,
+          message: `${userInfo.username} removed ${variables[0]}`,
+          notification_type: "friendRequest/remove",
         });
         queryClient.refetchQueries("userInfo");
       },
@@ -162,9 +148,6 @@ export default function UserFriends({ userInfo, token, socket }) {
   );
 
   const handleRemoveFriend = async (friend) => {
-    const [friendId, username] = friend;
-    console.log(friendId, username);
-
     try {
       await removeFriendMutation.mutateAsync(friend);
     } catch (error) {
@@ -190,6 +173,8 @@ export default function UserFriends({ userInfo, token, socket }) {
     };
     fetchAllUsers();
   }, [token]);
+
+  console.log('');
 
   return (
     <motion.section

@@ -6,6 +6,7 @@ import { useSnackbar } from "notistack";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { motion } from "framer-motion";
 import { fadeInVariant } from "../../pageVariants/variants";
+import { useMutation, useQueryClient } from "react-query";
 
 // icons
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
@@ -20,32 +21,25 @@ export default function SingleBookInfo({
   bookData: bookObject,
   isInShelf,
   token,
-  triggerRerender,
+  userBooks
 }) {
   const { enqueueSnackbar } = useSnackbar();
+  const queryClient = useQueryClient();
 
-  const handleAddBook = async () => {
-    const {
-      name: book_name,
-      description: book_description,
-      genre: book_genre,
-      author: book_author,
-      total_pages,
-      cover_image,
-      id: book_id,
-    } = bookObject;
-    try {
+  const addBookdMutation = useMutation(
+    async (bookObject) => {
+      console.log(bookObject);
       await axios.post(
         `${process.env.REACT_APP_API_URL}/api/user/books`,
         {
-          book_name,
-          book_description,
-          book_genre,
-          book_author,
-          total_pages: total_pages === 0 ? 0 : total_pages,
-          cover_image,
-          is_NYT_best_seller: bookObject.is_NYT_best_seller ? 1 : 0,
-          book_id: bookObject.is_NYT_best_seller ? book_id : undefined,
+          book_name: bookObject.name,
+          book_description: bookObject.description,
+          book_genre: bookObject.genre,
+          book_author: bookObject.author,
+          total_pages: bookObject.total_pages,
+          cover_image: bookObject.cover_image,
+          book_id: bookObject.id,
+          is_NYT_best_seller: bookObject.is_NYT_best_seller,
         },
         {
           headers: {
@@ -53,29 +47,39 @@ export default function SingleBookInfo({
           },
         }
       );
-      enqueueSnackbar("Success", {
-        variant: "success",
-        style: {
-          backgroundColor: "#578C7A",
-          height: "4rem",
-          borderRadius: "18px",
-        },
-      });
-      triggerRerender();
-    } catch (err) {
-      enqueueSnackbar("Failure", {
-        variant: "error",
-        style: {
-          backgroundColor: "#eb4343",
-          height: "4rem",
-          borderRadius: "18px",
-        },
-      });
+    },
+    {
+      onSuccess: () => {
+        
+
+        enqueueSnackbar("Success", {
+          variant: "success",
+          style: {
+            backgroundColor: "#578C7A",
+            height: "4rem",
+            borderRadius: "18px",
+          },
+        });
+
+        queryClient.refetchQueries("book");
+      },
+      onError: (error) => {
+        console.error("Failed to add the book: ", error);
+        enqueueSnackbar("Failure", {
+          variant: "error",
+          style: {
+            backgroundColor: "#eb4343",
+            height: "4rem",
+            borderRadius: "18px",
+          },
+        });
+      },
     }
+  );
+
+  const handleAddBook = () => {
+    addBookdMutation.mutate(bookObject);
   };
-  if (!bookObject) {
-    return <h1>Loading</h1>;
-  }
 
   return (
     <motion.section
@@ -147,7 +151,6 @@ export default function SingleBookInfo({
                     className="book__progressbar"
                     strokeWidth={50}
                     styles={buildStyles({
-                     
                       strokeLinecap: "butt",
                       trailColor: "#f3f3f3e0",
                       pathColor:
@@ -205,7 +208,6 @@ export default function SingleBookInfo({
                 <div className="book__criteria-wrapper">
                   <h3 className="book__criteria">Updated At: </h3>
                   <p className="book__info-value">
-                    {" "}
                     {new Date(bookObject.updated_at)
                       .toISOString()
                       .slice(0, 19)

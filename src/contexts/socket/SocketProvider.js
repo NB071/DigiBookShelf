@@ -17,8 +17,10 @@ export const SocketProvider = ({ children }) => {
       socket.on("connect", () => {
         setSocket(socket);
       });
-      socket.on("notifications", (notificationObj) => {
-        setNotifications((prevNotifications) => [notificationObj , ...prevNotifications]);
+      socket.emit("getNotifications");
+
+      socket.on("notifications", (notification) => {
+        setNotifications(notification);
       });
     }
 
