@@ -6,11 +6,13 @@
 
 <h2>🚀 Demo</h2>
 
-[http://digibookshelf.com](http://digibookshelf.com)
+[http://digibookshelf.com](http://digibookshelf.com)<br><br>
+username: ```demo@gmail.com``` <br>
+password: ```password```
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://i.ibb.co/Sv3PBT4/digi-Bookshelf-dashboard.png" alt="project-screenshot" width="500" height="400/">
+<img src="https://thumbs2.imgbox.com/e7/f3/JrEP2H7s_t.png" alt="project-screenshot" width="500" height="400/">
 
 <img src="https://i.ibb.co/R6GQwFn/digi-Bookshelf-manage.png" alt="project-screenshot" width="500" height="400/">
 
@@ -57,12 +59,12 @@ REACT_APP_API_URL= < back-end url >
 
 <h2>🍰 Contribution Guidelines:</h2>
 
-1\. Fork the repository\.
-2\. Create a new branch: ```git checkout -b feature-name```
-3\. Make your changes\.
-4\. Commit your changes: ```git commit -m 'Add some feature'``` 
-5\. Push to the branch: ```git push origin feature-name```
-6\. Submit a pull request
+1\. Fork the repository\. <br>
+2\. Create a new branch: ```git checkout -b feature-name``` <br>
+3\. Make your changes\. <br>
+4\. Commit your changes: ```git commit -m 'Add some feature'```  <br>
+5\. Push to the branch: ```git push origin feature-name``` <br>
+6\. Submit a pull request <br>
 
   
   
