@@ -10,13 +10,13 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://i.ibb.co/Sv3PBT4/digi-Bookshelf-dashboard.png" alt="project-screenshot" width="500" height="400/">
+<img src="https://i.ibb.co/Sv3PBT4/digi-Bookshelf-dashboard.png" alt="project-screenshot" width="500" height="500/">
 
-<img src="https://i.ibb.co/R6GQwFn/digi-Bookshelf-manage.png" alt="project-screenshot" width="500" height="400/">
+<img src="https://i.ibb.co/R6GQwFn/digi-Bookshelf-manage.png" alt="project-screenshot" width="500" height="500/">
 
-<img src="https://i.ibb.co/4dgYLjf/digi-Bookshelf-shelf.png" alt="project-screenshot" width="500" height="400/">
+<img src="https://i.ibb.co/4dgYLjf/digi-Bookshelf-shelf.png" alt="project-screenshot" width="500" height="500/">
 
-<img src="https://i.ibb.co/Qk9DKXz/digi-Bookshelf-userprofile.png" alt="project-screenshot" width="500" height="400/">
+<img src="https://i.ibb.co/Qk9DKXz/digi-Bookshelf-userprofile.png" alt="project-screenshot" width="500" height="500/">
 
   
   
