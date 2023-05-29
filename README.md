@@ -73,5 +73,6 @@ REACT_APP_API_URL= < back-end url >
 Technologies used in the project:
 
 *   React
+*   Socket.io
 *   SCSS
 *   MUI Icons
