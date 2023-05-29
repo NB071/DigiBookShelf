@@ -12,6 +12,7 @@ export default function FinishedBooksCounter({ userBooks }) {
   const navigate = useNavigate()
 
   const finishedBooks = userBooks.filter((book) => book.is_pending === 0)
+  console.log(userBooks);
   return (
     <motion.section
       className="finished-books"
@@ -29,10 +30,12 @@ export default function FinishedBooksCounter({ userBooks }) {
           <CountUp
             delay={0.5}
             duration={4}
-            end={finishedBooks}
+            end={finishedBooks.length}
           />
         </span>
-      ) : 0}
+      ) : 
+      <span className="finished-books__number">0</span>
+      }
       <Wave
         fill="#6936F5"
         paused={false}

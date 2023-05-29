@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+<h1 align="center" id="title">Digi Bookshelf</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center"><img src="https://socialify.git.ci/NB071/DigiBookShelf/image?font=Inter&amp;language=1&amp;logo=https%3A%2F%2Fi.ibb.co%2FyFfk1z4%2FLogo.png&amp;name=1&amp;owner=1&amp;pattern=Plus&amp;stargazers=1&amp;theme=Light" alt="project-image"></p>
 
-## Available Scripts
+<p id="description">This website is a platform for managing and tracking your books. It allows users to easily record the books they are reading and make daily entries or drop a book if they decide to stop reading it. The goal is to increase productivity for readers particularly in their careers. The platform also aims to simplify the process of tracking books as existing options can be overwhelming. Users can sign up store and track their books discover new titles and potentially read along with friends. The design focuses on simplicity and ease of use. It provides a centralized solution for storing and managing books digitally. Additionally users can set goals for the number of books they want to read. The platform offers high availability across devices and ensures that users can remember the books they have read over time.</p>
 
-In the project directory, you can run:
+<h2>🚀 Demo</h2>
 
-### `npm start`
+[http://digibookshelf.com](http://digibookshelf.com)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<h2>Project Screenshots:</h2>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<img src="https://i.ibb.co/Sv3PBT4/digi-Bookshelf-dashboard.png" alt="project-screenshot" width="500" height="400/">
 
-### `npm test`
+<img src="https://i.ibb.co/R6GQwFn/digi-Bookshelf-manage.png" alt="project-screenshot" width="500" height="400/">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="https://i.ibb.co/4dgYLjf/digi-Bookshelf-shelf.png" alt="project-screenshot" width="500" height="400/">
 
-### `npm run build`
+<img src="https://i.ibb.co/Qk9DKXz/digi-Bookshelf-userprofile.png" alt="project-screenshot" width="500" height="400/">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  
+  
+<h2>🧐 Features</h2>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Here're some of the project's best features:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+*   Central platform to store and manage books being read or read previously.
+*   Trending books from NYT to help users discover popular books.
+*   Goal-setting feature to motivate users to read a certain number of books.
+*   Ability to see what books and progress friends have made to facilitate discussions and recommendations.
 
-### `npm run eject`
+<h2>🛠️ Installation Steps:</h2>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<p>1. Clone the repo</p>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+$ git clone https://github.com/NB071/DigiBookShelf
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<p>2. Navigate to the project's folder</p>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+$ cd DigiBookShelf
+```
 
-## Learn More
+<p>3. Install dep packages</p>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+$ npm i
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<p>4. edit the .env-sample</p>
 
-### Code Splitting
+```
+REACT_APP_API_URL= < back-end url >
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<h2>🍰 Contribution Guidelines:</h2>
 
-### Analyzing the Bundle Size
+1\. Fork the repository\.
+2\. Create a new branch: ```git checkout -b feature-name```
+3\. Make your changes\.
+4\. Commit your changes: ```git commit -m 'Add some feature'``` 
+5\. Push to the branch: ```git push origin feature-name```
+6\. Submit a pull request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  
+  
+<h2>💻 Built with</h2>
 
-### Making a Progressive Web App
+Technologies used in the project:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+*   React
+*   SCSS
+*   MUI Icons
