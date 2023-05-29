@@ -1,5 +1,4 @@
 import "./MyShelf.scss";
-import "react-loading-skeleton/dist/skeleton.css";
 import "swiper/css";
 import "swiper/css/effect-cards";
 

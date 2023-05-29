@@ -1,12 +1,16 @@
 import "./FinishedBooksCounter.scss";
 
 // libs
-import CountUp from "react-countup";
 import { motion } from "framer-motion";
 import { fadeInVariant } from "../../../pageVariants/variants";
+import { useNavigate } from "react-router-dom";
+import CountUp from "react-countup";
 import Wave from "react-wavify";
 
+
 export default function FinishedBooksCounter({ userBooks }) {
+  const navigate = useNavigate()
+
   const finishedBooks = userBooks.filter((book) => book.is_pending === 0)
   return (
     <motion.section
@@ -16,6 +20,7 @@ export default function FinishedBooksCounter({ userBooks }) {
       exit="out"
       variants={fadeInVariant}
       transition={{ duration: 0.7, delay: 1 }}
+      onClick={()=> navigate("/my-shelf")}
     >
       <h2 className="finished-books__heading">Books finished</h2>
 

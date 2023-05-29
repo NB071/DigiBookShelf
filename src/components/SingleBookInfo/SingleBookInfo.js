@@ -21,7 +21,6 @@ export default function SingleBookInfo({
   bookData: bookObject,
   isInShelf,
   token,
-  userBooks
 }) {
   const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
@@ -50,8 +49,6 @@ export default function SingleBookInfo({
     },
     {
       onSuccess: () => {
-        
-
         enqueueSnackbar("Success", {
           variant: "success",
           style: {

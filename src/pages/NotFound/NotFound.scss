@@ -1,0 +1,30 @@
+@use "../../styles/partials/global" as *;
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/responsive" as *;
+
+.not-found {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: $primaryColor;
+
+  &__text {
+    font-weight: 700;
+    color: $whiteColor;
+  }
+  &__return-text {
+    color: $whiteColor;
+    & > a {
+      color: $accentColor;
+      transition: all .5s;
+&:hover {
+        opacity: .5;
+}
+      font-weight: 600;
+    }
+  }
+}

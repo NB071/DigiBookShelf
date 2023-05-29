@@ -1,7 +1,7 @@
 import "./Loading.scss";
 
 import Loader from "react-spinners/HashLoader";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { loaderVariant } from "../../pageVariants/variants";
 
 // logo

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "react-query";
 import { AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import Joyride from "react-joyride";
 
 // components
@@ -31,6 +32,7 @@ export default function SingleBookPage({
   const [joyrideActive, setJoyrideActive] = useState(false);
   const { book_id } = useParams();
 
+  const navigate = useNavigate()
   const queryClient = useQueryClient();
 
   // for mobile menu
@@ -49,12 +51,13 @@ export default function SingleBookPage({
       );
       return response.data;
     },
+    
     {
       onSuccess: () => {
         queryClient.refetchQueries("userBooks");
       },
       onError: (error) => {
-        console.error("Failed to get the book: ", error);
+        navigate("/not-found")
       },
     }
   );
