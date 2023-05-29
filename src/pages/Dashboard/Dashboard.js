@@ -1,7 +1,7 @@
 import "./Dashboard.scss";
 
 // libs
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Joyride from "react-joyride";
 

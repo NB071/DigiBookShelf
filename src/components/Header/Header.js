@@ -132,10 +132,9 @@ export default function Header({
                 transition={{ duration: 0.3 }}
               >
                 {searchResults.map((result, index) => (
-                  <Link to={`/user/books/${result.book}`}>
+                  <Link to={`/user/books/${result.book}`} key={index}>
                     <article
                       onClick={() => setDropdownVisible(false)}
-                      key={index}
                       className={`header__dropdown-item ${
                         index !== searchResults.length - 1
                           ? "header__dropdown--border-bottom"
