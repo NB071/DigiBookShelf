@@ -6,7 +6,7 @@
 
 <h2>🚀 Demo</h2>
 
-[http://digibookshelf.com](http://digibookshelf.com)<br><br>
+[https://digi-bookshelf.herokuapp.com](https://digi-bookshelf.herokuapp.com/)<br><br>
 username: ```demo@gmail.com``` <br>
 password: ```password```
 
@@ -51,10 +51,20 @@ $ cd DigiBookShelf
 $ npm i
 ```
 
-<p>4. edit the .env-sample</p>
+<p>4. Edit .env-sample</p>
 
 ```
 REACT_APP_API_URL= < back-end url >
+```
+
+<p>5. Setup Back-end API</p>
+
+checkout <a href="https://github.com/NB071/DigiBookShelf_API">back-end repo</a> for more information
+
+<p>6. Run</p>
+
+```
+$ npm start
 ```
 
 <h2>🍰 Contribution Guidelines:</h2>
