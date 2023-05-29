@@ -149,10 +149,12 @@ export default function UserProfile({
 
             {/* side menu */}
             <SideMenu
+              userInfo={userInfo}
               onlineFriends={onlineFriends}
-              friends={userInfo.friends}
               handleLogout={handleLogout}
               setJoyrideActive={setJoyrideActive}
+              socket={socket}
+              token={token}
             />
 
             {location.pathname === "/user/profile" && (

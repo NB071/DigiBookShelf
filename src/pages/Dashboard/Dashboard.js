@@ -1,7 +1,7 @@
 import "./Dashboard.scss";
 
 // libs
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Joyride from "react-joyride";
 
@@ -27,15 +27,18 @@ export default function Dashboard({
   handleLogout,
   onlineFriends,
   notifications,
-  setNotifications
+  setNotifications,
+  socket
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [joyrideActive, setJoyrideActive] = useState(false);
-
   // for mobile hamburger menu
   const handleLogoClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+
+
   const steps = [
     {
       target: ".header",
@@ -138,6 +141,9 @@ export default function Dashboard({
             userInfo={userInfo}
             handleLogout={handleLogout}
           />
+
+          
+
           <Header
             userAvatar={userInfo.avatar_image}
             username={`${userInfo.first_name} ${userInfo.last_name}`}
@@ -184,10 +190,12 @@ export default function Dashboard({
 
             {/* side menu */}
             <SideMenu
-              friends={userInfo.friends}
+              userInfo={userInfo}
               setJoyrideActive={setJoyrideActive}
               handleLogout={handleLogout}
               onlineFriends={onlineFriends}
+              token={token}
+              socket={socket}
             />
 
             {/* Recent reading */}

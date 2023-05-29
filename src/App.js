@@ -61,6 +61,7 @@ export default function App() {
             token={token}
             userInfo={userInfoQuery.data}
             userBooks={userBooksQuery.data}
+            socket={socket}
             onlineFriends={onlineFriends}
             notifications={notifications}
             setNotifications={setNotifications}
@@ -75,6 +76,7 @@ export default function App() {
             token={token}
             userInfo={userInfoQuery.data}
             userBooks={userBooksQuery.data}
+            socket={socket}
             onlineFriends={onlineFriends}
             notifications={notifications}
             setNotifications={setNotifications}
@@ -89,6 +91,7 @@ export default function App() {
             token={token}
             userInfo={userInfoQuery.data}
             userBooks={userBooksQuery.data}
+            socket={socket}
             onlineFriends={onlineFriends}
             notifications={notifications}
             setNotifications={setNotifications}
@@ -107,7 +110,7 @@ export default function App() {
             onlineFriends={onlineFriends}
             notifications={notifications}
             setNotifications={setNotifications}
-            handleLogout={logout}
+            handleLogout={logout}      
           />
         }
       />
@@ -125,11 +128,13 @@ export default function App() {
           <SingleBookPage
             userInfo={userInfoQuery.data}
             userBooks={userBooksQuery.data}
+            socket={socket}
             handleLogout={logout}
             token={token}
             onlineFriends={onlineFriends}
             notifications={notifications}
             setNotifications={setNotifications}
+
           />
         }
       />

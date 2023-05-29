@@ -28,7 +28,8 @@ export default function Manage({
   handleLogout,
   onlineFriends,
   notifications,
-  setNotifications
+  setNotifications,
+  socket
 }) {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -178,10 +179,12 @@ export default function Manage({
 
             {/* side menu */}
             <SideMenu
-              friends={userInfo.friends}
+              userInfo={userInfo}
               setJoyrideActive={setJoyrideActive}
               handleLogout={handleLogout}
               onlineFriends={onlineFriends}
+              token={token}
+              socket={socket}
             />
 
             {/* First slider of all recent books in descending order */}

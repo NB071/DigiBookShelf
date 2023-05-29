@@ -84,7 +84,7 @@ export default function FinishedBooksGallery({ token }) {
               className="done-reading__empty-shelf-vector"
               alt="empty shelf vector"
             />
-            <p>Currently you haven't finished a book...</p>
+            <p className="done-reading__empty-text">Currently you haven't finished a book...</p>
           </>
         )}
 
@@ -100,11 +100,6 @@ export default function FinishedBooksGallery({ token }) {
           className="done-reading__background-wave"
         />
       </div>
-      {/* <img
-        src={WaveSvg}
-        className="done-reading__background-wave"
-        alt="background circle"
-      /> */}
     </motion.section>
   );
 }

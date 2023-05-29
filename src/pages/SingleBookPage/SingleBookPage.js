@@ -24,6 +24,7 @@ export default function SingleBookPage({
   onlineFriends,
   notifications,
   setNotifications,
+  socket
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isInShelf, setIsInShelf] = useState(false);
@@ -186,10 +187,12 @@ export default function SingleBookPage({
 
             {/* side menu */}
             <SideMenu
-              friends={userInfo.friends}
+              userInfo={userInfo}
               handleLogout={handleLogout}
               onlineFriends={onlineFriends}
               setJoyrideActive={setJoyrideActive}
+              token={token}
+              socket={socket}
             />
 
             <SingleBookInfo

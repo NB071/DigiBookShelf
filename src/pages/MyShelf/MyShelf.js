@@ -29,6 +29,7 @@ export default function MyShelf({
   onlineFriends,
   notifications,
   setNotifications,
+  socket
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [joyrideActive, setJoyrideActive] = useState(false);
@@ -171,10 +172,12 @@ export default function MyShelf({
 
             {/* side menu */}
             <SideMenu
-              friends={userInfo.friends}
+              userInfo={userInfo}
               setJoyrideActive={setJoyrideActive}
               handleLogout={handleLogout}
               onlineFriends={onlineFriends}
+              token={token}
+              socket={socket}
             />
 
             {/* Pending books slider */}
